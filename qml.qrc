@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/Texas-Instruments.png</file>
+        <file>images/sk-am62-angled.png</file>
+    </qresource>
+</RCC>
