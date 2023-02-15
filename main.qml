@@ -8,7 +8,7 @@ import QtGraphicalEffects 1.12
 Window {
     visible: true
     visibility: "FullScreen"
-    title: qsTr("AM62A EdgeAI Demo")
+    title: qsTr("EdgeAI - Analytics for Visual Applications")
 
     Rectangle {
         id: appBackground
@@ -37,7 +37,7 @@ Window {
             Text {
                 id: topBarHead
                 objectName: "topBarHead"
-                text: qsTr("EdgeAI App")
+                text: qsTr("EdgeAI - Analytics for Visual Applications")
 
                 width: parent.width * 0.8
                 height: parent.height
@@ -105,7 +105,7 @@ Window {
                 }
                 onCheckStateChanged: {
                     if (leftMenuButton1.checked) {
-                        mediaplayer1.source = buttonsClicked.leftMenuButtonClicked(1, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                        mediaplayer1.source = backend.leftMenuButtonPressed(1, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
                         leftMenuButton2.enabled = false
                         leftMenuButton3.enabled = false
                         leftMenuButton4.enabled = false
@@ -120,7 +120,7 @@ Window {
 
             CheckBox {
                 id: leftMenuButton2
-                text: "Semantic Segmentation"
+                text: "Object Detection"
                 height: parent.height * 0.1
                 width: parent.width * 0.8
                 anchors.top: leftMenuButton1.bottom
@@ -136,7 +136,7 @@ Window {
                 }
                 onCheckStateChanged: {
                     if (leftMenuButton2.checked) {
-                        mediaplayer1.source = buttonsClicked.leftMenuButtonClicked(2, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                        mediaplayer1.source = backend.leftMenuButtonPressed(2, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
                         leftMenuButton1.enabled = false
                         leftMenuButton3.enabled = false
                         leftMenuButton4.enabled = false
@@ -150,7 +150,7 @@ Window {
             }
             CheckBox {
                 id: leftMenuButton3
-                text: "Object Detection"
+                text: "Semantic Segmentation"
                 height: parent.height * 0.1
                 width: parent.width * 0.8
                 anchors.top: leftMenuButton2.bottom
@@ -166,7 +166,7 @@ Window {
                 }
                 onCheckStateChanged: {
                     if (leftMenuButton3.checked) {
-                        mediaplayer1.source = buttonsClicked.leftMenuButtonClicked(3, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                        mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
                         leftMenuButton1.enabled = false
                         leftMenuButton2.enabled = false
                         leftMenuButton4.enabled = false
@@ -255,9 +255,6 @@ Window {
             Popup {
                 id: popup
                 anchors.centerIn: parent
-                onClosed: {
-                    leftMenuButton4.checked = false
-                }
 
                 width: alignVideo.width * 0.6
                 height: alignVideo.height * 0.6
@@ -293,24 +290,22 @@ Window {
 
                     model: ListModel {
                         id: popupInputTypeOptions
-                        ListElement { name: "Image" }
-                        ListElement { name: "Video" }
-                        ListElement { name: "Camera" }
+                        ListElement { Text: "Image" }
+                        ListElement { Text: "Video" }
+                        ListElement { Text: "Camera" }
                     }
                     onCurrentIndexChanged: {
-                        console.debug(popupInputTypeOptions.get(currentIndex))
-                        popupMenu.popupInputTypeSelected(model.get(currentIndex).name)
-                        if (popupInputTypeOptions.get(currentIndex).name === "Image") {
+                        if (popupInputTypeOptions.get(currentIndex).Text === "Image") {
                             popupInputImages.visible = true
                             popupInputVideos.visible = false
                             popupInputCameras.visible = false
                         }
-                        if (popupInputTypeOptions.get(currentIndex).name === "Video") {
+                        if (popupInputTypeOptions.get(currentIndex).Text === "Video") {
                             popupInputImages.visible = false
                             popupInputVideos.visible = true
                             popupInputCameras.visible = false
                         }
-                        if (popupInputTypeOptions.get(currentIndex).name === "Camera") {
+                        if (popupInputTypeOptions.get(currentIndex).Text === "Camera") {
                             popupInputImages.visible = false
                             popupInputVideos.visible = false
                             popupInputCameras.visible = true
@@ -343,9 +338,6 @@ Window {
 
                     model: inputImagesFolder
                     textRole: 'fileName'
-                    onCurrentIndexChanged: {
-                        console.debug(model.get(currentIndex, "filePath"))
-                    }
                     onVisibleChanged: {
                         if(visible)
                             inputHead.text = qsTr("Image: ")
@@ -368,9 +360,6 @@ Window {
 
                     model: inputVideosFolder
                     textRole: 'fileName'
-                    onCurrentIndexChanged: {
-                        console.debug(model.get(currentIndex, "filePath"))
-                    }
                     onVisibleChanged: {
                         if(visible)
                             inputHead.text = qsTr("Video: ")
@@ -387,10 +376,6 @@ Window {
 
                     model: cameraNamesList
                     textRole: 'display'
-
-                    onCurrentIndexChanged: {
-                        console.debug(model.data(model.index(currentIndex, 0)))
-                    }
                     onVisibleChanged: {
                         if(visible)
                             inputHead.text = qsTr("Camera: ")
@@ -398,15 +383,15 @@ Window {
                 }
                 Text {
                     id: modelHead
-                    text: qsTr("Model Type: ")
+                    text: qsTr("Model: ")
                     font.pointSize: 11
-                    anchors.bottom: popupModelType.top
-                    anchors.bottomMargin: popupModelType.height * 0.2
+                    anchors.bottom: popupModel.top
+                    anchors.bottomMargin: popupModel.height * 0.2
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.15
                 }
                 ComboBox {
-                    id: popupModelType
+                    id: popupModel
                     width: parent.width * 0.3
                     anchors.top: popupInputType.bottom
                     anchors.topMargin: parent.height * 0.1
@@ -419,16 +404,33 @@ Window {
                         id: modelsFolder
                         folder: "file:///opt/model_zoo/"
                     }
-                    onCurrentIndexChanged: {
-                        console.debug(model.get(currentIndex, "filePath"))
-                    }
                 }
                 Button {
                     id: popupOkButton
                     text: "Start"
                     onClicked: {
-                        console.log("TODO: Start Pressed. Implement the pipeline in Backend now :)")
-                        popup.close()
+                        var inputType = popupInputType.model.get(popupInputType.currentIndex).Text
+                        var inputFile
+                        var modelFile
+                        if (popupInputType.model.get(popupInputType.currentIndex).Text === "Image")
+                            inputFile = popupInputImages.model.get(popupInputImages.currentIndex, "filePath")
+                        if (popupInputType.model.get(popupInputType.currentIndex).Text === "Video")
+                            inputFile = popupInputVideos.model.get(popupInputVideos.currentIndex, "filePath")
+                        if (popupInputType.model.get(popupInputType.currentIndex).Text === "Camera")
+                            inputFile = popupInputCameras.model.data(popupInputCameras.model.index(popupInputCameras.currentIndex, 0))
+
+                        modelFile = popupModel.model.get(popupModel.currentIndex, "filePath")
+                        if((inputFile === undefined) || (modelFile === undefined)) {
+                            console.log("No inputFile or Model Selected!!")
+                        }
+                        else
+                            popup.close()
+
+                        // Send userdata to CPP
+                        mediaplayer1.source = backend.popupOkPressed(inputType, inputFile, modelFile,
+                                                                       leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2,
+                                                                       videooutput.width, videooutput.height)
+
                     }
 
                     width: parent.width * 0.2
@@ -449,6 +451,7 @@ Window {
                     text: "Cancel"
                     onClicked: {
                         popup.close()
+                        leftMenuButton4.checked = false
                     }
 
                     width: parent.width * 0.2

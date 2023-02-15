@@ -1,8 +1,9 @@
 #include <QObject>
-#include <QDebug>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <QCameraInfo>
+#include <QStringListModel>
 
 using namespace std;
 
@@ -33,36 +34,48 @@ static string ss_pipeline = "   multifilesrc location=/opt/edgeai-test-data/vide
                                 sink_0::startx=\"<320>\"  sink_0::starty=\"<180>\"  sink_0::widths=\"<1280>\"   sink_0::heights=\"<720>\"  \
                                 ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! tiperfoverlay main-title=null title=\"Semantic Segmentation \" ! ";
 
-class ButtonsClicked : public QObject {
+static std::string custom_template =    "title: \"Test Demo\"\n"
+                                        "log_level: 2\n"
+                                        "inputs:\n"
+                                        "   input:\n"
+                                        "       source: <source>\n"
+                                        "       width: 1280\n"
+                                        "       height: 720\n"
+                                        "       framerate: 30\n"
+                                        "       format: <format>\n"
+                                        "       index: 0\n"
+                                        "       subdev-id: 0\n"
+                                        "       sen-id: \"\"\n"
+                                        "       ldc: False\n"
+                                        "models:\n"
+                                        "   dl_model:\n"
+                                        "       model_path: <model>\n"
+                                        "outputs:\n"
+                                        "   output:\n"
+                                        "       sink: fakesink\n"
+                                        "       width: 1920\n"
+                                        "       height: 1080\n"
+                                        "flows:\n"
+                                        "    flow0: [input,dl_model,output,[320,180,1280,720]]\n";
+
+class Backend : public QObject {
     Q_OBJECT
-public:
-    static int activeButton;
+
+private:
+    bool customInputIsImage;
     string pipeline;
 
-    Q_PROPERTY(int activeButton READ getActiveButton NOTIFY activeButtonChanged);
-
-    int getActiveButton() const {
-        return activeButton;
-    };
-
-    explicit ButtonsClicked (QObject* parent = nullptr) : QObject(parent) {}
-
-    void addSink(string &pipeline, int xPos, int yPos, int width, int height)
-    {
+    void addSink(string &pipeline, int xPos, int yPos, int width, int height) {
         /* tiovxmultiscaler only supports even resolution.*/
-        if (width % 2 != 0) {
+        if (width % 2 != 0)
             width++;
-        }
-        if (height % 2 != 0) {
+        if (height % 2 != 0)
             height++;
-        }
 
-        if (width > 1920) {
+        if (width > 1920)
             width = 1920;
-        }
-        if (height > 1080) {
+        if (height > 1080)
             height = 1080;
-        }
 
         if (width < 1920 || height < 1080 ) {
             pipeline += "tiovxmultiscaler ! "
@@ -85,23 +98,65 @@ public:
                     "," +
                     std::to_string(height) +
                     ">\"";
-        /*
-        if (demoId != 1 && customInputIsImage == false)
-        {
+
+        if (customInputIsImage == false)
             pipeline += " sync=false";
-        }
         else
-        {
             pipeline += " sync=true";
-        }
-        */
     }
 
-    Q_INVOKABLE QString leftMenuButtonClicked(int button, int x, int y, int width, int height) {
-        cout << "c++ button value = " << button << endl;
-        activeButton = button;
+    void generateYaml(QString userInputType, QString userInputFile, QString userModel) {
+        string input = userInputFile.toStdString();
+        string model = userModel.toStdString();
+        string format = "";
+        if (userInputType.toStdString() == "Camera") {
+            format = "jpeg";
+        } else if (userInputType.toStdString() == "Video") {
+            format = "h264";
+        }
 
-        cout << "c++ active button value = " << activeButton << endl;
+        string config = replaceAll(replaceAll(replaceAll(custom_template,
+                                              "<source>",input),
+                                              "<format>",format),
+                                              "<model>",model);
+
+        ofstream custom_yaml("/tmp/custom_config.yaml");
+        custom_yaml << config;
+        custom_yaml.close();
+    }
+
+    string replaceAll(string str, const string &remove, const string &insert) {
+        string::size_type pos = 0;
+        while ((pos = str.find(remove, pos)) != string::npos) {
+            str.replace(pos, remove.size(), insert);
+            pos++;
+        }
+
+        return str;
+    }
+
+    string getPipelineString() {
+        string command = "python3 /opt/edgeai-gst-apps/scripts/optiflow/optiflow.py /tmp/custom_config.yaml -t";
+        array<char, 128> buffer;
+        string result;
+        unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+        if (!pipe) {
+            throw std::runtime_error("popen() failed!");
+        }
+        while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+            result += buffer.data();
+        }
+        result = replaceAll(result,"gst-launch-1.0","gst-pipeline:");
+        result = replaceAll(result,"\n","");
+
+        return result;
+    }
+
+public:
+
+    explicit Backend (QObject* parent = nullptr) : QObject(parent) {}
+
+    Q_INVOKABLE QString leftMenuButtonPressed(int button, int x, int y, int width, int height) {
         if (button == 1) {
             pipeline = "gst-pipeline: " + cl_pipeline;
             addSink(pipeline, x, y, width, height);
@@ -113,28 +168,30 @@ public:
             pipeline = "gst-pipeline: " + ss_pipeline;
             addSink(pipeline, x, y, width, height);
             pipeline += " sync=false";
-        } else if (button >= 4) {
-            printf("WARNING: Button functionality not implemented\n");
         } else {
             printf("WARNING: Invalid Button click from Left Menu!\n");
         }
-        cout << "pipeline is: \n" << pipeline << endl;
         return QString().fromStdString(pipeline);
     }
-signals:
-    void activeButtonChanged();
-};
 
-class PopupMenu : public QObject {
-    Q_OBJECT
-public:
+    Q_INVOKABLE QString popupOkPressed(QString InputType, QString Input, QString Model, int x, int y, int width, int height) {
+        cout << "Input Type = " << InputType.toStdString() << ";\nInput File = " << Input.toStdString() << ";\nModel = " << Model.toStdString() << endl;
 
-    explicit PopupMenu (QObject* parent = nullptr) : QObject(parent) {}
+        generateYaml(InputType, Input, Model);
+        pipeline = getPipelineString();
+        auto pos = pipeline.find_last_of("!");
+        if ( pos != std::string::npos) {
+            pipeline = pipeline.substr(0, pos);
+            pipeline += " ! ";
+        }
+        if (InputType.toStdString() == "Image")
+            customInputIsImage = true;
+        else
+            customInputIsImage = false;
 
-    Q_INVOKABLE void popupInputTypeSelected(QString InputType) {
-            qDebug() << "Input Type = " << InputType.data() << Qt::endl;
+        cout << "Custom Pipeline: \n" << pipeline << endl;
+
+        addSink(pipeline, x, y, width, height);
+        return QString().fromStdString(pipeline);
     }
-signals:
-    void cameraListChanged();
-    void cameraNamesChanged();
 };
