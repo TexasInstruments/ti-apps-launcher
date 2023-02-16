@@ -62,7 +62,6 @@ class Backend : public QObject {
     Q_OBJECT
 
 private:
-    bool customInputIsImage;
     string pipeline;
 
     void addSink(string &pipeline, int xPos, int yPos, int width, int height) {
@@ -98,11 +97,6 @@ private:
                     "," +
                     std::to_string(height) +
                     ">\"";
-
-        if (customInputIsImage == false)
-            pipeline += " sync=false";
-        else
-            pipeline += " sync=true";
     }
 
     void generateYaml(QString userInputType, QString userInputFile, QString userModel) {
@@ -184,14 +178,15 @@ public:
             pipeline = pipeline.substr(0, pos);
             pipeline += " ! ";
         }
-        if (InputType.toStdString() == "Image")
-            customInputIsImage = true;
-        else
-            customInputIsImage = false;
-
-        cout << "Custom Pipeline: \n" << pipeline << endl;
 
         addSink(pipeline, x, y, width, height);
+
+        if (InputType.toStdString() != "Image")
+        {
+            pipeline += " sync=false";
+        }
+
+        cout << "Custom Pipeline: \n" << pipeline << endl;
         return QString().fromStdString(pipeline);
     }
 };
