@@ -6,7 +6,6 @@
 #include "Backend.h"
 
 QStringListModel cameraNamesList;
-QList<QCameraInfo> camerasList = QCameraInfo::availableCameras();
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -16,11 +15,26 @@ int main(int argc, char *argv[]) {
     Backend backend;
 
     // Get and Populate CameraInfo to CameraList
+    map<string, map<string,string>> cameraInfo;
+    backend.getCameraInfo(cameraInfo);
+
     QStringList list = cameraNamesList.stringList();
-    for (int i = 0; i < camerasList.length(); i++) {
-        list.append(camerasList[i].deviceName());
-        cout << camerasList[i].description().toStdString() << endl;
+    for ( const auto &data : cameraInfo ) {
+        for ( const auto &detailedData : data.second )
+        {
+            if (detailedData.first.find("device") != string::npos)
+            {
+                string fullName,device;
+                device = backend.replaceAll(detailedData.first,"device","");
+                device = backend.trimString(device);
+                fullName = data.first;
+                if (device.length() > 0)
+                    fullName += " " + device;
+                list.append(QString::fromStdString(fullName));
+            }
+        }
     }
+
     cameraNamesList.setStringList(list);
 
     // set context properties to access in QML
