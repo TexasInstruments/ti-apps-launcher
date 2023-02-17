@@ -3,9 +3,11 @@
 #include <QQmlContext>
 #include <QCameraInfo>
 #include <QStringListModel>
+#include <QNetworkInterface>
 #include "Backend.h"
 
 QStringListModel cameraNamesList;
+QString ip_addr;
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -37,9 +39,21 @@ int main(int argc, char *argv[]) {
 
     cameraNamesList.setStringList(list);
 
+    // Fetch IP Addr of the target to display at the bottom of the application
+    foreach (const QNetworkInterface &netInterface, QNetworkInterface::allInterfaces()) {
+        QNetworkInterface::InterfaceFlags flags = netInterface.flags();
+        if( (bool)(flags & QNetworkInterface::IsRunning) && !(bool)(flags & QNetworkInterface::IsLoopBack)){
+            foreach (const QNetworkAddressEntry &address, netInterface.addressEntries()) {
+                if(address.ip().protocol() == QAbstractSocket::IPv4Protocol)
+                    ip_addr = "IP Addr: " + address.ip().toString();
+            }
+        }
+    }
+
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
+    engine.rootContext()->setContextProperty("ip_addr", ip_addr);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

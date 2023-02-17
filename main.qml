@@ -80,7 +80,7 @@ Window {
             id: leftMenu
 
             width: parent.width * 0.15
-            height: parent.height * 0.9
+            height: parent.height * 0.85
             anchors.top: topBar.bottom
             anchors.left: parent.left
 
@@ -213,7 +213,7 @@ Window {
             id: mainWindow
             color: "#17252A"
             width: parent.width * 0.825
-            height: parent.height * 0.9
+            height: parent.height * 0.85
             anchors.top: topBar.bottom
             anchors.left: leftMenu.right
             anchors.rightMargin: parent.width * 0.025
@@ -467,6 +467,23 @@ Window {
                         radius: parent.height
                     }
                 }
+            }
+        }
+        Rectangle {
+            id: deviceInfo
+            anchors.left: parent.left
+            anchors.right: mainWindow.right
+            anchors.top: mainWindow.bottom
+            anchors.bottom: parent.bottom
+            color: "#17252A"
+            Text {
+                id: ipAddr
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+
+                text: ip_addr
+                color: "#FEFFFF"
+                font.pointSize: 15
             }
         }
     }
