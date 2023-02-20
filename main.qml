@@ -430,6 +430,7 @@ Window {
                     FolderListModel{
                         id: modelsFolder
                         folder: "file:///opt/model_zoo/"
+                        showFiles: false
                     }
                 }
                 Text {
