@@ -65,14 +65,8 @@ Window {
                 anchors.topMargin: height * 0.5
 
                 background: Rectangle {
-                    color: parent.hovered ? "#FF0000" : "#CCCCCC"
+                    color: "#FF0000"
                     radius: parent.height
-                    /* Image {
-                        source: "images/exit.png"
-                        height: parent.height
-                        width: parent.width
-                    }
-                    */
                 }
             }
         }
