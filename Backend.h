@@ -204,7 +204,6 @@ private:
         }
         result = replaceAll(result,"gst-launch-1.0","gst-pipeline:");
         result = replaceAll(result,"tiperfoverlay","tiperfoverlay main-title=null");
-        result = replaceAll(result,"avdec_h264 ! tiovxdlcolorconvert","v4l2h264dec ! tiovxmemalloc pool-size=8");
         result = replaceAll(result,"\n","");
 
         return result;
