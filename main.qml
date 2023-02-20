@@ -86,125 +86,146 @@ Window {
 
             color: "#17252A"
 
-            CheckBox {
-                id: leftMenuButton1
-                text: "Image Classification"
+            Rectangle {
+                id: leftSubMenu
 
-                height: parent.height * 0.1
-                width: parent.width * 0.8
-                anchors.top: parent.top
-                anchors.topMargin: parent.height * 0.1
-                anchors.horizontalCenter: parent.horizontalCenter
-                indicator: Rectangle {}
-                background: Rectangle {
-                    id: leftMenuButton1BG
-                    color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
-                    border.color: "#DEF2F1"
-                    border.width: 1
-                    radius: 10
-                }
-                onCheckStateChanged: {
-                    if (leftMenuButton1.checked) {
-                        mediaplayer1.source = backend.leftMenuButtonPressed(1, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
-                        leftMenuButton2.enabled = false
-                        leftMenuButton3.enabled = false
-                        leftMenuButton4.enabled = false
-                    } else {
-                        mediaplayer1.source = " "
-                        leftMenuButton2.enabled = true
-                        leftMenuButton3.enabled = true
-                        leftMenuButton4.enabled = true
-                    }
-                }
-            }
+                width: parent.width * 0.9
+                height: parent.height * 0.6
+                anchors.horizontalCenter: leftMenu.horizontalCenter
+                anchors.verticalCenter: leftMenu.verticalCenter
+                color: "#344045"
 
-            CheckBox {
-                id: leftMenuButton2
-                text: "Object Detection"
-                height: parent.height * 0.1
-                width: parent.width * 0.8
-                anchors.top: leftMenuButton1.bottom
-                anchors.topMargin: parent.height * 0.1
-                anchors.horizontalCenter: parent.horizontalCenter
-                indicator: Rectangle {}
-                background: Rectangle {
-                    id: leftMenuButton2BG
-                    color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
-                    border.color: "#DEF2F1"
-                    border.width: 1
-                    radius: 10
-                }
-                onCheckStateChanged: {
-                    if (leftMenuButton2.checked) {
-                        mediaplayer1.source = backend.leftMenuButtonPressed(2, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
-                        leftMenuButton1.enabled = false
-                        leftMenuButton3.enabled = false
-                        leftMenuButton4.enabled = false
-                    } else {
-                        mediaplayer1.source = " "
-                        leftMenuButton1.enabled = true
-                        leftMenuButton3.enabled = true
-                        leftMenuButton4.enabled = true
+                border.color: "#DEF2F1"
+                border.width: 1
+                radius: 10
+
+                CheckBox {
+                    id: leftMenuButton1
+                    text: "Image Classification"
+                    font.bold: true
+                    font.pointSize: 13
+                    height: parent.height * 0.5 / 3
+                    width: parent.width * 0.85
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.2 / 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    indicator: Rectangle {}
+                    background: Rectangle {
+                        id: leftMenuButton1BG
+                        color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
+                        border.color: "#DEF2F1"
+                        border.width: 1
+                        radius: 10
+                    }
+                    onCheckStateChanged: {
+                        if (leftMenuButton1.checked) {
+                            mediaplayer1.source = backend.leftMenuButtonPressed(1, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                            leftMenuButton2.enabled = false
+                            leftMenuButton3.enabled = false
+                            leftMenuButton4.enabled = false
+                        } else {
+                            mediaplayer1.source = " "
+                            leftMenuButton2.enabled = true
+                            leftMenuButton3.enabled = true
+                            leftMenuButton4.enabled = true
+                        }
                     }
                 }
-            }
-            CheckBox {
-                id: leftMenuButton3
-                text: "Semantic Segmentation"
-                height: parent.height * 0.1
-                width: parent.width * 0.8
-                anchors.top: leftMenuButton2.bottom
-                anchors.topMargin: parent.height * 0.1
-                anchors.horizontalCenter: parent.horizontalCenter
-                indicator: Rectangle {}
-                background: Rectangle {
-                    id: leftMenuButton3BG
-                    color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
-                    border.color: "#DEF2F1"
-                    border.width: 1
-                    radius: 10
-                }
-                onCheckStateChanged: {
-                    if (leftMenuButton3.checked) {
-                        mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
-                        leftMenuButton1.enabled = false
-                        leftMenuButton2.enabled = false
-                        leftMenuButton4.enabled = false
-                    } else {
-                        mediaplayer1.source = " "
-                        leftMenuButton1.enabled = true
-                        leftMenuButton2.enabled = true
-                        leftMenuButton4.enabled = true
+
+                CheckBox {
+                    id: leftMenuButton2
+                    text: "Object Detection"
+                    font.bold: true
+                    font.pointSize: 13
+                    height: parent.height * 0.5 / 3
+                    width: parent.width * 0.85
+                    anchors.top: leftMenuButton1.bottom
+                    anchors.topMargin: parent.height * 0.2 / 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    indicator: Rectangle {}
+                    background: Rectangle {
+                        id: leftMenuButton2BG
+                        color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
+                        border.color: "#DEF2F1"
+                        border.width: 1
+                        radius: 10
+                    }
+                    onCheckStateChanged: {
+                        if (leftMenuButton2.checked) {
+                            mediaplayer1.source = backend.leftMenuButtonPressed(2, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                            leftMenuButton1.enabled = false
+                            leftMenuButton3.enabled = false
+                            leftMenuButton4.enabled = false
+                        } else {
+                            mediaplayer1.source = " "
+                            leftMenuButton1.enabled = true
+                            leftMenuButton3.enabled = true
+                            leftMenuButton4.enabled = true
+                        }
                     }
                 }
-            }
-            CheckBox {
-                id: leftMenuButton4
-                text: "Custom"
-                height: parent.height * 0.1
-                width: parent.width * 0.8
-                anchors.top: leftMenuButton3.bottom
-                anchors.topMargin: parent.height * 0.1
-                anchors.horizontalCenter: parent.horizontalCenter
-                indicator: Rectangle {}
-                background: Rectangle {
-                    id: leftMenuButton4BG
-                    color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
-                    border.color: "#DEF2F1"
-                    border.width: 1
-                    radius: 10
+                CheckBox {
+                    id: leftMenuButton3
+                    text: "Semantic Segmentation"
+                    font.bold: true
+                    font.pointSize: 13
+                    height: parent.height * 0.5 / 3
+                    width: parent.width * 0.85
+                    anchors.top: leftMenuButton2.bottom
+                    anchors.topMargin: parent.height * 0.2 / 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    indicator: Rectangle {}
+                    background: Rectangle {
+                        id: leftMenuButton3BG
+                        color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
+                        border.color: "#DEF2F1"
+                        border.width: 1
+                        radius: 10
+                    }
+                    onCheckStateChanged: {
+                        if (leftMenuButton3.checked) {
+                            mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                            leftMenuButton1.enabled = false
+                            leftMenuButton2.enabled = false
+                            leftMenuButton4.enabled = false
+                        } else {
+                            mediaplayer1.source = " "
+                            leftMenuButton1.enabled = true
+                            leftMenuButton2.enabled = true
+                            leftMenuButton4.enabled = true
+                        }
+                    }
                 }
-                onCheckStateChanged: {
-                    if (leftMenuButton4.checked) {
-                        popup.open()
-                        leftMenuButton1.enabled = false
-                        leftMenuButton2.enabled = false
-                        leftMenuButton3.enabled = false
-                    } else {
-                        mediaplayer1.source = " "
-                        leftMenuButton1.enabled = true
-                        leftMenuButton2.enabled = true
-                        leftMenuButton3.enabled = true
+                CheckBox {
+                    id: leftMenuButton4
+                    text: "Custom"
+                    font.bold: true
+                    font.pointSize: 13
+                    height: parent.height * 0.5 / 3
+                    width: parent.width * 0.85
+                    anchors.top: leftMenuButton3.bottom
+                    anchors.topMargin: parent.height * 0.2 / 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    indicator: Rectangle {}
+                    background: Rectangle {
+                        id: leftMenuButton4BG
+                        color: !parent.enabled ? "#17252A" : (parent.hovered ? "#84CDC9" : (parent.checkState===Qt.Checked? "#2B837F" : "#3AAFA9"))
+                        border.color: "#DEF2F1"
+                        border.width: 1
+                        radius: 10
+                    }
+                    onCheckStateChanged: {
+                        if (leftMenuButton4.checked) {
+                            popup.open()
+                            leftMenuButton1.enabled = false
+                            leftMenuButton2.enabled = false
+                            leftMenuButton3.enabled = false
+                        } else {
+                            mediaplayer1.source = " "
+                            leftMenuButton1.enabled = true
+                            leftMenuButton2.enabled = true
+                            leftMenuButton3.enabled = true
+                        }
                     }
                 }
             }
@@ -256,7 +277,7 @@ Window {
                 id: popup
                 anchors.centerIn: parent
 
-                width: alignVideo.width * 0.6
+                width: alignVideo.width * 0.3
                 height: alignVideo.height * 0.6
 
                 modal: true
@@ -274,19 +295,21 @@ Window {
                     id: inputTypeHead
                     text: qsTr("Input Type: ")
                     font.pointSize: 11
+                    anchors.centerIn: popup.Center
                     anchors.bottom: popupInputType.top
                     anchors.bottomMargin: popupInputType.height * 0.2
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.leftMargin: parent.width * 0.2
                 }
 
                 ComboBox {
                     id: popupInputType
-                    width: parent.width * 0.3
+                    width: parent.width * 0.6
+                    height: parent.height * 0.1
                     anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.25
+                    anchors.topMargin: parent.height * 0.175
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.leftMargin: parent.width * 0.2
 
                     model: ListModel {
                         id: popupInputTypeOptions
@@ -318,17 +341,18 @@ Window {
                     font.pointSize: 11
                     anchors.bottom: popupInputImages.top
                     anchors.bottomMargin: popupInputImages.height * 0.2
-                    anchors.left: popupInputType.right
-                    anchors.leftMargin: parent.width * 0.1
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.2
                 }
                 ComboBox {
                     id: popupInputImages
                     visible: false
-                    width: parent.width * 0.3
-                    anchors.left: popupInputType.right
-                    anchors.leftMargin: parent.width * 0.1
-                    anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.25
+                    width: parent.width * 0.6
+                    height: parent.height * 0.1
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.2
+                    anchors.top: popupInputType.bottom
+                    anchors.topMargin: parent.height * 0.1
 
                     FolderListModel{
                         id: inputImagesFolder
@@ -346,11 +370,12 @@ Window {
                 ComboBox {
                     id: popupInputVideos
                     visible: false
-                    width: parent.width * 0.3
-                    anchors.left: popupInputType.right
-                    anchors.leftMargin: parent.width * 0.1
-                    anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.25
+                    width: parent.width * 0.6
+                    height: parent.height * 0.1
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.2
+                    anchors.top: popupInputType.bottom
+                    anchors.topMargin: parent.height * 0.1
 
                     FolderListModel{
                         id: inputVideosFolder
@@ -368,11 +393,12 @@ Window {
                 ComboBox {
                     id: popupInputCameras
                     visible: false
-                    width: parent.width * 0.3
-                    anchors.left: popupInputType.right
-                    anchors.leftMargin: parent.width * 0.1
-                    anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.25
+                    width: parent.width * 0.6
+                    height: parent.height * 0.1
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.2
+                    anchors.top: popupInputType.bottom
+                    anchors.topMargin: parent.height * 0.1
 
                     model: cameraNamesList
                     textRole: 'display'
@@ -388,15 +414,16 @@ Window {
                     anchors.bottom: popupModel.top
                     anchors.bottomMargin: popupModel.height * 0.2
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.leftMargin: parent.width * 0.2
                 }
                 ComboBox {
                     id: popupModel
-                    width: parent.width * 0.3
-                    anchors.top: popupInputType.bottom
+                    width: parent.width * 0.6
+                    height: parent.height * 0.1
+                    anchors.top: popupInputImages.bottom
                     anchors.topMargin: parent.height * 0.1
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.leftMargin: parent.width * 0.2
                     model: modelsFolder
                     textRole: 'fileName'
 
@@ -405,6 +432,18 @@ Window {
                         folder: "file:///opt/model_zoo/"
                     }
                 }
+                Text {
+                    id: popupError
+                    visible: false
+                    text: qsTr("Invalid Inputs!")
+                    color: "#FF0000"
+                    font.pointSize: 11
+                    anchors.top: popupModel.bottom
+                    anchors.topMargin: parent.height * 0.05
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.2
+                }
+
                 Button {
                     id: popupOkButton
                     text: "Start"
@@ -420,24 +459,24 @@ Window {
                             inputFile = popupInputCameras.model.data(popupInputCameras.model.index(popupInputCameras.currentIndex, 0))
 
                         modelFile = popupModel.model.get(popupModel.currentIndex, "filePath")
-                        if((inputFile === undefined) || (modelFile === undefined)) {
-                            console.log("No inputFile or Model Selected!!")
-                        }
-                        else
+                        if((inputFile === undefined) || (modelFile === undefined))
+                            popupError.visible = true
+                        else {
                             popup.close()
+                            popupError.visible = false
+                        }
 
                         // Send userdata to CPP
                         mediaplayer1.source = backend.popupOkPressed(inputType, inputFile, modelFile,
                                                                        leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2,
                                                                        videooutput.width, videooutput.height)
-
                     }
 
                     width: parent.width * 0.2
                     height: parent.height * 0.075
 
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.bottomMargin: parent.height * 0.125
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.25
 
@@ -458,7 +497,7 @@ Window {
                     height: parent.height * 0.075
 
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.bottomMargin: parent.height * 0.125
                     anchors.right: parent.right
                     anchors.rightMargin: parent.width * 0.25
 
