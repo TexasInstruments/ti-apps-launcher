@@ -1,14 +1,15 @@
+import QtQml 2.1
 import QtQuick 2.1
+import QtMultimedia 5.1
 import QtQuick.Window 2.1
 import QtQuick.Controls 2.1
-import QtMultimedia 5.1
-import Qt.labs.folderlistmodel 2.4
 import QtGraphicalEffects 1.12
+import Qt.labs.folderlistmodel 2.4
 
 Window {
     visible: true
     visibility: "FullScreen"
-    title: qsTr("EdgeAI - Analytics for Visual Applications")
+    title: qsTr("Edge AI - UI App")
 
     Rectangle {
         id: appBackground
@@ -37,7 +38,7 @@ Window {
             Text {
                 id: topBarHead
                 objectName: "topBarHead"
-                text: qsTr("EdgeAI - Analytics for Visual Applications")
+                text: qsTr("Edge AI - UI App")
 
                 width: parent.width * 0.8
                 height: parent.height
@@ -210,6 +211,7 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton4.checked) {
+                            popupError.text = " "
                             popup.open()
                             leftMenuButton1.enabled = false
                             leftMenuButton2.enabled = false
@@ -249,7 +251,7 @@ Window {
                 Image {
                     width: parent.width
                     height: parent.height
-                    source: "images/sk-am62-angled.png"
+                    source: "images/wallpaper.jpg"
                 }
 
                 MediaPlayer {
@@ -338,6 +340,16 @@ Window {
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.2
                 }
+                Text {
+                    id: inputPath
+                    text: qsTr(" ")
+                    color: "#888888"
+                    font.pointSize: 11
+                    anchors.bottom: popupInputImages.top
+                    anchors.bottomMargin: popupInputImages.height * 0.2
+                    anchors.left: inputHead.right
+                    anchors.leftMargin: inputHead.width * 0.2
+                }
                 ComboBox {
                     id: popupInputImages
                     visible: false
@@ -357,8 +369,10 @@ Window {
                     model: inputImagesFolder
                     textRole: 'fileName'
                     onVisibleChanged: {
-                        if(visible)
-                            inputHead.text = qsTr("Image: ")
+                        if(visible) {
+                            inputHead.text = qsTr("Image:")
+                            inputPath.text = qsTr("/opt/edgeai-test-data/images/")
+                        }
                     }
                 }
                 ComboBox {
@@ -380,8 +394,10 @@ Window {
                     model: inputVideosFolder
                     textRole: 'fileName'
                     onVisibleChanged: {
-                        if(visible)
-                            inputHead.text = qsTr("Video: ")
+                        if(visible) {
+                            inputHead.text = qsTr("Video:")
+                            inputPath.text = qsTr("/opt/edgeai-test-data/videos/")
+                        }
                     }
                 }
                 ComboBox {
@@ -397,8 +413,10 @@ Window {
                     model: cameraNamesList
                     textRole: 'display'
                     onVisibleChanged: {
-                        if(visible)
+                        if(visible) {
                             inputHead.text = qsTr("Camera: ")
+                            inputPath.text = qsTr(" ")
+                        }
                     }
                 }
                 Text {
@@ -429,8 +447,7 @@ Window {
                 }
                 Text {
                     id: popupError
-                    visible: false
-                    text: qsTr("Invalid Inputs!")
+                    text: " "
                     color: "#FF0000"
                     font.pointSize: 11
                     anchors.top: popupModel.bottom
@@ -443,6 +460,7 @@ Window {
                     id: popupOkButton
                     text: "Start"
                     onClicked: {
+                        popupError.text = "Loading ..."
                         var inputType = popupInputType.model.get(popupInputType.currentIndex).Text
                         var inputFile
                         var modelFile
@@ -454,17 +472,17 @@ Window {
                             inputFile = popupInputCameras.model.data(popupInputCameras.model.index(popupInputCameras.currentIndex, 0))
 
                         modelFile = popupModel.model.get(popupModel.currentIndex, "filePath")
-                        if((inputFile === undefined) || (modelFile === undefined))
-                            popupError.visible = true
-                        else {
-                            popup.close()
-                            popupError.visible = false
-                        }
 
-                        // Send userdata to CPP
-                        mediaplayer1.source = backend.popupOkPressed(inputType, inputFile, modelFile,
-                                                                       leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2,
-                                                                       videooutput.width, videooutput.height)
+                        if((inputFile === undefined) || (modelFile === undefined)) {
+                            popupError.text = "Invalid Inputs!"
+                        } else {
+                            popupError.text = "Loading ..."
+                            // Send userdata to CPP
+                            mediaplayer1.source = backend.popupOkPressed(inputType, inputFile, modelFile,
+                                                                           leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2,
+                                                                           videooutput.width, videooutput.height)
+                            popup.close()
+                        }
                     }
 
                     width: parent.width * 0.2
@@ -480,6 +498,7 @@ Window {
                         radius: parent.height
                     }
                 }
+
                 Button {
                     id: popupCancelButton
                     text: "Cancel"
@@ -515,7 +534,7 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
 
-                text: ip_addr
+                text: backend.ip_addr
                 color: "#FEFFFF"
                 font.pointSize: 15
             }

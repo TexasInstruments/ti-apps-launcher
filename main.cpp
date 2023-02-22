@@ -5,10 +5,13 @@
 #include <QStringListModel>
 #include <QNetworkInterface>
 #include <csignal>
+#include <thread>
+#include <unistd.h>
 #include "Backend.h"
 
 QStringListModel cameraNamesList;
-QString ip_addr;
+
+Backend backend;
 
 void sigHandler(int s)
 {
@@ -16,7 +19,31 @@ void sigHandler(int s)
     qApp->quit();
 }
 
+void GetIpAddr()
+{
+    // Fetch IP Addr of the target to display at the bottom of the application
+    for(int i = 0; i < 10; i++) {
+        cout << "loop: " << i << endl;
+        foreach (const QNetworkInterface &netInterface, QNetworkInterface::allInterfaces()) {
+            QNetworkInterface::InterfaceFlags flags = netInterface.flags();
+            if( (bool)(flags & QNetworkInterface::IsRunning) && !(bool)(flags & QNetworkInterface::IsLoopBack)){
+                foreach (const QNetworkAddressEntry &address, netInterface.addressEntries()) {
+                    if(address.ip().protocol() == QAbstractSocket::IPv4Protocol) {
+                        backend.set_ip_addr("IP Addr: " + address.ip().toString());
+                        cout << "IP Addr: " << address.ip().toString().toStdString() << endl;
+                        emit backend.ip_addr_changed();
+                        return;
+                    }
+                }
+            }
+        }
+        sleep(10);
+    }
+    return;
+}
+
 int main(int argc, char *argv[]) {
+    thread t1(GetIpAddr);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
@@ -25,8 +52,6 @@ int main(int argc, char *argv[]) {
     std::signal(SIGTERM, sigHandler);
 
     QQmlApplicationEngine engine;
-
-    Backend backend;
 
     // Get and Populate CameraInfo to CameraList
     map<string, map<string,string>> cameraInfo;
@@ -51,21 +76,10 @@ int main(int argc, char *argv[]) {
 
     cameraNamesList.setStringList(list);
 
-    // Fetch IP Addr of the target to display at the bottom of the application
-    foreach (const QNetworkInterface &netInterface, QNetworkInterface::allInterfaces()) {
-        QNetworkInterface::InterfaceFlags flags = netInterface.flags();
-        if( (bool)(flags & QNetworkInterface::IsRunning) && !(bool)(flags & QNetworkInterface::IsLoopBack)){
-            foreach (const QNetworkAddressEntry &address, netInterface.addressEntries()) {
-                if(address.ip().protocol() == QAbstractSocket::IPv4Protocol)
-                    ip_addr = "IP Addr: " + address.ip().toString();
-            }
-        }
-    }
-
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
-    engine.rootContext()->setContextProperty("ip_addr", ip_addr);
+    // engine.rootContext()->setContextProperty("ip_addr", backend.ip_addr);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
