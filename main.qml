@@ -55,7 +55,6 @@ Window {
 
             Button {
                 id: topBarExitButton
-                text: "×"
                 onClicked: Qt.quit()
                 height: parent.height * 0.2
                 width: height
@@ -66,6 +65,13 @@ Window {
                 anchors.topMargin: height * 0.5
 
                 background: Rectangle {
+                    Text {
+                        text: "×"
+                        font.pointSize: 12
+                        color: "#FEFFFF"
+                        anchors.centerIn: parent
+                        font.bold: true
+                    }
                     color: "#FF0000"
                     radius: parent.height
                 }
@@ -534,11 +540,17 @@ Window {
         }
         Rectangle {
             id: deviceInfo
-            anchors.left: parent.left
+            anchors.left: mainWindow.left
             anchors.right: mainWindow.right
             anchors.top: mainWindow.bottom
             anchors.bottom: parent.bottom
             color: "#17252A"
+            Text {
+                id: info1
+                text: "<font color=\"#FEFFFF\">Web: </font><font color=\"#0000FF\">https://dev.ti.com/edgeai/</font><font color=\"#FEFFFF\"> | Support: </font><font color=\"#0000FF\">https://e2e.ti.com/</font>"
+                font.pointSize: 15
+                anchors.verticalCenter: parent.verticalCenter
+            }
             Text {
                 id: ipAddr
                 anchors.verticalCenter: parent.verticalCenter
