@@ -175,6 +175,25 @@ private:
                     format = "h265";
                 else
                     format = "h264";
+
+                //Get width and height of input file
+                string command = "w=`gst-discoverer-1.0 "+input+" -v | grep Width` && "
+                                 "h=`gst-discoverer-1.0 "+input+" -v | grep Height` && "
+                                 "echo ${w#*:} x ${h#*:}";
+                array<char, 128> buffer;
+                string result;
+                unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+                if (!pipe) {
+                    throw std::runtime_error("popen() failed!");
+                }
+                while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+                    result += buffer.data();
+                }
+                char *token;
+                token = strtok(&result[0],"x");
+                width = trimString(token);
+                token =  strtok(NULL,"x");
+                height = trimString(token);
             }
         }
 
