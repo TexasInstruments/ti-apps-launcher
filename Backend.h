@@ -133,8 +133,10 @@ private:
             input = trimString(input);
             map<string,string> cameraData = cameraInfo[input];
 
-            if (cameraData.find("subdev_id") != cameraData.end())
-                subdev_id = cameraData["subdev_id"];
+            if (cameraData.find("subdev_id") != cameraData.end()) {
+                subdev_id = replaceAll(cameraData["subdev_id"],"/dev/v4l-subdev","");
+                subdev_id = trimString(subdev_id);
+            }
             if (cameraData.find("name") != cameraData.end())
                 sen_id = cameraData["name"];
             if (cameraData.find("ldc_required") != cameraData.end() &&

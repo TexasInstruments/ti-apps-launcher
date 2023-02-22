@@ -4,14 +4,26 @@
 #include <QCameraInfo>
 #include <QStringListModel>
 #include <QNetworkInterface>
+#include <csignal>
 #include "Backend.h"
 
 QStringListModel cameraNamesList;
 QString ip_addr;
 
+void sigHandler(int s)
+{
+    std::signal(s, SIG_DFL);
+    qApp->quit();
+}
+
 int main(int argc, char *argv[]) {
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+
+    std::signal(SIGINT,  sigHandler);
+    std::signal(SIGTERM, sigHandler);
+
     QQmlApplicationEngine engine;
 
     Backend backend;
