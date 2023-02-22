@@ -2,6 +2,9 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>images/Texas-Instruments.png</file>
-        <file>images/wallpaper.jpg</file>
+        <file>images/j784s4.jpg</file>
+        <file>images/j721s2.jpg</file>
+        <file>images/j721e.jpg</file>
+        <file>images/am62a.jpg</file>
     </qresource>
 </RCC>

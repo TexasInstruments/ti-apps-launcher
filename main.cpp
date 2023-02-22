@@ -57,6 +57,8 @@ int main(int argc, char *argv[]) {
     map<string, map<string,string>> cameraInfo;
     backend.getCameraInfo(cameraInfo);
 
+    QString backgroundImage = "images/" + qgetenv("SOC") + ".jpg";
+
     QStringList list = cameraNamesList.stringList();
     for ( const auto &data : cameraInfo ) {
         for ( const auto &detailedData : data.second )
@@ -79,7 +81,7 @@ int main(int argc, char *argv[]) {
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
-    // engine.rootContext()->setContextProperty("ip_addr", backend.ip_addr);
+    engine.rootContext()->setContextProperty("backgroundImage", backgroundImage);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

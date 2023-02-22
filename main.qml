@@ -251,7 +251,7 @@ Window {
                 Image {
                     width: parent.width
                     height: parent.height
-                    source: "images/wallpaper.jpg"
+                    source: backgroundImage
                 }
 
                 MediaPlayer {
