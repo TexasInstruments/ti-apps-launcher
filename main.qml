@@ -421,12 +421,22 @@ Window {
                 }
                 Text {
                     id: modelHead
-                    text: qsTr("Model: ")
+                    text: qsTr("Model:")
                     font.pointSize: 11
                     anchors.bottom: popupModel.top
                     anchors.bottomMargin: popupModel.height * 0.2
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.2
+                }
+                Text {
+                    id: modelPath
+                    text: qsTr("/opt/model_zoo/")
+                    color: "#888888"
+                    font.pointSize: 11
+                    anchors.bottom: popupModel.top
+                    anchors.bottomMargin: popupModel.height * 0.2
+                    anchors.left: modelHead.right
+                    anchors.leftMargin: modelHead.width * 0.2
                 }
                 ComboBox {
                     id: popupModel
