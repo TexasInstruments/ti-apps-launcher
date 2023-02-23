@@ -120,7 +120,7 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton1.checked) {
-                            mediaplayer1.source = backend.leftMenuButtonPressed(1, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                            mediaplayer1.source = backend.leftMenuButtonPressed(1, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
                             leftMenuButton2.enabled = false
                             leftMenuButton3.enabled = false
                             leftMenuButton4.enabled = false
@@ -153,7 +153,7 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton2.checked) {
-                            mediaplayer1.source = backend.leftMenuButtonPressed(2, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                            mediaplayer1.source = backend.leftMenuButtonPressed(2, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
                             leftMenuButton1.enabled = false
                             leftMenuButton3.enabled = false
                             leftMenuButton4.enabled = false
@@ -185,7 +185,7 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton3.checked) {
-                            mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2, videooutput.width, videooutput.height)
+                            mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
                             leftMenuButton1.enabled = false
                             leftMenuButton2.enabled = false
                             leftMenuButton4.enabled = false
@@ -249,7 +249,7 @@ Window {
                 anchors.top: parent.top
                 anchors.topMargin: (parent.height - height) / 2
                 border.color: "#DEF2F1"
-                border.width: 1
+                border.width: 3
 
                 radius: 10
                 color: "#17252A"
@@ -258,6 +258,8 @@ Window {
                     width: parent.width
                     height: parent.height
                     source: backgroundImage
+                    anchors.fill: parent
+                    anchors.margins: parent.border.width * 2
                 }
 
                 MediaPlayer {
@@ -273,6 +275,8 @@ Window {
                     height: parent.height
                     source: mediaplayer1
                     fillMode: VideoOutput.PreserveAspectCrop
+                    anchors.fill: parent
+                    anchors.margins: parent.border.width * 2
                 }
             }
             Popup {
@@ -467,7 +471,7 @@ Window {
                     color: "#FF0000"
                     font.pointSize: 11
                     anchors.top: popupModel.bottom
-                    anchors.topMargin: parent.height * 0.05
+                    anchors.topMargin: parent.height * 0.025
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.2
                 }
@@ -495,7 +499,7 @@ Window {
                             popupError.text = "Loading ..."
                             // Send userdata to CPP
                             mediaplayer1.source = backend.popupOkPressed(inputType, inputFile, modelFile,
-                                                                           leftMenu.width, topBar.height + (mainWindow.height - alignVideo.height)/2,
+                                                                           leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2),
                                                                            videooutput.width, videooutput.height)
                             popup.close()
                         }
@@ -504,8 +508,8 @@ Window {
                     width: parent.width * 0.2
                     height: parent.height * 0.075
 
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height * 0.125
+                    anchors.top: popupError.bottom
+                    anchors.topMargin: parent.height * 0.025
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.25
 
@@ -526,8 +530,8 @@ Window {
                     width: parent.width * 0.2
                     height: parent.height * 0.075
 
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height * 0.125
+                    anchors.top: popupError.bottom
+                    anchors.topMargin: parent.height * 0.025
                     anchors.right: parent.right
                     anchors.rightMargin: parent.width * 0.25
 
@@ -535,6 +539,18 @@ Window {
                         color: parent.hovered ? "#3AAFA9" : "#CCCCCC"
                         radius: parent.height
                     }
+                }
+                Text {
+                    id: popupNote
+                    text: "Note: Models may take time to load after you click 'Start'. So please wait for few seconds!"
+                    font.pointSize: 10
+                    font.bold: true
+                    color: "#2B837F"
+                    width: parent.width * 0.8
+                    anchors.top: popupCancelButton.bottom
+                    anchors.topMargin: parent.height * 0.05
+                    wrapMode: Text.WordWrap
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
         }
@@ -547,7 +563,7 @@ Window {
             color: "#17252A"
             Text {
                 id: info1
-                text: "<font color=\"#FEFFFF\">Web: </font><font color=\"#0000FF\">https://dev.ti.com/edgeai/</font><font color=\"#FEFFFF\"> | Support: </font><font color=\"#0000FF\">https://e2e.ti.com/</font>"
+                text: "<font color=\"#FEFFFF\">Support: </font><font color=\"#5555FF\">https://e2e.ti.com/</font>"
                 font.pointSize: 15
                 anchors.verticalCenter: parent.verticalCenter
             }
