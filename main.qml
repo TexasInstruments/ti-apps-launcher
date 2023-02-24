@@ -563,7 +563,7 @@ Window {
             color: "#17252A"
             Text {
                 id: info1
-                text: "<font color=\"#FEFFFF\">Web: </font><font color=\"#5555FF\">https://ti.com/edgeai</font><font color=\"#FEFFFF\"> | Support: </font><font color=\"#5555FF\">https://e2e.ti.com/</font>"
+                text: "<font color=\"#FEFFFF\">Web: </font><font color=\"#FF0000\">https://ti.com/edgeai</font><font color=\"#FEFFFF\"> | Support: </font><font color=\"#FF0000\">https://e2e.ti.com/</font>"
                 font.pointSize: 15
                 anchors.verticalCenter: parent.verticalCenter
             }
