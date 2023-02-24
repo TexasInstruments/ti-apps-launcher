@@ -7,6 +7,7 @@
 #include <csignal>
 #include <thread>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "Backend.h"
 
 QStringListModel cameraNamesList;
@@ -45,6 +46,7 @@ int main(int argc, char *argv[]) {
     QStringList list = cameraNamesList.stringList();
     QStringList modelslist = modelNamesList.stringList();
     fstream modelsfile;
+    struct stat sb;
 
     thread getIpAddrThread(GetIpAddr);
     getIpAddrThread.detach();
@@ -78,12 +80,15 @@ int main(int argc, char *argv[]) {
     }
     cameraNamesList.setStringList(list);
 
-    // Get and Populate contents of /opt/model_zoo/edgeai-gui-app-models.txt to modelNamesList
-    modelsfile.open("/opt/model_zoo/edgeai-gui-app-models.txt",ios::in);
-    if (modelsfile.is_open()){
+    // Get and Populate contents of /opt/oob-demo-assets/allowedModels.txt to modelNamesList
+    // Add the model to list only if it's available in the filesystem
+    modelsfile.open("/opt/oob-demo-assets/allowedModels.txt",ios::in);
+    if (modelsfile.is_open()) {
         string model;
-        while(getline(modelsfile, model)){
-            modelslist.append(QString::fromStdString(model));
+        while(getline(modelsfile, model)) {
+            string dir = "/opt/model_zoo/";
+            if (stat((dir + model).c_str(), &sb) == 0)
+                modelslist.append(QString::fromStdString(model));
         }
         modelsfile.close();
     }
