@@ -10,6 +10,7 @@
 #include "Backend.h"
 
 QStringListModel cameraNamesList;
+QStringListModel modelNamesList;
 
 Backend backend;
 
@@ -41,8 +42,12 @@ void GetIpAddr()
 }
 
 int main(int argc, char *argv[]) {
-    thread t1(GetIpAddr);
-    t1.detach();
+    QStringList list = cameraNamesList.stringList();
+    QStringList modelslist = modelNamesList.stringList();
+    fstream modelsfile;
+
+    thread getIpAddrThread(GetIpAddr);
+    getIpAddrThread.detach();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
@@ -56,9 +61,6 @@ int main(int argc, char *argv[]) {
     map<string, map<string,string>> cameraInfo;
     backend.getCameraInfo(cameraInfo);
 
-    QString backgroundImage = "images/" + qgetenv("SOC") + ".jpg";
-
-    QStringList list = cameraNamesList.stringList();
     for ( const auto &data : cameraInfo ) {
         for ( const auto &detailedData : data.second )
         {
@@ -74,13 +76,23 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-
     cameraNamesList.setStringList(list);
+
+    // Get and Populate contents of /opt/model_zoo/edgeai-gui-app-models.txt to modelNamesList
+    modelsfile.open("/opt/model_zoo/edgeai-gui-app-models.txt",ios::in);
+    if (modelsfile.is_open()){
+        string model;
+        while(getline(modelsfile, model)){
+            modelslist.append(QString::fromStdString(model));
+        }
+        modelsfile.close();
+    }
+    modelNamesList.setStringList(modelslist);
 
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
-    engine.rootContext()->setContextProperty("backgroundImage", backgroundImage);
+    engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

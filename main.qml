@@ -257,7 +257,7 @@ Window {
                 Image {
                     width: parent.width
                     height: parent.height
-                    source: backgroundImage
+                    source: "file://opt/oob-demo-assets/wallpaper.jpg"
                     anchors.fill: parent
                     anchors.margins: parent.border.width * 2
                 }
@@ -448,6 +448,7 @@ Window {
                     anchors.left: modelHead.right
                     anchors.leftMargin: modelHead.width * 0.2
                 }
+
                 ComboBox {
                     id: popupModel
                     width: parent.width * 0.6
@@ -456,14 +457,8 @@ Window {
                     anchors.topMargin: parent.height * 0.1
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.2
-                    model: modelsFolder
-                    textRole: 'fileName'
-
-                    FolderListModel{
-                        id: modelsFolder
-                        folder: "file:///opt/model_zoo/"
-                        showFiles: false
-                    }
+                    model: modelNamesList
+                    textRole: 'display'
                 }
                 Text {
                     id: popupError
@@ -491,7 +486,7 @@ Window {
                         if (popupInputType.model.get(popupInputType.currentIndex).Text === "Camera")
                             inputFile = popupInputCameras.model.data(popupInputCameras.model.index(popupInputCameras.currentIndex, 0))
 
-                        modelFile = popupModel.model.get(popupModel.currentIndex, "filePath")
+                        modelFile = "/opt/model_zoo/" + popupModel.model.data(popupModel.model.index(popupModel.currentIndex, 0))
 
                         if((inputFile === undefined) || (modelFile === undefined)) {
                             popupError.text = "Invalid Inputs!"
