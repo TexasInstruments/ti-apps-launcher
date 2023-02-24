@@ -9,7 +9,7 @@ import Qt.labs.folderlistmodel 2.4
 Window {
     visible: true
     visibility: "FullScreen"
-    title: qsTr("Edge AI - UI App")
+    title: qsTr("edge AI gallery")
 
     Rectangle {
         id: appBackground
@@ -38,7 +38,7 @@ Window {
             Text {
                 id: topBarHead
                 objectName: "topBarHead"
-                text: qsTr("Edge AI - UI App")
+                text: qsTr("edge AI gallery")
 
                 width: parent.width * 0.8
                 height: parent.height
