@@ -33,8 +33,7 @@ static string am62a_ss_pipeline = "   multifilesrc location=/opt/oob-demo-assets
                                       tiovxmosaic target=1 name=mosaic_0 \
                                       sink_0::startx=\"<320>\"  sink_0::starty=\"<180>\"  sink_0::widths=\"<1280>\"   sink_0::heights=\"<720>\"  \
                                       ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! tiperfoverlay main-title=null title=\"Semantic Segmentation \" ! ";
-
-static string j721s2_od_pipeline = "    multifilesrc location=/opt/oob-demo-assets/oob-gui-video3.h264 loop=true stop-index=0 caps=video/x-h264,width=1280,height=720,framerate=30/1 ! h264parse ! v4l2h264dec ! tiovxmemalloc pool-size=8 ! video/x-raw, format=NV12 ! \
+static string j721s2_od_pipeline = "    multifilesrc location=/opt/oob-demo-assets/oob-gui-video2.h264 loop=true stop-index=0 caps=video/x-h264,width=1280,height=720,framerate=30/1 ! h264parse ! v4l2h264dec ! tiovxmemalloc pool-size=8 ! video/x-raw, format=NV12 ! \
                                         tiovxmultiscaler name=split_01 \
                                         split_01. ! queue ! video/x-raw, width=416, height=416 ! tiovxdlpreproc data-type=3 channel-order=0 tensor-format=bgr out-pool-size=4 ! application/x-tensor-tiovx ! tidlinferer target=1 model=/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416 ! post_0.tensor \
                                         split_01. ! queue ! video/x-raw, width=640, height=360 ! post_0.sink \
