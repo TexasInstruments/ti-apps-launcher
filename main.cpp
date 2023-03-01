@@ -59,6 +59,10 @@ int main(int argc, char *argv[]) {
 
     QQmlApplicationEngine engine;
 
+    // Get SOC
+    const char* SOC = std::getenv("SOC");
+    backend.soc = SOC;
+
     // Get and Populate CameraInfo to CameraList
     map<string, map<string,string>> cameraInfo;
     backend.getCameraInfo(cameraInfo);
