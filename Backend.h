@@ -261,7 +261,6 @@ private:
         string input = userInputFile.toStdString();
         string model = userModel.toStdString();
         string modelName = model.substr(model.find_last_of("/\\") + 1);
-
         if (userInputType.toStdString() == "Camera") {
 
             map<string, map<string,string>> cameraInfo;
@@ -327,9 +326,15 @@ private:
                     format = "h264";
 
                 //Get width and height of input file
-                string command = "w=`gst-discoverer-1.0 "+input+" -v | grep Width` && "
-                                 "h=`gst-discoverer-1.0 "+input+" -v | grep Height` && "
-                                 "echo ${w#*:} x ${h#*:}";
+                string command = "ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 " + input;
+
+                // ffprobe is not present in am62a
+                if (soc == "am62a")
+                {
+                    command = "w=`gst-discoverer-1.0 "+input+" -v | grep Width` && "
+                              "h=`gst-discoverer-1.0 "+input+" -v | grep Height` && "
+                              "echo ${w#*:} x ${h#*:}";
+                }
                 array<char, 128> buffer;
                 string result;
                 unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
@@ -376,7 +381,6 @@ private:
         result = replaceAll(result,"gst-launch-1.0","gst-pipeline:");
         result = replaceAll(result,"tiperfoverlay","tiperfoverlay main-title=null");
         result = replaceAll(result,"\n","");
-
         return result;
     }
 
