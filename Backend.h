@@ -4,7 +4,7 @@
 #include <fstream>
 #include <map>
 #include <QStringListModel>
-
+#include <QProcess>
 using namespace std;
 
 static string cl_pipeline = "   multifilesrc location=/opt/oob-demo-assets/oob-gui-video1.h264 loop=true caps=\"video/x-h264, width=1280, height=720\" ! h264parse ! v4l2h264dec ! video/x-raw, format=NV12 ! \
@@ -467,6 +467,14 @@ public:
 
         cout << "Custom Pipeline: \n" << pipeline << endl;
         return QString().fromStdString(pipeline);
+    }
+    Q_INVOKABLE QString getgpuload(){
+        QProcess process;
+        process.start("/home/root/get_gpu_load.sh");
+        process.waitForFinished(-1);
+        QString output = process.readAllStandardOutput();
+        
+        return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
 
     string replaceAll(string str, const string &remove, const string &insert) {

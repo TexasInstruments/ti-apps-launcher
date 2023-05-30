@@ -2,5 +2,23 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>images/Texas-Instruments.png</file>
+        <file>images/Top_Righ_Box.png</file>
+       
+        <file>images/Status_Message.png</file>
+        <file>images/Control_Panel_with_text.png</file>
+        <file>images/Center_Box.png</file>
+        <file>images/Bottom_Right_Box.png</file>
+        <file>images/Background.png</file>
+        <file>images/Rectangle.png</file>
+        <file>images/Analytics_with_text.png</file>
+        <file>images/Camera_with_text.png</file>
+        <file>images/Minux_Box.png</file>
+        <file>images/Motor_Temp.png</file>
+        <file>images/3D_with_text.png</file>
+        <file>images/On_Button.png</file>
+        <file>images/Off_Button.png</file>
+        <file>images/Repeat_Grid.png</file>
+        <file>images/servo-drives-icon.png</file>
+        <file>images/Plus_Box.png</file>
     </qresource>
 </RCC>
