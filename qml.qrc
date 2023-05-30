@@ -1,6 +1,34 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>apps/main.qml</file>
+        <file>mainprev.qml</file>
+        <file>apps/industrial_control.qml</file>
+        <file>apps/benchmarks.qml</file>
+        <file>apps/stats.qml</file>
+        <file>apps/gpu_performance.qml</file>
+        <file>apps/camera_recorder.qml</file>
+
         <file>images/Texas-Instruments.png</file>
+        <file>images/record.png</file>
+        <file>images/videostop.png</file>
+        <file>images/stop-button.png</file>
+        <file>images/Top_Righ_Box.png</file>
+        <file>images/Status_Message.png</file>
+        <file>images/Control_Panel_with_text.png</file>
+        <file>images/Center_Box.png</file>
+        <file>images/Bottom_Right_Box.png</file>
+        <file>images/Background.png</file>
+        <file>images/Rectangle.png</file>
+        <file>images/Analytics_with_text.png</file>
+        <file>images/Camera_with_text.png</file>
+        <file>images/Minux_Box.png</file>
+        <file>images/Motor_Temp.png</file>
+        <file>images/3D_with_text.png</file>
+        <file>images/On_Button.png</file>
+        <file>images/Off_Button.png</file>
+        <file>images/Repeat_Grid.png</file>
+        <file>images/servo-drives-icon.png</file>
+        <file>images/Plus_Box.png</file>
+        <file>images/playbutton.png</file>
     </qresource>
 </RCC>

@@ -25,5 +25,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += Backend.h
+HEADERS += backend/Backend.h
+HEADERS += backend/camera_recorder.h
+HEADERS += backend/benchmarks.h
+HEADERS += backend/gpu_performance.h
+HEADERS += backend/stats.h
 

@@ -8,12 +8,20 @@
 #include <thread>
 #include <unistd.h>
 #include <sys/stat.h>
-#include "Backend.h"
-
+#include "backend/Backend.h"
+#include "backend/camera_recorder.h"
+#include "backend/benchmarks.h"
+#include "backend/gpu_performance.h"
+#include "backend/stats.h"
 QStringListModel cameraNamesList;
 QStringListModel modelNamesList;
 
+//objects 
 Backend backend;
+camera_recorder camrecbackend;
+benchmarks benchmarksbackend;
+gpu_performance gpuperfbackend;
+stats statsbackend;
 
 void sigHandler(int s)
 {
@@ -100,10 +108,14 @@ int main(int argc, char *argv[]) {
 
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
+    engine.rootContext()->setContextProperty("camrecbackend", &camrecbackend);
+    engine.rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
+    engine.rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
+    engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/apps/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 

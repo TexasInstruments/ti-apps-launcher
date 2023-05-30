@@ -1,10 +1,13 @@
 #include <QObject>
 #include <iostream>
+
 #include <sstream>
 #include <fstream>
 #include <map>
 #include <QStringListModel>
-
+#include <QProcess>
+#include <QDebug>
+#include<QMediaPlayer>
 using namespace std;
 
 static string cl_pipeline = "   multifilesrc location=/opt/oob-demo-assets/oob-gui-video1.h264 loop=true caps=\"video/x-h264, width=1280, height=720\" ! h264parse ! v4l2h264dec ! video/x-raw, format=NV12 ! \
@@ -468,7 +471,6 @@ public:
         cout << "Custom Pipeline: \n" << pipeline << endl;
         return QString().fromStdString(pipeline);
     }
-
     string replaceAll(string str, const string &remove, const string &insert) {
         string::size_type pos = 0;
         while ((pos = str.find(remove, pos)) != string::npos) {
