@@ -725,8 +725,8 @@ Window {
                 id: window
                 width: parent.width
                 height: parent.height
-                anchors.top: topBar.bottom
-                anchors.left: leftMenu.right
+                anchors.top: parent.top
+                anchors.left: parent.left  
                 property int count: 0
                 visible: false
                 Image {
