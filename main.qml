@@ -1487,10 +1487,7 @@ Window {
             repeat: true // repeat the timer
             onTriggered: {
                 gpuload.text = backend.getgpuload()
-                gpubarfill.height = backend.getgpuload() * gpubar.height * 0.01
-                
-                
-               // gpubarfill.height : gpuload.text * gpubar.height * 0.01
+                gpubarfill.height = gpuload.text * gpubar.height * 0.01
             }
         }
         Rectangle {
