@@ -179,6 +179,7 @@ Window {
                             leftMenuButton5.enabled = false
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
+                             videoOutput.visible = true
                         } else {
                             mediaplayer1.source = " "
                             leftMenuButton1.enabled = true
@@ -188,6 +189,8 @@ Window {
                             leftMenuButton5.enabled = true
                             leftMenuButton6.enabled = true
                             leftMenuButton7.enabled = true
+
+                            videoOutput.visibile = false
                         }
                     }
                 }
@@ -1422,6 +1425,25 @@ Window {
                     width: parent.width * 0.25
                     anchors.top: index03.bottom
                     anchors.left:index02.right
+                }
+            }
+            Item {
+                width: 640
+                height: 480
+                
+                Camera {
+                    id: camera
+                    //deviceId: QtMultimedia.defaultCamera.deviceId
+                    captureMode: Camera.CaptureVideo
+                    //videoRecorder.Codec: "video/mp4"
+                    //videoRecorder.outputLocation: Qt.resolvedUrl("output.mp4")
+                }
+
+                VideoOutput {
+                    id: videoOutput
+                    source: camera
+                    anchors.fill: parent
+                    visible: false
                 }
             }
         }
