@@ -5,6 +5,7 @@
 #include <map>
 #include <QStringListModel>
 #include <QProcess>
+#include <QDebug>
 using namespace std;
 
 static string cl_pipeline = "   multifilesrc location=/opt/oob-demo-assets/oob-gui-video1.h264 loop=true caps=\"video/x-h264, width=1280, height=720\" ! h264parse ! v4l2h264dec ! video/x-raw, format=NV12 ! \
@@ -475,6 +476,22 @@ public:
         QString output = process.readAllStandardOutput();
         
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
+    }
+    QString stdout1;
+    QProcess process1;
+    Q_INVOKABLE void playbutton1pressed()
+    {
+        process1.start("/home/root/glmanhatscript.sh");
+    }
+    Q_INVOKABLE QString playbutton1fps()
+    {
+        stdout1 = process1.readAllStandardOutput();
+        qDebug()<<stdout1;
+        return stdout1.mid(stdout1.indexOf("\"fps\":")+7,6);
+    }
+    Q_INVOKABLE QString playbutton1score()
+    {
+        return stdout1.mid(stdout1.indexOf("score")+8,7);
     }
 
     string replaceAll(string str, const string &remove, const string &insert) {
