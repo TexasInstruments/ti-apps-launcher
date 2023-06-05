@@ -180,6 +180,8 @@ Window {
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
                              videoOutput.visible = true
+                            backend.playcam()
+                            recordbutton.visible = true
                         } else {
                             mediaplayer1.source = " "
                             leftMenuButton1.enabled = true
@@ -191,6 +193,8 @@ Window {
                             leftMenuButton7.enabled = true
 
                             videoOutput.visibile = false
+                            recordbutton.visible = false
+                            backend.stopcam();
                         }
                     }
                 }
@@ -1442,8 +1446,32 @@ Window {
                 VideoOutput {
                     id: videoOutput
                     source: camera
+            Image {
+                id: recordbutton
+                height: parent.height * 0.1
+                width: height
+                source: "images/playbutton.png"
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                visible: false
+                MouseArea {
                     anchors.fill: parent
-                    visible: false
+                    onClicked: {
+                        if(leftMenuButton2.checked) {
+                            if(mainWindow.count==0) {
+                                backend.startrec()
+                                mainWindow.count = 1
+                            }
+                            else {
+                               backend.stoprec()
+                                mainWindow.count = 0
+                            }
+                  
+                        //    video.play()
+                        }
+                    }
+                }
+            }
                 }
             }
         }

@@ -6,6 +6,7 @@
 #include <QStringListModel>
 #include <QProcess>
 #include <QDebug>
+#include<QMediaPlayer>
 using namespace std;
 
 static string cl_pipeline = "   multifilesrc location=/opt/oob-demo-assets/oob-gui-video1.h264 loop=true caps=\"video/x-h264, width=1280, height=720\" ! h264parse ! v4l2h264dec ! video/x-raw, format=NV12 ! \
@@ -469,29 +470,80 @@ public:
         cout << "Custom Pipeline: \n" << pipeline << endl;
         return QString().fromStdString(pipeline);
     }
+
+    QProcess camstart;
+    Q_INVOKABLE void playcam() {   
+        camstart.start("gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=640, height=480 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw ! waylandsink");
+    }
+    QProcess startrecording1,startrecording;
+    Q_INVOKABLE void startrec() {
+        startrecording.start("killall gst-launch-1.0");
+        startrecording.waitForFinished(-1);
+        startrecording.start("gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=1280, height=720 ! tee name=t t. ! queue ! jpegdec ! tiovxdlcolorconvert ! video/x-raw ! waylandsink t. ! queue ! filesink location=xyz.mp4");
+    }
+    QProcess stoprecording;
+    Q_INVOKABLE void stoprec() {
+        stoprecording.start("killall gst-launch-1.0");
+        stoprecording.waitForFinished();
+        playcam();
+    }
+    QProcess camstop;
+    Q_INVOKABLE void stopcam()
+    {
+        camstop.start("killall gst-launch-1.0");
+    }
+
     Q_INVOKABLE QString getgpuload(){
         QProcess process;
         process.start("/home/root/get_gpu_load.sh");
         process.waitForFinished(-1);
         QString output = process.readAllStandardOutput();
-        
+
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
+
     QString stdout1;
     QProcess process1;
     Q_INVOKABLE void playbutton1pressed()
     {
         process1.start("/home/root/glmanhatscript.sh");
+       //process1.start("glmark2-es2-wayland");
     }
     Q_INVOKABLE QString playbutton1fps()
     {
         stdout1 = process1.readAllStandardOutput();
-        qDebug()<<stdout1;
+        //qDebug()<<stdout1;
         return stdout1.mid(stdout1.indexOf("\"fps\":")+7,6);
     }
     Q_INVOKABLE QString playbutton1score()
     {
         return stdout1.mid(stdout1.indexOf("score")+8,7);
+    }
+    
+    //gpuperformance
+    QProcess load0,load1,load2,load3,load4;
+    Q_INVOKABLE void gpuload0(){
+        load0.start("killall glmark2-es2-wayland");
+    }
+    Q_INVOKABLE void gpuload1(){
+        load1.start("killall glmark2-es2-wayland");
+        load1.waitForFinished();
+        load1.start("glmark2-es2-wayland -b buffer:duration=100");
+    }
+    Q_INVOKABLE void gpuload2(){
+        load2.start("killall glmark2-es2-wayland");
+        load2.waitForFinished();
+        load2.start("glmark2-es2-wayland -b ideas:duration=100");
+    }
+    Q_INVOKABLE void gpuload3(){
+        load3.start("killall glmark2-es2-wayland");
+        load3.waitForFinished();
+        load3.start("/home/root/jacinto_oob/gpu_load_level_3.sh");
+    }
+    Q_INVOKABLE void gpuload4(){
+        load4.start("killall glmark2-es2-wayland");
+        load4.waitForFinished();
+        load4.start("/home/root/jacinto_oob/gpu_load_level_4.sh");
     }
 
     string replaceAll(string str, const string &remove, const string &insert) {
