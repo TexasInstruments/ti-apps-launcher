@@ -272,6 +272,7 @@ Window {
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
                             slider.visible = true
+                            slider2.visible = true
                         } else {
                             mediaplayer1.source = " "
                             leftMenuButton1.enabled = true
@@ -282,6 +283,7 @@ Window {
                             leftMenuButton6.enabled = true
                             leftMenuButton7.enabled = true
                             slider.visible = false
+                            slider2.visible = false
                         }
                     }
                 }
@@ -1472,6 +1474,35 @@ Window {
                   
                         //    video.play()
                         }
+                    }
+                }
+            }
+            Slider {
+                id: slider2
+                orientation: Qt.Vertical
+                from: 0
+                to: 100
+                value: 50
+                stepSize: 1
+                anchors.centerIn: parent
+                visible:false
+                width: parent.width * 0.6
+                onValueChanged: {
+                    if (value < 20) {
+                    //    gpulevel.text = qsTr("0")
+                        backend.gpuload0()
+                    }
+                    else if (value < 40) {
+                        backend.gpuload1()
+                    }
+                    else if (value < 60) {
+                        backend.gpuload2()
+                    }
+                    else if (value < 80) {
+                        backend.gpuload3()
+                    }
+                    else {
+                        backend.gpuload4()
                     }
                 }
             }
