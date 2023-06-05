@@ -413,6 +413,7 @@ Window {
             anchors.top: topBar.bottom
             anchors.left: leftMenu.right
             anchors.rightMargin: parent.width * 0.025
+            property int count: 0
         
 
             Rectangle {
