@@ -218,7 +218,7 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton3.checked) {
-                            mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
+                           // mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
                             leftMenuButton1.enabled = false
                             leftMenuButton2.enabled = false
                           //  leftMenuButton3.enabled = false
@@ -262,8 +262,8 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton4.checked) {
-                            popupError.text = " "
-                            popup.open()
+                        //    popupError.text = " "
+                        //    popup.open()
                             leftMenuButton1.enabled = false
                             leftMenuButton2.enabled = false
                             leftMenuButton3.enabled = false
@@ -271,6 +271,7 @@ Window {
                             leftMenuButton5.enabled = false
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
+                            slider.visible = true
                         } else {
                             mediaplayer1.source = " "
                             leftMenuButton1.enabled = true
@@ -280,6 +281,7 @@ Window {
                             leftMenuButton5.enabled = true
                             leftMenuButton6.enabled = true
                             leftMenuButton7.enabled = true
+                            slider.visible = false
                         }
                     }
                 }
@@ -1473,6 +1475,119 @@ Window {
                     }
                 }
             }
+            Rectangle {
+                id: slider
+                visible: false
+                width: parent.width * 0.075
+                height: parent.height * 0.6
+                anchors.top: parent.top
+                anchors.topMargin: parent.height * 0.2
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width * 0.85
+                anchors.right: parent.right
+                anchors.rightMargin: parent.width * 0.075
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: parent.height * 0.2
+                color: "#17252A"
+                
+                Rectangle {
+                    id:level0
+                    width: parent.width
+                    height: parent.height * 0.2
+                    anchors.bottom: parent.bottom
+                    color: "#17252A"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            if(leftMenuButton4.checked) {
+                                sliderfill.height = slider.height * 0.2
+                                gpulevel.text = qsTr("0")
+                                backend.gpuload0()
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id:level1
+                    width: parent.width
+                    height: parent.height * 0.2
+                    anchors.bottom: level0.top
+                    color: "#17252A"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            if(leftMenuButton4.checked) {
+                                sliderfill.height = slider.height * 0.4
+                                gpulevel.text = qsTr("1")
+                                backend.gpuload1()
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id:level2
+                    width: parent.width
+                    height: parent.height * 0.2
+                    anchors.bottom: level1.top
+                    color: "#17252A"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            if(leftMenuButton4.checked) {
+                                sliderfill.height = slider.height * 0.6
+                                gpulevel.text = qsTr("2")
+                                backend.gpuload2()
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id:level3
+                    width: parent.width
+                    height: parent.height * 0.2
+                    anchors.bottom: level2.top
+                    color: "#17252A"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            if(leftMenuButton4.checked) {
+                                sliderfill.height = slider.height * 0.8
+                                gpulevel.text = qsTr("3")
+                                backend.gpuload3()
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id:level4
+                    width: parent.width
+                    height: parent.height * 0.2
+                    anchors.bottom: level3.top
+                    color: "#17252A"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            if(leftMenuButton4.checked) {
+                                sliderfill.height = slider.height 
+                                gpulevel.text = qsTr("4")
+                                backend.gpuload4()
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id: sliderfill
+                    color: "#FFFFFF"
+                    width: parent.width
+                    height: parent.height * 0.2
+                    anchors.bottom: parent.bottom
+                }
+                Text {
+                    id: gpulevel
+                    text: qsTr("0")
+                    color: "#F44336"
+                    font.pixelSize: parent.width * 0.40
+                    anchors.centerIn: parent
                 }
             }
         }
