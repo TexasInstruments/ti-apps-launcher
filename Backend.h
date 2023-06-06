@@ -502,21 +502,35 @@ public:
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
 
+    QString stdout1,stdout11;
+    QProcess process1,process11;
     QString stdout1;
     QProcess process1;
     Q_INVOKABLE void playbutton1pressed()
     {
+        process1.start("glmark2-es2-wayland");
         process1.start("/home/root/glmanhatscript.sh");
        //process1.start("glmark2-es2-wayland");
+    }
+    Q_INVOKABLE void playbutton1pressedagain()
+    {
+        process11.start("killall glmark2-es2-wayland");
+        process11.waitForFinished();
+        stdout11= process11.readAllStandardOutput();
     }
     Q_INVOKABLE QString playbutton1fps()
     {
         stdout1 = process1.readAllStandardOutput();
+        qDebug()<<stdout1;
+        return stdout1.mid(stdout1.indexOf("FPS")+7,6);
         //qDebug()<<stdout1;
         return stdout1.mid(stdout1.indexOf("\"fps\":")+7,6);
     }
     Q_INVOKABLE QString playbutton1score()
     {
+        //stdout11= process11.readAllStandardOutput();
+        //qDebug()<<stdout11;
+        return stdout1.mid(stdout1.indexOf("Score")+7,5);
         return stdout1.mid(stdout1.indexOf("score")+8,7);
     }
     

@@ -1398,6 +1398,7 @@ Window {
                     width: parent.width * 0.25
                     anchors.top:parent.top
                     anchors.left:index02.right
+                    property int flag1: 0
                     
                     Image {
                         id: playmanhat
@@ -1411,8 +1412,18 @@ Window {
                             anchors.fill: parent
                             onClicked: {
                                 if(leftMenuButton3.checked) {
-                                    backend.playbutton1pressed()
-                                    playbutton1timer.running = true
+                                    if(index03.flag1 == 0) {
+                                        backend.playbutton1pressed()
+                                        index03.flag1 = 1
+                                        playbutton1timer.running = true
+                                    }
+                                    else {
+                                        backend.playbutton1pressedagain()
+                                        index03.flag1 = 0
+                                        playbutton1timer.running = false
+                                        //index01text.text = backend.playbutton1fps()
+                                        //index02text.text = backend.playbutton1score()
+                                    }
                                 }
                             }
                         }
@@ -1423,6 +1434,7 @@ Window {
                         running: false
                         repeat: false
                         onTriggered: {
+                            index03.flag1 = 0
                             index01text.text = backend.playbutton1fps()
                             index02text.text = backend.playbutton1score()
                         }
