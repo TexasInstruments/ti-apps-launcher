@@ -179,7 +179,8 @@ Window {
                             leftMenuButton5.enabled = false
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
-                             videoOutput.visible = true
+                             
+                            // videoOutput.visible = true
                             backend.playcam()
                             recordbutton.visible = true
                         } else {
@@ -192,7 +193,7 @@ Window {
                             leftMenuButton6.enabled = true
                             leftMenuButton7.enabled = true
 
-                            videoOutput.visibile = false
+                          //  videoOutput.visibile = false
                             recordbutton.visible = false
                             backend.stopcam();
                         }
@@ -271,7 +272,6 @@ Window {
                             leftMenuButton5.enabled = false
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
-                            slider.visible = true
                             slider2.visible = true
                         } else {
                             mediaplayer1.source = " "
@@ -282,7 +282,6 @@ Window {
                             leftMenuButton5.enabled = true
                             leftMenuButton6.enabled = true
                             leftMenuButton7.enabled = true
-                            slider.visible = false
                             slider2.visible = false
                         }
                     }
@@ -1448,21 +1447,6 @@ Window {
                     anchors.left:index02.right
                 }
             }
-            Item {
-                width: 640
-                height: 480
-                
-                Camera {
-                    id: camera
-                    //deviceId: QtMultimedia.defaultCamera.deviceId
-                    captureMode: Camera.CaptureVideo
-                    //videoRecorder.Codec: "video/mp4"
-                    //videoRecorder.outputLocation: Qt.resolvedUrl("output.mp4")
-                }
-
-                VideoOutput {
-                    id: videoOutput
-                    source: camera
             Image {
                 id: recordbutton
                 height: parent.height * 0.1
