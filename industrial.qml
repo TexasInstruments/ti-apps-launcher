@@ -29,7 +29,7 @@ Window {
             id: motorimage
             source: "images/servo-drives-icon.png"
             fillMode: Image.PreserveAspectFit
-            anchors.left: parent.left
+            anchors.left: parent.left 
             anchors.leftMargin: window.width * 0.02
             anchors.right: parent.right
             anchors.rightMargin: window.width * 0.87
@@ -37,7 +37,6 @@ Window {
             anchors.topMargin: window.height * 0.01
             anchors.bottom: parent.bottom
             anchors.bottomMargin: window.height * 0.80
-
         }
         //Image {
         //    id: tilogoimage

@@ -501,6 +501,14 @@ public:
 
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
+    Q_INVOKABLE QString getcpuload(){
+        QProcess process;
+        process.start("cat /sys/kernel/debug/pvr/status");
+        process.waitForFinished(-1);
+        QString output = process.readAllStandardOutput();
+
+        return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
+    }
 
     QString stdout1,stdout11;
     QProcess process1,process11;

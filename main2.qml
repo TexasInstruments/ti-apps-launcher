@@ -474,14 +474,16 @@ Window {
                     anchors.margins: parent.border.width * 2
                 } 
             }
-            Item {
-                //width: parent.width
-                //height: parent.height
-                anchors.centerIn: mainWindow
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
+            Window{
+                width: 1000
+                height: 480
+                x: 100
+                y: 100
+                //anchors.centerIn: parent
+                //anchors.top: parent.top
+                //anchors.left: parent.left
+                //anchors.right: parent.right
+                //anchors.bottom: parent.bottom
                 Loader {
                     id:qmlloader
 
@@ -524,17 +526,53 @@ Window {
                     font.pixelSize: parent.width * 0.20
                     anchors.centerIn: parent
                 }
+                Timer {
+                    interval: 1000 // interval in milliseconds
+                    running: true // start the timer
+                    repeat: true // repeat the timer
+                    onTriggered: {
+                        gpuload.text = backend.getgpuload()
+                        gpubarfill.height = gpuload.text * gpubar.height * 0.01
+                    }
+                }
             }
-        }
-        Timer {
-            interval: 1000 // interval in milliseconds
-            running: true // start the timer
-            repeat: true // repeat the timer
-            onTriggered: {
-                gpuload.text = backend.getgpuload()
-                gpubarfill.height = gpuload.text * gpubar.height * 0.01
+            Rectangle {
+                id: cpubar
+                width: parent.width * 0.1
+                height: parent.height * 0.8
+                color: "#A0A0A0"
+                anchors.top: parent.top
+                anchors.topMargin: parent.height * 0.1
+                anchors.left: gpubar.right
+                anchors.leftMargin: parent.width * 0.05
+                Rectangle {
+                    id: cpubarfill
+                    color: "#FFFFFF"
+                    width: parent.width
+                    height: 0
+                    anchors.bottom: parent.bottom
+                }
+                Text {
+                    id: cpuload
+                    text: qsTr("0")
+                    color: "#F44336"
+                    font.pixelSize: parent.width * 0.20
+                    anchors.centerIn: parent
+                }
+                Timer {
+                    interval: 1000 // interval in milliseconds
+                    running: true // start the timer
+                    repeat: true // repeat the timer
+                    onTriggered: {
+                        cpuload.text = backend.getcpuload()
+                        cpubarfill.height = cpuload.text * cpubar.height * 0.01
+                    }
+                }
             }
+            
         }
+        
+
         Rectangle {
             id: deviceInfo
             anchors.left: mainWindow.left
