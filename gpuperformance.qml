@@ -17,8 +17,8 @@ Window {
     title : qsTr("GPUperformance")
     Rectangle {
         id: backgroundrect
-        width: gpuperformancewindow.width
-        height: gpuperformancewindow.height
+        width: parent.width
+        height: parent.height
         color: "#A0A0A0"
         Slider {
             id: slider2

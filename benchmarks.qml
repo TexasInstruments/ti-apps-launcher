@@ -16,8 +16,8 @@ Window {
     title : qsTr("Benchmarks")
     Rectangle {
         id: backgroundrect
-        width: button2window.width
-        height: button2window.height
+        width: parent.width
+        height: parent.height
         Image {
             id: backgroundimage
             source:"images/Background.png"

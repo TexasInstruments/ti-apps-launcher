@@ -5,9 +5,10 @@
         <file>benchmarks.qml</file>
         <file>stats.qml</file>
         <file>gpuperformance.qml</file>
+
         <file>images/Texas-Instruments.png</file>
+
         <file>images/Top_Righ_Box.png</file>
-       
         <file>images/Status_Message.png</file>
         <file>images/Control_Panel_with_text.png</file>
         <file>images/Center_Box.png</file>

@@ -495,7 +495,7 @@ public:
 
     Q_INVOKABLE QString getgpuload(){
         QProcess process;
-        process.start("/home/root/get_gpu_load.sh");
+        process.start("cat /sys/kernel/debug/pvr/status");
         process.waitForFinished(-1);
         QString output = process.readAllStandardOutput();
 
@@ -504,14 +504,12 @@ public:
 
     QString stdout1,stdout11;
     QProcess process1,process11;
-    QString stdout1;
-    QProcess process1;
     Q_INVOKABLE void playbutton1pressed()
     {
         process1.start("glmark2-es2-wayland");
-        process1.start("/home/root/glmanhatscript.sh");
        //process1.start("glmark2-es2-wayland");
     }
+    
     Q_INVOKABLE void playbutton1pressedagain()
     {
         process11.start("killall glmark2-es2-wayland");
@@ -523,15 +521,12 @@ public:
         stdout1 = process1.readAllStandardOutput();
         qDebug()<<stdout1;
         return stdout1.mid(stdout1.indexOf("FPS")+7,6);
-        //qDebug()<<stdout1;
-        return stdout1.mid(stdout1.indexOf("\"fps\":")+7,6);
     }
     Q_INVOKABLE QString playbutton1score()
     {
         //stdout11= process11.readAllStandardOutput();
         //qDebug()<<stdout11;
         return stdout1.mid(stdout1.indexOf("Score")+7,5);
-        return stdout1.mid(stdout1.indexOf("score")+8,7);
     }
     
     //gpuperformance

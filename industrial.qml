@@ -584,84 +584,84 @@ Window {
                 }
             }
         }
-        Image {
-            id: renderimage
-            source: "images/3D_with_text.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.top: parent.top
-            anchors.topMargin: window.height * 0.29
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: window.height * 0.68
-            anchors.right: parent.right
-            anchors.rightMargin: window.width * 0.94
-            anchors.left: parent.left
-            anchors.leftMargin: window.width * 0.03
-            Rectangle{
-                id:renderfill
-                color: "transparent"
-                z: -1
-                x: -1 * (parent.width)
-                width: parent.width * 5.2
-                height: parent.height * 1.5
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: {
-                        renderfill.color = "#C6C6C6"
-                    }
-                    onExited: {
-                        renderfill.color = "transparent"
-                    }
-                    onClicked: {
-                        renderfill.color = "#C6C6C6"
-                        textupdate.text = "Launching 3D Demo .."
-                        Qt.exit(0x3D)
-                    }
-                    onReleased: {
-                        renderfill.color = "transparent"
-                    }
-                }
-            }
-        }
-        Image {
-            id: analyticsimage
-            source: "images/Camera_with_text.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.top: parent.top
-            anchors.topMargin: window.height * 0.38
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: window.height * 0.59
-            anchors.right: parent.right
-            anchors.rightMargin: window.width * 0.91
-            anchors.left: parent.left
-            anchors.leftMargin: window.width * 0.03
-            Rectangle{
-                id:analyticsill
-                color: "transparent"
-                z: -1
-                x: -1 * (parent.width)
-                width: parent.width * 3.1
-                height: parent.height * 1.5
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: {
-                        analyticsill.color = "#C6C6C6"
-                    }
-                    onExited: {
-                        analyticsill.color = "transparent"
-                    }
-                    onClicked: {
-                        analyticsill.color = "#C6C6C6"
-                        textupdate.text = "Launching Camera Demo .."
-                        Qt.exit(0xC)
-                    }
-                    onReleased: {
-                        analyticsill.color = "transparent"
-                    }
-                }
-            }
-        }
+        //Image {
+        //    id: renderimage
+        //    source: "images/3D_with_text.png"
+        //    fillMode: Image.PreserveAspectFit
+        //    anchors.top: parent.top
+        //    anchors.topMargin: window.height * 0.29
+        //    anchors.bottom: parent.bottom
+        //    anchors.bottomMargin: window.height * 0.68
+        //    anchors.right: parent.right
+        //    anchors.rightMargin: window.width * 0.94
+        //    anchors.left: parent.left
+        //    anchors.leftMargin: window.width * 0.03
+        //    Rectangle{
+        //        id:renderfill
+        //        color: "transparent"
+        //        z: -1
+        //        x: -1 * (parent.width)
+        //        width: parent.width * 5.2
+        //        height: parent.height * 1.5
+        //        MouseArea {
+        //            anchors.fill: parent
+        //            hoverEnabled: true
+        //            onEntered: {
+        //                renderfill.color = "#C6C6C6"
+        //            }
+        //            onExited: {
+        //                renderfill.color = "transparent"
+        //            }
+        //            onClicked: {
+        //                renderfill.color = "#C6C6C6"
+        //                textupdate.text = "Launching 3D Demo .."
+        //                Qt.exit(0x3D)
+        //            }
+        //            onReleased: {
+        //                renderfill.color = "transparent"
+        //            }
+        //        }
+        //    }
+        //}
+        //Image {
+        //    id: analyticsimage
+        //    source: "images/Camera_with_text.png"
+        //    fillMode: Image.PreserveAspectFit
+        //    anchors.top: parent.top
+        //    anchors.topMargin: window.height * 0.38
+        //    anchors.bottom: parent.bottom
+        //    anchors.bottomMargin: window.height * 0.59
+        //    anchors.right: parent.right
+        //    anchors.rightMargin: window.width * 0.91
+        //    anchors.left: parent.left
+        //    anchors.leftMargin: window.width * 0.03
+        //    Rectangle{
+        //        id:analyticsill
+        //        color: "transparent"
+        //        z: -1
+        //        x: -1 * (parent.width)
+        //        width: parent.width * 3.1
+        //        height: parent.height * 1.5
+        //        MouseArea {
+        //            anchors.fill: parent
+        //            hoverEnabled: true
+        //            onEntered: {
+        //                analyticsill.color = "#C6C6C6"
+        //            }
+        //            onExited: {
+        //                analyticsill.color = "transparent"
+        //            }
+        //            onClicked: {
+        //                analyticsill.color = "#C6C6C6"
+        //                textupdate.text = "Launching Camera Demo .."
+        //                Qt.exit(0xC)
+        //            }
+        //            onReleased: {
+        //                analyticsill.color = "transparent"
+        //            }
+        //        }
+        //    }
+        //}
         Image {
             id: statusheader
             source: "images/Status_Message.png"
