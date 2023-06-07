@@ -436,7 +436,7 @@ Window {
 
                 radius: 10
                 color: "#17252A"
-
+                    
                 Image {
                     id:mainimg
                     visible: true

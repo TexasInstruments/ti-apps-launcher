@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/main2.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 

@@ -7,8 +7,12 @@ import QtQuick.Layouts 1.3
 Window {
     id: window
     visible: true
-    visibility: "FullScreen"
-    title: qsTr("AM62 HMI Demo")
+    width: 640
+    height: 480
+    //anchors.centerIn: mainWindow
+    //visibility: "FullScreen"
+    
+    title: qsTr("Industrial Control")
 
     Rectangle {
         id: backgroundrect
@@ -35,19 +39,19 @@ Window {
             anchors.bottomMargin: window.height * 0.80
 
         }
-        Image {
-            id: tilogoimage
-            source: "images/Texas-Instrument.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.left: parent.left
-            anchors.leftMargin: window.width * 0.70
-            anchors.right: parent.right
-            anchors.rightMargin: window.width * 0.10
-            anchors.top: parent.top
-            anchors.topMargin: window.height * 0.04
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: window.height * 0.80
-        }
+        //Image {
+        //    id: tilogoimage
+        //    source: "images/Texas-Instrument.png"
+        //    fillMode: Image.PreserveAspectFit
+        //    anchors.left: parent.left
+        //    anchors.leftMargin: window.width * 0.70
+        //    anchors.right: parent.right
+        //    anchors.rightMargin: window.width * 0.10
+        //    anchors.top: parent.top
+        //    anchors.topMargin: window.height * 0.04
+        //    anchors.bottom: parent.bottom
+        //    anchors.bottomMargin: window.height * 0.80
+        //}
 
         Image {
             id: toprb

@@ -12,7 +12,9 @@ import QtQuick.Layouts 1.3
 Window {
     id: button2window
     visible: true
-    visibility: "FullScreen"
+    width: 640
+    height: 480
+    //visibility: "FullScreen"
     title : qsTr("Benchmarks")
     Rectangle {
         id: backgroundrect

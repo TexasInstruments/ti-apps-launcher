@@ -13,7 +13,9 @@ import QtQuick.Layouts 1.3
 Window {
     id: gpuperformancewindow
     visible: true
-    visibility: "FullScreen"
+    width: 640
+    height: 480
+    //visibility: "FullScreen"
     title : qsTr("GPUperformance")
     Rectangle {
         id: backgroundrect
