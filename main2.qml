@@ -132,7 +132,7 @@ Window {
 
                             
                             //window.visible = true
-                            qmlloader.active = true
+                            //qmlloader.active = true
                             qmlloader.source = "industrial.qml"
                             
                             //qmlloader.active = true
@@ -236,7 +236,7 @@ Window {
                             leftMenuButton7.enabled = false
 
                             //benchmarkswindow.visible = true
-                            qmlloader.active = true
+                            //qmlloader.active = true
                             qmlloader.source = "benchmarks.qml"
                         } else {
                             mediaplayer1.source = " "
@@ -474,24 +474,15 @@ Window {
                     anchors.margins: parent.border.width * 2
                 } 
             }
-            Window{
-                width: 1000
-                height: 480
-                x: 100
-                y: 100
-                //anchors.centerIn: parent
-                //anchors.top: parent.top
-                //anchors.left: parent.left
-                //anchors.right: parent.right
-                //anchors.bottom: parent.bottom
+            Item{
+                anchors.centerIn: parent
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
                 Loader {
                     id:qmlloader
-
                     anchors.centerIn: parent
-                    //anchors.fill: parent
-
-                    //width: mainWindow.width
-                    //height: mainWindow.height
                 }
             }
         }
@@ -502,74 +493,19 @@ Window {
             anchors.right: mainWindow.right
             anchors.top: mainWindow.bottom
             height: parent.height * 0.24
-            color: "#17252A"
-            Rectangle {
-                id: gpubar
-                width: parent.width * 0.1
-                height: parent.height * 0.8
-                color: "#A0A0A0"
+            color: "#17252A" 
+            Item{
+                anchors.centerIn: parent
                 anchors.top: parent.top
-                anchors.topMargin: parent.height * 0.1
                 anchors.left: parent.left
-                anchors.leftMargin: parent.width * 0.05
-                Rectangle {
-                    id: gpubarfill
-                    color: "#FFFFFF"
-                    width: parent.width
-                    height: 0
-                    anchors.bottom: parent.bottom
-                }
-                Text {
-                    id: gpuload
-                    text: qsTr("0")
-                    color: "#F44336"
-                    font.pixelSize: parent.width * 0.20
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                Loader {
+                    id:statsloader
                     anchors.centerIn: parent
-                }
-                Timer {
-                    interval: 1000 // interval in milliseconds
-                    running: true // start the timer
-                    repeat: true // repeat the timer
-                    onTriggered: {
-                        gpuload.text = backend.getgpuload()
-                        gpubarfill.height = gpuload.text * gpubar.height * 0.01
-                    }
+                    source: "stats.qml"
                 }
             }
-            Rectangle {
-                id: cpubar
-                width: parent.width * 0.1
-                height: parent.height * 0.8
-                color: "#A0A0A0"
-                anchors.top: parent.top
-                anchors.topMargin: parent.height * 0.1
-                anchors.left: gpubar.right
-                anchors.leftMargin: parent.width * 0.05
-                Rectangle {
-                    id: cpubarfill
-                    color: "#FFFFFF"
-                    width: parent.width
-                    height: 0
-                    anchors.bottom: parent.bottom
-                }
-                Text {
-                    id: cpuload
-                    text: qsTr("0")
-                    color: "#F44336"
-                    font.pixelSize: parent.width * 0.20
-                    anchors.centerIn: parent
-                }
-                Timer {
-                    interval: 1000 // interval in milliseconds
-                    running: true // start the timer
-                    repeat: true // repeat the timer
-                    onTriggered: {
-                        cpuload.text = backend.getcpuload()
-                        cpubarfill.height = cpuload.text * cpubar.height * 0.01
-                    }
-                }
-            }
-            
         }
         
 

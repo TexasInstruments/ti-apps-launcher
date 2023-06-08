@@ -4,15 +4,12 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 
-Window {
+Rectangle{
     id: window
-    visible: true
-    width: 640
-    height: 480
-    //anchors.centerIn: mainWindow
-    //visibility: "FullScreen"
+   
+    height: 648
+    width: 1584
     
-    title: qsTr("Industrial Control")
 
     Rectangle {
         id: backgroundrect

@@ -9,13 +9,12 @@ import Qt.labs.folderlistmodel 2.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
-Window {
+Rectangle {
     id: camerarecorder
     visible: true
-    width: 640
-    height: 480
-    //visibility: "FullScreen"
-    title : qsTr("Camera Recorder")
+    width: 1584
+    height: 648
+    
     property int count:0
     Rectangle {
         id: backgroundrect

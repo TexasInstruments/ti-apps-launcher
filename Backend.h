@@ -1,5 +1,6 @@
 #include <QObject>
 #include <iostream>
+
 #include <sstream>
 #include <fstream>
 #include <map>
@@ -501,14 +502,38 @@ public:
 
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
-    Q_INVOKABLE QString getcpuload(){
-        QProcess process;
-        process.start("cat /sys/kernel/debug/pvr/status");
-        process.waitForFinished(-1);
-        QString output = process.readAllStandardOutput();
-
-        return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
-    }
+    //Q_INVOKABLE void getcpuload(){
+    //    QProcess process;
+    //    process.start("cat /proc/stat");
+    //    process.waitForFinished(-1);
+    //    QString cpuoutput = process.readAllStandardOutput();
+    //    //QStringList list = cpuoutput.split(" ");
+    //    //qDebug()<<list;
+    //    int spc=0;
+    //    int totaltime=0,idletime=0;
+    //    int curr=0,i;
+    //    for(i=0;i<cpuoutput.length();i++)
+    //    {
+    //        QChar c= cpuoutput.at(i);
+    //        if(c==" "||c=='\n')
+    //        {spc++;
+    //         total+=curr;
+    //         curr=0;
+    //         
+    //        }
+    //        if(c=="\n")
+    //        break;
+    //        if(cpuoutput[i].isDigit())
+    //        {
+    //            int asci
+    //        }
+    //    }
+    //    //char res[200]= cpuoutput;
+    //    //QString req ="";
+//
+    //    qDebug()<<i;
+    //    //return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
+    //}
 
     QString stdout1,stdout11;
     QProcess process1,process11;

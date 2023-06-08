@@ -10,11 +10,11 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 
-Window {
+Rectangle {
     id: statswindow
     visible: true
-    visibility: "FullScreen"
-    title : qsTr("Statswindow")
+    width: 1584
+    height: 259.2
     Rectangle {
         id: backgroundrect
         width: statswindow.width
@@ -48,14 +48,48 @@ Window {
                 font.pixelSize: parent.width * 0.20
                 anchors.centerIn: parent
             }
+            Timer {
+                interval: 1000 // interval in milliseconds
+                running: true // start the timer
+                repeat: true // repeat the timer
+                onTriggered: {
+                    gpuload.text = backend.getgpuload()
+                    gpubarfill.height = gpuload.text * gpubar.height * 0.01
+                }
+            }
         }
-        Timer {
-            interval: 1000 // interval in milliseconds
-            running: true // start the timer
-            repeat: true // repeat the timer
-            onTriggered: {
-                gpuload.text = backend.getgpuload()
-                gpubarfill.height = gpuload.text * gpubar.height * 0.01
+        Rectangle {
+            id: cpubar
+            width: parent.width * 0.1
+            height: parent.height * 0.8
+            color: "#A0A0A0"
+            anchors.top: parent.top
+            anchors.topMargin: parent.height * 0.1
+            anchors.left: gpubar.right
+            anchors.leftMargin: parent.width * 0.05
+            Rectangle {
+                id: cpubarfill
+                color: "#FFFFFF"
+                width: parent.width
+                height: 0
+                anchors.bottom: parent.bottom
+            }
+            Text {
+                id: cpuload
+                text: qsTr("0")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.20
+                anchors.centerIn: parent
+            }
+            Timer {
+                interval: 1000 // interval in milliseconds
+                running: true // start the timer
+                repeat: false // repeat the timer
+                onTriggered: {
+                    //backend.getcpuload()
+                    //cpuload.text = backend.getcpuload()
+                    //cpubarfill.height = cpuload.text * cpubar.height * 0.01
+                }
             }
         }
     }

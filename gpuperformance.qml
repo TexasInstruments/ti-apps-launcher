@@ -10,13 +10,12 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 
-Window {
+Rectangle {
     id: gpuperformancewindow
     visible: true
-    width: 640
-    height: 480
-    //visibility: "FullScreen"
-    title : qsTr("GPUperformance")
+    width: 1584
+    height: 648
+  
     Rectangle {
         id: backgroundrect
         width: parent.width
@@ -27,7 +26,7 @@ Window {
             orientation: Qt.Vertical
             from: 0
             to: 100
-            value: 50
+            value: 0
             stepSize: 1
             anchors.right: parent.right
             anchors.rightMargin: parent.width * 0.05
