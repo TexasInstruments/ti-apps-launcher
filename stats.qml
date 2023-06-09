@@ -84,11 +84,10 @@ Rectangle {
             Timer {
                 interval: 1000 // interval in milliseconds
                 running: true // start the timer
-                repeat: false // repeat the timer
+                repeat: true // repeat the timer
                 onTriggered: {
-                    //backend.getcpuload()
-                    //cpuload.text = backend.getcpuload()
-                    //cpubarfill.height = cpuload.text * cpubar.height * 0.01
+                    cpuload.text = backend.getcpuload()
+                    cpubarfill.height = cpuload.text * cpubar.height * 0.01
                 }
             }
         }

@@ -561,10 +561,11 @@ Rectangle{
             Rectangle{
                 id:controlfill
                 color: "transparent"
-                z: -1
-                x: -1 * (parent.width)
-                width: parent.width * 2.56
+                //z: -1
+                //x: -1 * (parent.width)
+                width: parent.width * 1.8
                 height: parent.height * 1.5
+                anchors.centerIn: parent
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
