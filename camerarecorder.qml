@@ -13,8 +13,7 @@ Rectangle {
     id: camerarecorder
     visible: true
     width: 1584
-    height: 648
-    
+    height: 648    
     property int count:0
     Rectangle {
         id: backgroundrect
@@ -26,6 +25,14 @@ Rectangle {
             width: parent.width
             height: parent.height
         }
+        Video {
+            id: video
+            width: 800
+            height: 600
+            source: "/home/root/xyz.avi"
+            fillMode: VideoOutput.Stretch
+            audioRole: VideoOutput.PreferredRole
+        }
         Image {
             id: recordbutton
             height: parent.height * 0.1
@@ -36,6 +43,8 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    //backend.stopcam()
+                    //video.play()
                     if(camerarecorder.count==0) {
                         backend.startrec()
                         camerarecorder.count = 1

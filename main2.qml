@@ -300,6 +300,7 @@ Window {
                         
                             //slider2.visible = false
                             qmlloader.source = ""
+                            backend.gpuload0()
                         }
                     }
                 }

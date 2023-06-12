@@ -480,7 +480,8 @@ public:
     Q_INVOKABLE void startrec() {
         startrecording.start("killall gst-launch-1.0");
         startrecording.waitForFinished(-1);
-        startrecording.start("gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=1280, height=720 ! tee name=t t. ! queue ! jpegdec ! tiovxdlcolorconvert ! video/x-raw ! waylandsink t. ! queue ! filesink location=xyz.mp4");
+        //startrecording.start("gst-launch-1.0 v4l2src device=/dev/video2 ! video/x-raw,width=640,height=480 ! x264enc ! mp4mux ! filesink location=test.mp4");
+        startrecording.start("gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=640, height=480 ! tee name=t t. ! queue ! jpegdec ! tiovxdlcolorconvert ! video/x-raw ! waylandsink t. ! queue ! filesink location=xyz.avi");
     }
     QProcess stoprecording;
     Q_INVOKABLE void stoprec() {
@@ -489,12 +490,11 @@ public:
         playcam();
     }
     QProcess camstop;
-    Q_INVOKABLE void stopcam()
-    {
+    Q_INVOKABLE void stopcam() {
         camstop.start("killall gst-launch-1.0");
     }
 
-    Q_INVOKABLE QString getgpuload(){
+    Q_INVOKABLE QString getgpuload() {
         QProcess process;
         process.start("cat /sys/kernel/debug/pvr/status");
         process.waitForFinished(-1);
@@ -502,6 +502,11 @@ public:
 
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
+    //QProcess loadgen;
+    //Q_INVOKABLE void cpuloadgen() {
+    //    loadgen.start("cpuloadgen 50 50 10");
+    //}
+
     Q_INVOKABLE QString getcpuload(){
         QProcess process;
         process.start("cat /proc/stat");
@@ -519,7 +524,6 @@ public:
              if(spc==6||spc==7)
              idletime+=curr;
              curr=0;
-             
             }
             if(c=="\n")
             break;
@@ -529,35 +533,30 @@ public:
                 curr*=10;curr+=d;
             }
         }
-        qDebug()<<idletime<<totaltime;
-        double load = (totaltime-idletime)/totaltime;
-        load*=100;
+        double load = (totaltime-idletime)*100;
+        load/=totaltime;
         QString res = QString::number(load);
-        return res;
+        qDebug()<<res;
+        return res.mid(0,5);
     }
 
     QString stdout1,stdout11;
     QProcess process1,process11;
-    Q_INVOKABLE void playbutton1pressed()
-    {
+    Q_INVOKABLE void playbutton1pressed() {
         process1.start("glmark2-es2-wayland");
-       //process1.start("glmark2-es2-wayland");
     }
     
-    Q_INVOKABLE void playbutton1pressedagain()
-    {
+    Q_INVOKABLE void playbutton1pressedagain() {
         process11.start("killall glmark2-es2-wayland");
         process11.waitForFinished();
         stdout11= process11.readAllStandardOutput();
     }
-    Q_INVOKABLE QString playbutton1fps()
-    {
+    Q_INVOKABLE QString playbutton1fps() {
         stdout1 = process1.readAllStandardOutput();
         qDebug()<<stdout1;
         return stdout1.mid(stdout1.indexOf("FPS")+7,6);
     }
-    Q_INVOKABLE QString playbutton1score()
-    {
+    Q_INVOKABLE QString playbutton1score() {
         //stdout11= process11.readAllStandardOutput();
         //qDebug()<<stdout11;
         return stdout1.mid(stdout1.indexOf("Score")+7,5);
@@ -566,27 +565,32 @@ public:
     //gpuperformance
     QProcess load0,load1,load2,load3,load4;
     Q_INVOKABLE void gpuload0(){
+        load0.kill();
         load0.start("killall glmark2-es2-wayland");
     }
     Q_INVOKABLE void gpuload1(){
+        load1.kill();
         load1.start("killall glmark2-es2-wayland");
         load1.waitForFinished();
         load1.start("glmark2-es2-wayland -b buffer:duration=100");
     }
     Q_INVOKABLE void gpuload2(){
+        load2.kill();
         load2.start("killall glmark2-es2-wayland");
         load2.waitForFinished();
         load2.start("glmark2-es2-wayland -b ideas:duration=100");
     }
     Q_INVOKABLE void gpuload3(){
+        load3.kill();
         load3.start("killall glmark2-es2-wayland");
         load3.waitForFinished();
-        load3.start("/home/root/jacinto_oob/gpu_load_level_3.sh");
+        load3.start("glmark2-es2-wayland -b texture:duration=100");
     }
     Q_INVOKABLE void gpuload4(){
+        load4.kill();
         load4.start("killall glmark2-es2-wayland");
         load4.waitForFinished();
-        load4.start("/home/root/jacinto_oob/gpu_load_level_4.sh");
+        load4.start("glmark2-es2-wayland -b terrain:duration=100");
     }
 
     string replaceAll(string str, const string &remove, const string &insert) {
