@@ -35,14 +35,14 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    //backend2.stopcam()
+                    //camrecbackend.stopcam()
                     //video.play()
                     if(camerarecorder.count==0) {
-                        backend2.startrec()
+                        camrecbackend.startrec()
                         camerarecorder.count = 1
                     }
                     else {
-                        backend2.stoprec()
+                        camrecbackend.stoprec()
                         camerarecorder.count = 0
                     }
                 }

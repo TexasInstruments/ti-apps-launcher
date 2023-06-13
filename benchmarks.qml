@@ -103,16 +103,16 @@ Rectangle {
                         anchors.fill: parent
                         onClicked: {
                             if(index03.flag1 == 0) {
-                                backend3.playbutton1pressed()
+                                benchmarksbackend.playbutton1pressed()
                                 index03.flag1 = 1
                                 playbutton1timer.running = true
                             }
                             else {
-                                backend3.playbutton1pressedagain()
+                                benchmarksbackend.playbutton1pressedagain()
                                 index03.flag1 = 0
                                 playbutton1timer.running = false
-                                //index01text.text = backend3.playbutton1fps()
-                                //index02text.text = backend3.playbutton1score()
+                                //index01text.text = benchmarksbackend.playbutton1fps()
+                                //index02text.text = benchmarksbackend.playbutton1score()
                             }
                         }
                     }
@@ -124,8 +124,8 @@ Rectangle {
                     repeat: false
                     onTriggered: {
                         index03.flag1 = 0
-                        index01text.text = backend3.playbutton1fps()
-                        index02text.text = backend3.playbutton1score()
+                        index01text.text = benchmarksbackend.playbutton1fps()
+                        index02text.text = benchmarksbackend.playbutton1score()
                     }
                 }
             }

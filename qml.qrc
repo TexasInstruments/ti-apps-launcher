@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>main2.qml</file>
+        <file>main.qml</file>
         <file>industrial.qml</file>
         <file>benchmarks.qml</file>
         <file>stats.qml</file>
