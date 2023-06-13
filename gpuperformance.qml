@@ -41,19 +41,19 @@ Rectangle {
         //    onValueChanged: {
         //        if (value < 20) {
         //        //    gpulevel.text = qsTr("0")
-        //            backend.gpuload0()
+        //            backend4.gpuload0()
         //        }
         //        else if (value < 40) {
-        //            backend.gpuload1()
+        //            backend4.gpuload1()
         //        }
         //        else if (value < 60) {
-        //            backend.gpuload2()
+        //            backend4.gpuload2()
         //        }
         //        else if (value < 80) {
-        //            backend.gpuload3()
+        //            backend4.gpuload3()
         //        }
         //        else {
-        //            backend.gpuload4()
+        //            backend4.gpuload4()
         //        }
         //    }
         //}
@@ -83,7 +83,7 @@ Rectangle {
                         level2.color = "#A0A0A0"
                         level3.color = "#A0A0A0"
                         level4.color = "#A0A0A0"
-                        backend.gpuload0()
+                        backend4.gpuload0()
                     }
                 }
             }
@@ -107,7 +107,7 @@ Rectangle {
                         level2.color = "#A0A0A0"
                         level3.color = "#A0A0A0"
                         level4.color = "#A0A0A0"
-                        backend.gpuload1()
+                        backend4.gpuload1()
                     }
                 }
             }
@@ -131,7 +131,7 @@ Rectangle {
                         level2.color = "#FFFFFF"
                         level3.color = "#A0A0A0"
                         level4.color = "#A0A0A0"
-                        backend.gpuload2()
+                        backend4.gpuload2()
                     }
                 }
             }
@@ -155,7 +155,7 @@ Rectangle {
                         level2.color = "#A0A0A0"
                         level3.color = "#FFFFFF"
                         level4.color = "#A0A0A0"
-                        backend.gpuload3()
+                        backend4.gpuload3()
                     }
                 }
             }
@@ -179,7 +179,7 @@ Rectangle {
                         level2.color = "#A0A0A0"
                         level3.color = "#A0A0A0"
                         level4.color = "#FFFFFF"
-                        backend.gpuload4()
+                        backend4.gpuload4()
                     }
                 }
             }

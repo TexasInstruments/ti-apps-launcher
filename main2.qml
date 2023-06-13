@@ -121,7 +121,6 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton1.checked) {
-                        //mediaplayer1.source = backend.leftMenuButtonPressed(1, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
                          //   leftMenuButton1.enabled = false
                             leftMenuButton2.enabled = false
                             leftMenuButton3.enabled = false
@@ -174,7 +173,7 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton2.checked) {
-                            //mediaplayer1.source = backend.leftMenuButtonPressed(2, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
+                            
                             leftMenuButton1.enabled = false
                          //   leftMenuButton2.enabled = false
                             leftMenuButton3.enabled = false
@@ -184,10 +183,7 @@ Window {
                             leftMenuButton7.enabled = false
                              
                             qmlloader.source = "camerarecorder.qml"
-                            backend.playcam()
-                            //recordbutton.visible = true
-                            //mediaplayer1.source = "gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=640, height=480 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw ! waylandsink"
-                                                    
+                            backend2.playcam()
                         } else {
                             mediaplayer1.source = " "
                             leftMenuButton1.enabled = true
@@ -200,7 +196,7 @@ Window {
 
                           //  videoOutput.visibile = false
                           //  recordbutton.visible = false
-                            backend.stopcam();
+                            backend2.stopcam();
                             qmlloader.source = ""
                           
                         }
@@ -226,7 +222,6 @@ Window {
                     }
                     onCheckStateChanged: {
                         if (leftMenuButton3.checked) {
-                           // mediaplayer1.source = backend.leftMenuButtonPressed(3, leftMenu.width + (alignVideo.border.width * 2), topBar.height + ((mainWindow.height - alignVideo.height)/2) + (alignVideo.border.width * 2), videooutput.width, videooutput.height)
                             leftMenuButton1.enabled = false
                             leftMenuButton2.enabled = false
                           //  leftMenuButton3.enabled = false
@@ -234,9 +229,6 @@ Window {
                             leftMenuButton5.enabled = false
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
-
-                            //benchmarkswindow.visible = true
-                            //qmlloader.active = true
                             qmlloader.source = "benchmarks.qml"
                         } else {
                             mediaplayer1.source = " "
@@ -300,7 +292,7 @@ Window {
                         
                             //slider2.visible = false
                             qmlloader.source = ""
-                            backend.gpuload0()
+                            backend4.gpuload0()
                         }
                     }
                 }

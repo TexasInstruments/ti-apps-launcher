@@ -26,4 +26,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += Backend.h
+HEADERS += Backend2.h
+HEADERS += Backend3.h
+HEADERS += Backend4.h
+HEADERS += Backendstats.h
 

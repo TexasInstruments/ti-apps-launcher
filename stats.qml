@@ -53,7 +53,7 @@ Rectangle {
                 running: true // start the timer
                 repeat: true // repeat the timer
                 onTriggered: {
-                    gpuload.text = backend.getgpuload()
+                    gpuload.text = backendstats.getgpuload()
                     gpubarfill.height = gpuload.text * gpubar.height * 0.01
                 }
             }
@@ -86,7 +86,7 @@ Rectangle {
                 running: true // start the timer
                 repeat: true // repeat the timer
                 onTriggered: {
-                    cpuload.text = backend.getcpuload()
+                    cpuload.text = backendstats.getcpuload()
                     cpubarfill.height = cpuload.text * cpubar.height * 0.01
                 }
             }
