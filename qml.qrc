@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>apps/main.qml</file>
-        <file>mainprev.qml</file>
+        <file>main.qml</file>
         <file>apps/industrial_control.qml</file>
         <file>apps/benchmarks.qml</file>
         <file>apps/stats.qml</file>
