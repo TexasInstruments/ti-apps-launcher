@@ -1,2 +1,2 @@
-# edgeai-gui-app
-EdgeAI QT5 Demo for TI SoC based platforms
+# ti-apps-launcher
+QT Based Application launcher for TI Platforms
