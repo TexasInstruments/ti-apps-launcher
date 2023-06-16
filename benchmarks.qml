@@ -21,7 +21,7 @@ Rectangle {
         height: parent.height
         Image {
             id: backgroundimage
-            source:"images/Background.png"
+            source: "file://home/root/jacinto_oob_demo_home_image.png"
             width: parent.width
             height: parent.height
         }
@@ -40,15 +40,60 @@ Rectangle {
             anchors.rightMargin: parent.width * 0.25
 
             Rectangle {
-                id: index00
+                id:appname
                 height: parent.height * 0.2
                 width: parent.width * 0.25
                 anchors.top:parent.top
                 anchors.left:parent.left
+                Text {
+                    id: apptext
+                    text: qsTr("App Name")
+                    color: "black"
+                    font.pixelSize: parent.width * 0.12
+                    font.bold: true
+                    anchors.centerIn: parent
+                }
+            }
+            Rectangle {
+                id: fpshead
+                height: parent.height * 0.2
+                width: parent.width * 0.25
+                anchors.top:parent.top
+                anchors.left: appname.right
+                Text {
+                    id: fpstext
+                    text: qsTr("FPS")
+                    color: "black"
+                    font.pixelSize: parent.width * 0.15
+                    font.bold: true
+                    anchors.centerIn: parent
+                }
+            }
+            Rectangle {
+                id: scorehead
+                height: parent.height * 0.2
+                width: parent.width * 0.25
+                anchors.top:parent.top
+                anchors.left: fpshead.right
+                Text {
+                    id: scoretext
+                    text: qsTr("Score")
+                    color: "black"
+                    font.pixelSize: parent.width * 0.15
+                    font.bold: true
+                    anchors.centerIn: parent
+                }
+            }
+            Rectangle {
+                id: index00
+                height: parent.height * 0.2
+                width: parent.width * 0.25
+                anchors.top:appname.bottom
+                anchors.left:parent.left
 
                 Text {
                     id: index00text
-                    text: qsTr("gl_manhattan_off")
+                    text: qsTr("glmark2")
                     color: "#F44336"
                     font.pixelSize: parent.width * 0.1
                     anchors.centerIn: parent
@@ -58,12 +103,12 @@ Rectangle {
                 id:index01
                 height: parent.height * 0.2
                 width: parent.width * 0.25
-                anchors.top:parent.top
+                anchors.top: fpshead.bottom
                 anchors.left:index00.right
 
                 Text {
                     id: index01text
-                    text: qsTr("0")
+                    text: qsTr("1418")
                     color: "#F44336"
                     font.pixelSize: parent.width * 0.17
                     anchors.centerIn: parent
@@ -73,12 +118,12 @@ Rectangle {
                 id:index02
                 height: parent.height * 0.2
                 width: parent.width * 0.25
-                anchors.top:parent.top
-                anchors.left:index01.right
+                anchors.top: scorehead.bottom
+                anchors.left: index01.right
 
                 Text {
                     id: index02text
-                    text: qsTr("0")
+                    text: qsTr("980")
                     color: "#F44336"
                     font.pixelSize: parent.width * 0.17
                     anchors.centerIn: parent
@@ -89,6 +134,7 @@ Rectangle {
                 height: parent.height * 0.2
                 width: parent.width * 0.25
                 anchors.top:parent.top
+                anchors.topMargin: parent.height * 0.2
                 anchors.left:index02.right
                 property int flag1: 0
                 Image {
@@ -106,11 +152,13 @@ Rectangle {
                                 benchmarksbackend.playbutton1pressed()
                                 index03.flag1 = 1
                                 playbutton1timer.running = true
+                                playmanhat.source = "images/stop-button.png"
                             }
                             else {
                                 benchmarksbackend.playbutton1pressedagain()
                                 index03.flag1 = 0
                                 playbutton1timer.running = false
+                                playmanhat.source = "images/playbutton.png"
                                 //index01text.text = benchmarksbackend.playbutton1fps()
                                 //index02text.text = benchmarksbackend.playbutton1score()
                             }

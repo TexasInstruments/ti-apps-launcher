@@ -21,7 +21,7 @@ Rectangle {
         height: parent.height
         Image {
             id: backgroundimage
-            source:"images/Background.png"
+            source: "file://home/root/jacinto_oob_demo_home_image.png"
             width: parent.width
             height: parent.height
         }
@@ -29,23 +29,73 @@ Rectangle {
             id: recordbutton
             height: parent.height * 0.1
             width: height
-            source: "images/playbutton.png"
+            source: "images/record.png"
             anchors.bottom: parent.bottom
             anchors.left: parent.left
+            visible: true
+            property int flag: 0
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    //camrecbackend.stopcam()
-                    //video.play()
-                    if(camerarecorder.count==0) {
+                    if(camerarecorder.count == 0) {
+                        camerarecorder.count += 1
+                        statustext.text = "Recording"
+                        recordbutton.source = "images/stop-button.png"
                         camrecbackend.startrec()
-                        camerarecorder.count = 1
                     }
-                    else {
+                    else if(camerarecorder.count == 1) {
+                        camerarecorder.count += 1
+                        statustext.text = "Camera"
+                        recordbutton.source = "images/playbutton.png"
                         camrecbackend.stoprec()
+                    }
+                    else if(camerarecorder.count == 2) {
+                        recordbutton.source = "images/videostop.png"
+                        camerarecorder.count += 1
+                        statustext.text = "Playing"
+                        camrecbackend.startvideo()
+                        isvideoover.running = true
+                    }
+                    else if(camerarecorder.count == 3) {
                         camerarecorder.count = 0
+                        isvideoover.running = false
+                        statustext.text = "Camera"
+                        recordbutton.source = "images/record.png"
+                        camrecbackend.stopvideo()
                     }
                 }
+            }
+            Timer {
+                id: isvideoover
+                interval: 1000 // interval in milliseconds
+                running: false // start the timer
+                repeat: true // repeat the timer
+                onTriggered: {
+                    recordbutton.flag = camrecbackend.isvideocomplete()
+                    if(recordbutton.flag == 1) {
+                        camrecbackend.playcam()
+                        camerarecorder.count = 0
+                        statustext.text = "Camera"
+                        recordbutton.source = "images/record.png"
+                        isvideoover.running = false
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: camstatus
+            width: parent.width * 0.13
+            height: parent.height * 0.04
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            color: "transparent"
+            Text {
+                id:statustext
+                text: qsTr("Camera")
+                color: "green"
+                font.pixelSize: parent.width * 0.1
+                font.bold: true
+                anchors.centerIn: parent
             }
         }
     }

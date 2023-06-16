@@ -12,7 +12,7 @@ import QtQuick.Layouts 1.3
 Window {
     visible: true
     visibility: "FullScreen"
-    title: qsTr("Edge AI gallery")
+    title: qsTr("AM6x HMI")
     Rectangle {
         id: appBackground
         color: "#17252A"
@@ -39,7 +39,7 @@ Window {
             Text {
                 id: topBarHead
                 objectName: "topBarHead"
-                text: qsTr("Edge AI gallery")
+                text: qsTr("AM6x HMI")
 
                 width: parent.width * 0.8
                 height: parent.height
@@ -242,7 +242,7 @@ Window {
 
                             //benchmarkswindow.visible = false
                             qmlloader.source = ""
-                            
+                            benchmarksbackend.playbutton1pressedagain()
                         }
                     }
                 }
@@ -427,6 +427,7 @@ Window {
             anchors.left: leftMenu.right
             anchors.rightMargin: parent.width * 0.025
             property int count: 0
+            
             Rectangle {
                 id: alignVideo
                 width: parent.width
@@ -440,15 +441,7 @@ Window {
                 radius: 10
                 color: "#17252A"
                     
-                Image {
-                    id:mainimg
-                    visible: true
-                    width: parent.width
-                    height: parent.height
-                    source: "file://opt/oob-demo-assets/wallpaper.jpg"
-                    anchors.fill: parent
-                    anchors.margins: parent.border.width * 2
-                }
+                
 
                 MediaPlayer {
                     id: mediaplayer1
@@ -467,6 +460,15 @@ Window {
                     anchors.margins: parent.border.width * 2
                 } 
             }
+            Image {
+                id:mainimg
+                visible: true
+                width: parent.width
+                height: parent.height
+                source: "file://home/root/jacinto_oob_demo_home_image.png"
+                anchors.fill: parent
+                anchors.margins: parent.border.width * 2
+            }
             Item{
                 anchors.centerIn: parent
                 anchors.top: parent.top
@@ -478,6 +480,7 @@ Window {
                     anchors.centerIn: parent
                 }
             }
+            
         }
         
         Rectangle {
@@ -511,7 +514,8 @@ Window {
             color: "#17252A"
             Text {
                 id: info1
-                text: "<font color=\"#FEFFFF\">Web: </font><font color=\"#FF0000\">https://ti.com/edgeai</font><font color=\"#FEFFFF\"> | Support: </font><font color=\"#FF0000\">https://e2e.ti.com/</font>"
+                //text: "<font color=\"#FEFFFF\">Web: </font><font color=\"#FF0000\">https://ti.com/edgeai</font><font color=\"#FEFFFF\"> | Support: </font><font color=\"#FF0000\">https://e2e.ti.com/</font>"
+                text: "<font color=\"#FEFFFF\"> Support: </font><font color=\"#FF0000\">https://e2e.ti.com/</font>"
                 font.pointSize: 15
                 anchors.verticalCenter: parent.verticalCenter
             }

@@ -11,7 +11,7 @@
 using namespace std;
 
 
-class Backendstats : public QObject {
+class stats : public QObject {
     Q_OBJECT
 
 private:
@@ -56,7 +56,7 @@ public:
         load/=totaltime;
         QString res = QString::number(load);
         //qDebug()<<res;
-        return res.mid(0,5);
+        return res.mid(0,4);
     }
 
 

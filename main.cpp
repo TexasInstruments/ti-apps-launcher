@@ -8,19 +8,20 @@
 #include <thread>
 #include <unistd.h>
 #include <sys/stat.h>
-#include "Backend.h"
-#include "Camrecbackend.h"
-#include "Benchmarksbackend.h"
-#include "Gpuperfbackend.h"
-#include "Backendstats.h"
+#include "backend/Backend.h"
+#include "backend/camera_recorder.h"
+#include "backend/benchmarks.h"
+#include "backend/gpu_performance.h"
+#include "backend/stats.h"
 QStringListModel cameraNamesList;
 QStringListModel modelNamesList;
 
+//objects 
 Backend backend;
-Camrecbackend camrecbackend;
-Benchmarksbackend benchmarksbackend;
-Gpuperfbackend gpuperfbackend;
-Backendstats backendstats;
+camera_recorder camrecbackend;
+benchmarks benchmarksbackend;
+gpu_performance gpuperfbackend;
+stats statsbackend;
 
 void sigHandler(int s)
 {
@@ -110,7 +111,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("camrecbackend", &camrecbackend);
     engine.rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine.rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
-    engine.rootContext()->setContextProperty("backendstats", &backendstats);
+    engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
 

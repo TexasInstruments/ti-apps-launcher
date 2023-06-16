@@ -1,13 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>mainprev.qml</file>
         <file>industrial.qml</file>
         <file>benchmarks.qml</file>
         <file>stats.qml</file>
         <file>gpuperformance.qml</file>
         <file>camerarecorder.qml</file>
-        <file>images/Texas-Instruments.png</file>
 
+        <file>images/Texas-Instruments.png</file>
+        <file>images/record.png</file>
+        <file>images/videostop.png</file>
+        <file>images/stop-button.png</file>
         <file>images/Top_Righ_Box.png</file>
         <file>images/Status_Message.png</file>
         <file>images/Control_Panel_with_text.png</file>
