@@ -9,7 +9,6 @@ SOURCES += main.cpp
 
 RESOURCES += qml.qrc
 QT += multimedia
-CONFIG += qmltypes
 
 QML_IMPORT_NAME = io.qt.examples.backend
 QML_IMPORT_MAJOR_VERSION = 1

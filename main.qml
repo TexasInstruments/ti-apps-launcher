@@ -132,7 +132,7 @@ Window {
                             
                             //window.visible = true
                             //qmlloader.active = true
-                            qmlloader.source = "industrial_control.qml"
+                            qmlloader.source = "apps/industrial_control.qml"
                             
                             //qmlloader.active = true
                             
@@ -182,7 +182,7 @@ Window {
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
                              
-                            qmlloader.source = "camera_recorder.qml"
+                            qmlloader.source = "apps/camera_recorder.qml"
                             camrecbackend.playcam()
                         } else {
                             mediaplayer1.source = " "
@@ -229,7 +229,7 @@ Window {
                             leftMenuButton5.enabled = false
                             leftMenuButton6.enabled = false
                             leftMenuButton7.enabled = false
-                            qmlloader.source = "benchmarks.qml"
+                            qmlloader.source = "apps/benchmarks.qml"
                         } else {
                             mediaplayer1.source = " "
                             leftMenuButton1.enabled = true
@@ -277,7 +277,7 @@ Window {
 
 
                             //slider2.visible = true
-                            qmlloader.source = "gpu_performance.qml"
+                            qmlloader.source = "apps/gpu_performance.qml"
 
                         } else {
                             mediaplayer1.source = " "
@@ -499,7 +499,7 @@ Window {
                 Loader {
                     id:statsloader
                     anchors.centerIn: parent
-                    source: "stats.qml"
+                    source: "apps/stats.qml"
                 }
             }
         }
