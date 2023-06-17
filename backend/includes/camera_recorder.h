@@ -68,7 +68,8 @@ public:
 
     QProcess camstart;
     Q_INVOKABLE void playcam() {   
-        camstart.start("gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=640, height=480 ! jpegdec ! waylandsink");
+        // camstart.start("gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg, width=640, height=480 ! jpegdec ! waylandsink");
+        camstart.start("gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw, width=640, height=480, format=UYVY ! waylandsink");
     }
     QProcess startrecording1,startrecording;
     Q_INVOKABLE void startrec() {
