@@ -8,11 +8,12 @@
 #include <thread>
 #include <unistd.h>
 #include <sys/stat.h>
-#include "backend/Backend.h"
-#include "backend/camera_recorder.h"
-#include "backend/benchmarks.h"
-#include "backend/gpu_performance.h"
-#include "backend/stats.h"
+#include "backend/includes/Backend.h"
+#include "backend/includes/camera_recorder.h"
+#include "backend/includes/benchmarks.h"
+#include "backend/includes/gpu_performance.h"
+#include "backend/includes/stats.h"
+#include "backend/includes/appsmenu.h"
 QStringListModel cameraNamesList;
 QStringListModel modelNamesList;
 
@@ -22,6 +23,7 @@ camera_recorder camrecbackend;
 benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
 stats statsbackend;
+apps_menu appsmenu;
 
 void sigHandler(int s)
 {
@@ -51,6 +53,7 @@ void GetIpAddr()
 }
 
 int main(int argc, char *argv[]) {
+    // cout << PLATFORM << endl;
     QStringList list = cameraNamesList.stringList();
     QStringList modelslist = modelNamesList.stringList();
     fstream modelsfile;
@@ -114,6 +117,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
+    engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

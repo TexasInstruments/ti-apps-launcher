@@ -3,10 +3,11 @@ import QtQuick.Window 2.14
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
+
 Rectangle{
     id: window
-    height: Screen.desktopAvailableHeight * 0.6
-    width: Screen.desktopAvailableWidth * 0.825
+    height: parent.height
+    width: parent.width
     Rectangle {
         id: backgroundrect
         width: window.width

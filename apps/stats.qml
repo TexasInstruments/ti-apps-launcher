@@ -13,8 +13,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: statswindow
     visible: true
-    height: Screen.desktopAvailableHeight * 0.24
-    width: Screen.desktopAvailableWidth * 0.825
+    color: "#17252A"
     Rectangle {
         id: backgroundrect
         width: statswindow.width
