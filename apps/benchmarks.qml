@@ -14,7 +14,7 @@ Rectangle {
     visible: true
     height: Screen.desktopAvailableHeight * 0.6
     width: Screen.desktopAvailableWidth * 0.825
-   
+
     Rectangle {
         id: backgroundrect
         width: parent.width
@@ -177,6 +177,6 @@ Rectangle {
                     }
                 }
             }
-        } 
-    }                
-}   
+        }
+    }
+}
