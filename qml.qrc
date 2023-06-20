@@ -4,13 +4,12 @@
         <file>apps/topbar.qml</file>
         <file>apps/appsmenu.qml</file>
         <file>apps/deviceinfo.qml</file>
-        <file>apps/clock1.qml</file>
-        <file>apps/clock2.qml</file>
         <file>apps/industrial_control.qml</file>
         <file>apps/benchmarks.qml</file>
         <file>apps/stats.qml</file>
         <file>apps/gpu_performance.qml</file>
         <file>apps/camera_recorder.qml</file>
+        <file>apps/live_camera.qml</file>
 
         <file>images/Texas-Instruments.png</file>
         <file>images/record.png</file>

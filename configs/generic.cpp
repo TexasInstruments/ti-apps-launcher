@@ -1,5 +1,6 @@
 /* Configuration file for Generic/Unknown Devices */
 
+#include <iostream>
 #include "../backend/includes/common.h"
 
 #define PLATFORM "generic"
@@ -19,3 +20,6 @@ app_info include_apps[] = {
     },
 };
 
+void platform_setup(QQmlApplicationEngine *engine) {
+    std::cout << "No platform specific setup required for generic!" << endl;
+}
