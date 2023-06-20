@@ -117,8 +117,57 @@ Rectangle {
             anchors.leftMargin: parent.width * 0.135
 
             Text {
-                //id: gpuload
+                
                 text: qsTr("A72 Load")
+                color: "#FFFFFF"
+                font.pixelSize: parent.width * 0.12
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: ddrbar
+            width: parent.width * 0.05
+            height: parent.height * 0.7
+            color: "#A0A0A0"
+            anchors.top: parent.top
+            anchors.topMargin: parent.height * 0.1
+            anchors.left: cpubar.right
+            anchors.leftMargin: parent.width * 0.05
+            property int totalbw: statsbackend.getddrtotalbw()
+            Rectangle {
+                id: ddrbarfill
+                color: "steelblue"
+                width: parent.width
+                height: 0
+                anchors.bottom: parent.bottom
+            }
+
+            Text {
+                id: ddrload
+                text: qsTr("0")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.3
+                anchors.centerIn: parent
+            }
+            Timer {
+                interval: 1000 // interval in milliseconds
+                running: true // start the timer
+                repeat: true // repeat the timer
+                onTriggered: {
+                    ddrload.text = statsbackend.getddrload()
+                    ddrbarfill.height = (ddrload.text * ddrbar.height )/ ddrbar.totalbw
+                }
+            }
+        }
+        Rectangle {
+            width: parent.width * 0.080
+            height: parent.height * 0.8 * 0.2
+            anchors.top: ddrbar.bottom
+            color: "transparent"
+            anchors.horizontalCenter: ddrbar.horizontalCenter
+
+            Text {
+                text: qsTr("DDR Load")
                 color: "#FFFFFF"
                 font.pixelSize: parent.width * 0.12
                 anchors.centerIn: parent
