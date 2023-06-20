@@ -11,4 +11,5 @@ struct app_info {
 };
 
 extern app_info include_apps[];
+
 void platform_setup(QQmlApplicationEngine *engine);
