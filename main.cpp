@@ -8,13 +8,13 @@
 #include <thread>
 #include <unistd.h>
 #include <sys/stat.h>
+#include "backend/includes/common.h"
 #include "backend/includes/Backend.h"
 #include "backend/includes/camera_recorder.h"
 #include "backend/includes/benchmarks.h"
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/stats.h"
 #include "backend/includes/appsmenu.h"
-QStringListModel cameraNamesList;
 QStringListModel modelNamesList;
 
 //objects 
@@ -24,6 +24,12 @@ benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
 stats statsbackend;
 apps_menu appsmenu;
+
+/*
+__attribute__((weak)) void platform_setup(QQmlApplicationEngine *engine) {
+    std::cout << "No platform setup needed!" << endl;
+}
+*/
 
 void sigHandler(int s)
 {
@@ -54,7 +60,6 @@ void GetIpAddr()
 
 int main(int argc, char *argv[]) {
     // cout << PLATFORM << endl;
-    QStringList list = cameraNamesList.stringList();
     QStringList modelslist = modelNamesList.stringList();
     fstream modelsfile;
     struct stat sb;
@@ -74,26 +79,6 @@ int main(int argc, char *argv[]) {
     const char* SOC = std::getenv("SOC");
     backend.soc = SOC;
 
-    // Get and Populate CameraInfo to CameraList
-    map<string, map<string,string>> cameraInfo;
-    backend.getCameraInfo(cameraInfo);
-
-    for ( const auto &data : cameraInfo ) {
-        for ( const auto &detailedData : data.second )
-        {
-            if (detailedData.first.find("device") != string::npos)
-            {
-                string fullName,device;
-                device = backend.replaceAll(detailedData.first,"device","");
-                device = backend.trimString(device);
-                fullName = data.first;
-                if (device.length() > 0)
-                    fullName += " " + device;
-                list.append(QString::fromStdString(fullName));
-            }
-        }
-    }
-    cameraNamesList.setStringList(list);
 
     // Get and Populate contents of /opt/oob-demo-assets/allowedModels.txt to modelNamesList
     // Add the model to list only if it's available in the filesystem
@@ -115,10 +100,9 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine.rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
     engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
-    engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
-
+    platform_setup(&engine);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;

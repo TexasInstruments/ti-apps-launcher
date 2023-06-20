@@ -5,7 +5,8 @@ QT += quick
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += main.cpp backend/appsmenu.cpp
+SOURCES += main.cpp backend/appsmenu.cpp backend/live_camera.cpp
+CONFIG += debug_and_release
 
 RESOURCES += qml.qrc
 QT += multimedia
@@ -24,8 +25,10 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+HEADERS += backend/includes/common.h
 HEADERS += backend/includes/Backend.h
 HEADERS += backend/includes/camera_recorder.h
+HEADERS += backend/includes/live_camera.h
 HEADERS += backend/includes/benchmarks.h
 HEADERS += backend/includes/gpu_performance.h
 HEADERS += backend/includes/stats.h
