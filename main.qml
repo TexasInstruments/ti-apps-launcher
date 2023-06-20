@@ -63,6 +63,15 @@ Window {
             anchors.rightMargin: parent.width * 0.015
             border.color: "#CCCCCC"
             border.width: 5
+            Image {
+                id:mainimg
+                visible: true
+                width: parent.width
+                height: parent.height
+                source: "file://home/root/jacinto_oob_demo_home_image.png"
+                anchors.fill: parent
+                anchors.margins: parent.border.width * 2
+            }
             Loader {
                 id: appWindow
                 anchors.fill: parent

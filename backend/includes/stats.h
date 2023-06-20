@@ -26,6 +26,7 @@ public:
 
         return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
     }
+    int prevtotal=0,previdle=0;
     Q_INVOKABLE QString getcpuload(){
         QProcess process;
         process.start("cat /proc/stat");
@@ -40,7 +41,7 @@ public:
             if(c==" "||c=='\n')
             {spc++;
              totaltime+=curr;
-             if(spc==6||spc==7)
+             if(spc==6)
              idletime+=curr;
              curr=0;
             }
@@ -52,8 +53,10 @@ public:
                 curr*=10;curr+=d;
             }
         }
-        double load = (totaltime-idletime)*100;
-        load/=totaltime;
+        double load = ((totaltime-prevtotal)-(idletime-previdle))*100;
+        load/=(totaltime-prevtotal);
+        previdle=idletime;
+        prevtotal= totaltime; 
         QString res = QString::number(load);
         //qDebug()<<res;
         return res.mid(0,4);
