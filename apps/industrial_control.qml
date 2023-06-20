@@ -599,16 +599,6 @@ Rectangle{
                         autotimer2.running = false
                     }
                 }
-                //onPressAndHold: {
-                //    textupdate.text = "App closing in 3 seconds"
-                //    delaytext.running = true
-                //}
-                //Timer {
-                //    id: delaytext
-                //    interval: 3000
-                //    running: false
-                //    onTriggered: Qt.quit()
-                //}
             }
         }
         Timer {

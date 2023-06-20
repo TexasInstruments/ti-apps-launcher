@@ -58,7 +58,6 @@ public:
         previdle=idletime;
         prevtotal= totaltime; 
         QString res = QString::number(load);
-        //qDebug()<<res;
         return res.mid(0,4);
     }
 
