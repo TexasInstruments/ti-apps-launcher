@@ -1,8 +1,11 @@
 import QtQuick 2.14
 import QtQuick.Window 2.14
+import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
+import QtQuick.Extras.Private 1.0
+import QtGraphicalEffects 1.0
 Rectangle{
     id: window
     height: Screen.desktopAvailableHeight * 0.6
@@ -69,70 +72,203 @@ Rectangle{
                     }
                 }
                 Component.onCompleted: forceActiveFocus()
+
                 style: CircularGaugeStyle {
-                    id: style
+                    labelStepSize: 10
+                    labelInset: outerRadius / 2.2
+                    tickmarkInset: outerRadius / 4.2
+                    minorTickmarkInset: outerRadius / 4.2
+                    minimumValueAngle: -144
+                    maximumValueAngle: 144
 
-                    function degreesToRadians(degrees) {
-                        return degrees * (Math.PI / 180);
-                    }
+                    background: Rectangle {
+                        implicitHeight: motorspeed1.height
+                        implicitWidth: motorspeed1.width
+                        color: "white"
+                        anchors.centerIn: parent
+                        radius: 360
 
-                    background: Canvas {
-                        onPaint: {
-                            var ctx = getContext("2d");
-                            ctx.reset();
+                        Image {
+                            anchors.fill: parent
+                            source: "qrc:/images/gaugebackground.svg"
+                            fillMode: Image.PreserveAspectFit
+                            asynchronous: true
+                            sourceSize {
+                                width: width
+                            }
+                        }
 
-                            ctx.beginPath();
-                            ctx.strokeStyle = "#e34c22";
-                            ctx.lineWidth = outerRadius * 0.02;
+                        Canvas {
+                            property int value: motorspeed1.value
 
-                            ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
-                                degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(130) - 90));
-                            ctx.stroke();
+                            anchors.fill: parent
+                            onValueChanged: requestPaint()
+
+                            function degreesToRadians(degrees) {
+                              return degrees * (Math.PI / 180);
+                            }
+
+                            onPaint: {
+                                var ctx = getContext("2d");
+                                ctx.reset();
+                                ctx.beginPath();
+                                ctx.strokeStyle = "black"
+                                ctx.lineWidth = outerRadius
+                                ctx.arc(outerRadius,
+                                      outerRadius,
+                                      outerRadius - ctx.lineWidth / 2,
+                                      degreesToRadians(valueToAngle(motorspeed1.value) - 90),
+                                      degreesToRadians(valueToAngle(motorspeed1.maximumValue + 1) - 90));
+                                ctx.stroke();
+                            }
                         }
                     }
 
-                    tickmark: Rectangle {
-                        visible: styleData.value < 80 || styleData.value % 10 == 0
-                        implicitWidth: outerRadius * 0.02
-                        antialiasing: true
-                        implicitHeight: outerRadius * 0.06
-                        color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
-                    }
+                    needle: Item {
+                        y: -outerRadius * 0.78
+                        height: outerRadius * 0.27
+                        Image {
+                            id: needle
+                            source: "qrc:/images/needle.svg"
+                            height: parent.height
+                            width: height * 0.1
+                            asynchronous: true
+                            antialiasing: true
+                        }
 
-                    minorTickmark: Rectangle {
-                        visible: styleData.value < 80
-                        implicitWidth: outerRadius * 0.01
-                        antialiasing: true
-                        implicitHeight: outerRadius * 0.03
-                        color: "#e5e5e5"
-                    }
-
-                    tickmarkLabel:  Text {
-                        font.pixelSize: Math.max(6, outerRadius * 0.1)
-                        text: styleData.value
-                        color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
-                        antialiasing: true
-                    }
-
-                    needle: Rectangle {
-                        y: outerRadius * 0.15
-                        implicitWidth: outerRadius * 0.03
-                        implicitHeight: outerRadius * 0.9
-                        antialiasing: true
-                        color: "#e5e5e5"
+                        Glow {
+                            anchors.fill: needle
+                            radius: 5
+                            samples: 10
+                            color: "white"
+                            source: needle
+                        }
                     }
 
                     foreground: Item {
-                        Rectangle {
-                            width: outerRadius * 0.2
-                            height: width
-                            radius: width / 2
-                            color: "#e5e5e5"
+                        Text {
+                            id: speedLabel
                             anchors.centerIn: parent
+                            text: motorspeed1.value.toFixed(0)
+                            font.pixelSize: outerRadius * 0.3
+                            color: "#e34c22"
+                            antialiasing: true
                         }
+                    }
+
+                    tickmarkLabel:  Text {
+                        font.pixelSize: Math.max(6, outerRadius * 0.05)
+                        text: styleData.value
+                        color: styleData.value <= motorspeed1.value ? "red" : "#777776"
+                        antialiasing: true
+                    }
+
+                    tickmark: Image {
+                        source: "qrc:/images/tickmark.svg"
+                        width: outerRadius * 0.018
+                        height: outerRadius * 0.15
+                        antialiasing: true
+                        asynchronous: true
+                    }
+
+                    minorTickmark: Rectangle {
+                        implicitWidth: outerRadius * 0.01
+                        implicitHeight: outerRadius * 0.03
+
+                        antialiasing: true
+                        smooth: true
+                        color: styleData.value <= motorspeed1.value ? "#e34c22" : "darkGray"
                     }
                 }
             }
+            //CircularGauge {
+            //    id: motorspeed1
+            //    maximumValue: 130
+            //    anchors.top: parent.top
+            //    anchors.topMargin: window.height * 0.07
+            //    anchors.left: parent.left
+            //    anchors.leftMargin: window.width * 0.03
+            //    width: parent.width * 0.8
+            //    height: parent.height * 0.8
+            //    property int count1: 0
+            //    value: count1
+            //    Behavior on value {
+            //        NumberAnimation {
+            //            duration: 200
+            //        }
+            //    }
+            //    Component.onCompleted: forceActiveFocus()
+            //    style: CircularGaugeStyle {
+            //        id: style
+//
+            //        function degreesToRadians(degrees) {
+            //            return degrees * (Math.PI / 180);
+            //        }
+//
+            //        background: Canvas {
+            //            onPaint: {
+            //                var ctx = getContext("2d");
+            //                ctx.reset();
+//
+            //                ctx.beginPath();
+            //                ctx.strokeStyle = "#e34c22";
+            //                ctx.lineWidth = outerRadius * 0.02;
+//
+            //                ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
+            //                    degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(130) - 90));
+            //                ctx.stroke();
+            //            }
+            //        }
+//
+            //        tickmark: Rectangle {
+            //            visible: styleData.value < 80 || styleData.value % 10 == 0
+            //            implicitWidth: outerRadius * 0.02
+            //            antialiasing: true
+            //            implicitHeight: outerRadius * 0.06
+            //            color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
+            //        }
+//
+            //        minorTickmark: Rectangle {
+            //            visible: styleData.value < 80
+            //            implicitWidth: outerRadius * 0.01
+            //            antialiasing: true
+            //            implicitHeight: outerRadius * 0.03
+            //            color: "#e5e5e5"
+            //        }
+//
+            //        tickmarkLabel:  Text {
+            //            font.pixelSize: Math.max(6, outerRadius * 0.1)
+            //            text: styleData.value
+            //            color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
+            //            antialiasing: true
+            //        }
+//
+            //        needle: Rectangle {
+            //            y: outerRadius * 0.15
+            //            implicitWidth: outerRadius * 0.03
+            //            implicitHeight: outerRadius * 0.9
+            //            antialiasing: true
+            //            color: "#e5e5e5"
+            //            //  Glow {
+            //            //    anchors.fill: needle
+            //            //    radius: 5
+            //            //    samples: 10
+            //            //    color: "white"
+            //            //    source: needle
+            //            //}
+            //        }
+//
+            //        foreground: Item {
+            //            Rectangle {
+            //                width: outerRadius * 0.2
+            //                height: width
+            //                radius: width / 2
+            //                color: "#e5e5e5"
+            //                anchors.centerIn: parent
+            //            }
+            //        }
+            //    }
+            //}
             Rectangle {
                 id: rectbox1
                 color: "transparent"
@@ -238,9 +374,9 @@ Rectangle{
                                     motor1text.text = motorspeed1.count1
                                 }
                             }
-                            else {
-                                textupdate.text = "Press the ON button to start Motor-1 control"
-                            }
+                            //else {
+                            //    textupdate.text = "Press the ON button to start Motor-1 control"
+                            //}
                         }
                     }
                 }
@@ -448,9 +584,9 @@ Rectangle{
                                     motor2text.text = motorspeed2.count2
                                 }
                             }
-                            else {
-                                textupdate.text = "Press the ON button to start Motor-2 control"
-                            }
+                            //else {
+                            //    textupdate.text = "Press the ON button to start Motor-2 control"
+                            //}
                         }
                     }
                 }
@@ -626,6 +762,7 @@ Rectangle{
                     }
                     else {
                         motor1bar.width = motor1tempbar.width * 0.0076 * motorspeed1.count1
+                        
                     }
                 }
             }

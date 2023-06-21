@@ -21,6 +21,10 @@
         <file>images/Center_Box.png</file>
         <file>images/Bottom_Right_Box.png</file>
         <file>images/Background.png</file>
+        <file>images/gaugebackground.png</file>
+        <file>images/gaugebackground.svg</file>
+        <file>images/needle.svg</file>
+        <file>images/tickmark.svg</file>
         <file>images/Rectangle.png</file>
         <file>images/Analytics_with_text.png</file>
         <file>images/Camera_with_text.png</file>

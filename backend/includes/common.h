@@ -1,6 +1,8 @@
 /* Configurations for Generic/Unknown Platforms */
 
 #include <QString>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 struct app_info {
     QString qml_source;
@@ -9,3 +11,4 @@ struct app_info {
 };
 
 extern app_info include_apps[];
+void platform_setup(QQmlApplicationEngine *engine);

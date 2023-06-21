@@ -9,20 +9,14 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include "backend/includes/Backend.h"
-#include "backend/includes/camera_recorder.h"
-#include "backend/includes/benchmarks.h"
-#include "backend/includes/gpu_performance.h"
-#include "backend/includes/stats.h"
+#include "backend/includes/common.h"
 #include "backend/includes/appsmenu.h"
 QStringListModel cameraNamesList;
 QStringListModel modelNamesList;
 
 //objects 
 Backend backend;
-camera_recorder camrecbackend;
-benchmarks benchmarksbackend;
-gpu_performance gpuperfbackend;
-stats statsbackend;
+
 apps_menu appsmenu;
 
 void sigHandler(int s)
@@ -111,14 +105,10 @@ int main(int argc, char *argv[]) {
 
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
-    engine.rootContext()->setContextProperty("camrecbackend", &camrecbackend);
-    engine.rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
-    engine.rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
-    engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
-
+    platform_setup(&engine);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
