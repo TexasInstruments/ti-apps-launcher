@@ -117,7 +117,7 @@ Rectangle {
             anchors.leftMargin: parent.width * 0.135
 
             Text {
-                //id: gpuload
+                
                 text: qsTr("A72 Load")
                 color: "#FFFFFF"
                 font.pixelSize: parent.width * 0.12
@@ -163,8 +163,7 @@ Rectangle {
             height: parent.height * 0.8 * 0.2
             anchors.top: ddrbar.bottom
             color: "transparent"
-            anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.135
+            anchors.horizontalCenter: ddrbar.horizontalCenter
 
             Text {
                 text: qsTr("DDR Load")

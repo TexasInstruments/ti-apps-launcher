@@ -7,7 +7,7 @@
 #include <QProcess>
 #include <QDebug>
 #include "includes/stats.h"
-#include "includes/perf_stats.h"
+#include "../utils/includes/perf_stats.h"
 
 
 QString stats::getgpuload() {
@@ -32,6 +32,6 @@ uint32_t stats::getddrload() {
     perfStatsResetDdrLoadCalcAll();
     uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
     //QString res = QString::number(r);
-    //qDebug()<<r;
+    qDebug()<<r;
     return r;
 }
