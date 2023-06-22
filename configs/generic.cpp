@@ -2,10 +2,14 @@
 
 #include <iostream>
 #include "../backend/includes/common.h"
+#include "../backend/includes/seva_store.h"
+#include "../backend/includes/settings.h"
+
+using namespace std;
 
 #define PLATFORM "generic"
 
-int include_apps_count = 2;
+int include_apps_count = 3;
 
 app_info include_apps[] = {
     {
@@ -18,8 +22,19 @@ app_info include_apps[] = {
         .name = "Benchmarks",
         .icon_source = "benchmarks.png"
     },
+    {
+        .qml_source = "seva_store.qml",
+        .name = "Seva Store",
+        .icon_source = "seva_store.png"
+    }
 };
 
+SevaStore *seva_store = new SevaStore("gvim");
+
+Settings settings;
+
 void platform_setup(QQmlApplicationEngine *engine) {
-    std::cout << "No platform specific setup required for generic!" << endl;
+    cout << "Running platform setup for" << PLATFORM << "!" << endl;
+    engine->rootContext()->setContextProperty("seva_store", seva_store);
+    engine->rootContext()->setContextProperty("settings", &settings);
 }
