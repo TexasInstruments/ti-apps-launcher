@@ -34,11 +34,19 @@ Rectangle {
                 model: appsmenu.button_getcount()
 
                 Button {
-                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.fillWidth: parent * 0.9
                     Layout.preferredHeight: 50
                     text: appsmenu.button_getname(index)
                     onClicked: appWindow.source = appsmenu.button_getqml(index)
                 }
+            }
+            Button {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: parent * 0.9
+                Layout.preferredHeight: 50
+                text: "Settings"
+                onClicked: appWindow.source = "settings.qml"
             }
         }
     }
