@@ -3,10 +3,12 @@
 #include <iostream>
 #include "../backend/includes/common.h"
 #include "../backend/includes/live_camera.h"
+#include "../backend/includes/seva_store.h"
+#include "../backend/includes/settings.h"
 
 #define PLATFORM "am62xx-evm"
 
-int include_apps_count = 3;
+int include_apps_count = 5;
 
 app_info include_apps[] = {
     {
@@ -24,11 +26,28 @@ app_info include_apps[] = {
         .name = "Benchmarks",
         .icon_source = "benchmarks.png"
     },
+    {
+        .qml_source = "seva_store.qml",
+        .name = "Seva Store",
+        .icon_source = "seva_store.png"
+    },
+    {
+        .qml_source = "firefox_browser.qml",
+        .name = "Firefox",
+        .icon_source = "firefox.png"
+    }
 };
 
+SevaStore *seva_store = new SevaStore(QStringLiteral("seva-launcher-aarch64"));
+SevaStore *firefox_browser = new SevaStore(QStringLiteral("docker run -v ${XDG_RUNTIME_DIR}:/tmp/ -i --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user 6dbd110907bb"));
+
 LiveCamera live_camera;
+Settings settings;
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
+    engine->rootContext()->setContextProperty("seva_store", seva_store);
+    engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
+    engine->rootContext()->setContextProperty("settings", &settings);
 }
 
