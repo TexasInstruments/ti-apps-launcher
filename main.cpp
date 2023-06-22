@@ -16,7 +16,6 @@ QStringListModel modelNamesList;
 
 //objects 
 Backend backend;
-
 apps_menu appsmenu;
 
 void sigHandler(int s)

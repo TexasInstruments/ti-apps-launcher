@@ -26,12 +26,25 @@ QString stats::getcpuload() {
     //qDebug()<<res;
     return res;
 }
-uint32_t stats::getddrload() {
-    perf_stats_ddr_stats_t *ddrload = new perf_stats_ddr_stats_t;
+
+uint32_t stats::getddrtotalbw() {
+    perf_stats_ddr_stats_t *ddrload;
     ddrload=perfStatsDdrStatsGet();
     perfStatsResetDdrLoadCalcAll();
+    uint32_t res = ddrload->total_available_bw;
+    //uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
+    //perfStatsResetDdrLoadCalcAll();
+    //QString res = QString::number(r)+ " "+QString::number(ddrload->total_available_bw);
+    //qDebug()<<res;
+    return res;
+}
+
+uint32_t stats::getddrload() {
+    perf_stats_ddr_stats_t *ddrload;
+    ddrload=perfStatsDdrStatsGet();
     uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
-    //QString res = QString::number(r);
-    qDebug()<<r;
+    perfStatsResetDdrLoadCalcAll();
+    QString res = QString::number(r)+ " "+QString::number(ddrload->total_available_bw);
+    qDebug()<<res;
     return r;
 }

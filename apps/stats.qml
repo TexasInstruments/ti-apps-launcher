@@ -133,6 +133,7 @@ Rectangle {
             anchors.topMargin: parent.height * 0.1
             anchors.left: cpubar.right
             anchors.leftMargin: parent.width * 0.05
+            property int totalbw: statsbackend.getddrtotalbw()
             Rectangle {
                 id: ddrbarfill
                 color: "steelblue"
@@ -140,6 +141,7 @@ Rectangle {
                 height: 0
                 anchors.bottom: parent.bottom
             }
+
             Text {
                 id: ddrload
                 text: qsTr("0")
@@ -153,8 +155,7 @@ Rectangle {
                 repeat: true // repeat the timer
                 onTriggered: {
                     ddrload.text = statsbackend.getddrload()
-                    ddrbarfill.height = ddrload.text * ddrbar.height * 0.01
-                    ddrload.text = ddrload.text + "%"
+                    ddrbarfill.height = (ddrload.text * ddrbar.height )/ ddrbar.totalbw
                 }
             }
         }

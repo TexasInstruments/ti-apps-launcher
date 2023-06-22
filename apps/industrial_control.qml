@@ -607,6 +607,30 @@ Rectangle{
                 anchors.topMargin: parent.height * 0.005
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+            //Rectangle {
+            //    visible: true
+            //    width: 400
+            //    height: 400
+            //    //title: "Thermometer"
+//
+            //    Gauge {
+            //        id: gauge
+            //        anchors.centerIn: parent
+            //        value: 25
+            //        minimumValue: 0
+            //        maximumValue: 50
+            //        tickmarkStepSize: 5
+            //        //tickmarkLabelFormat: "%.0f °C"
+            //        style: GaugeStyle {
+            //            valueBar: Rectangle {
+            //                implicitWidth: 20
+            //                implicitHeight: 100
+            //                radius: 10
+            //                color: Qt.rgba(1, 0, 0, 1)
+            //            }
+            //        }
+            //    }
+            //}
             Rectangle {
                 id: motor1tempbar
                 height: parent.height * 0.01
