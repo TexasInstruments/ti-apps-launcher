@@ -5,7 +5,7 @@ QT += quick
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += main.cpp backend/appsmenu.cpp backend/live_camera.cpp
+SOURCES += main.cpp backend/appsmenu.cpp backend/live_camera.cpp backend/seva_store.cpp backend/settings.cpp
 CONFIG += debug_and_release
 
 RESOURCES += qml.qrc
@@ -33,4 +33,6 @@ HEADERS += backend/includes/benchmarks.h
 HEADERS += backend/includes/gpu_performance.h
 HEADERS += backend/includes/stats.h
 HEADERS += backend/includes/appsmenu.h
+HEADERS += backend/includes/seva_store.h
+HEADERS += backend/includes/settings.h
 

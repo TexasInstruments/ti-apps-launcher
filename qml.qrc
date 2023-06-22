@@ -10,6 +10,9 @@
         <file>apps/gpu_performance.qml</file>
         <file>apps/camera_recorder.qml</file>
         <file>apps/live_camera.qml</file>
+        <file>apps/seva_store.qml</file>
+        <file>apps/firefox_browser.qml</file>
+        <file>apps/settings.qml</file>
 
         <file>images/Texas-Instruments.png</file>
         <file>images/record.png</file>
