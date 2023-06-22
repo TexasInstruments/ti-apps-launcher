@@ -10,6 +10,7 @@
         <file>apps/gpu_performance.qml</file>
         <file>apps/camera_recorder.qml</file>
         <file>apps/camera_old.qml</file>
+        <file>apps/live_camera.qml</file>
 
         <file>images/Texas-Instruments.png</file>
         <file>images/record.png</file>
