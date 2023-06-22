@@ -10,8 +10,8 @@
 #include <sys/stat.h>
 #include "backend/includes/common.h"
 #include "backend/includes/Backend.h"
-#include "backend/includes/common.h"
 #include "backend/includes/appsmenu.h"
+
 QStringListModel modelNamesList;
 
 //objects 
