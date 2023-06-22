@@ -10,8 +10,8 @@
 #include <sys/stat.h>
 #include "backend/includes/common.h"
 #include "backend/includes/Backend.h"
-#include "backend/includes/common.h"
 #include "backend/includes/appsmenu.h"
+
 QStringListModel modelNamesList;
 
 //objects 
@@ -89,11 +89,6 @@ int main(int argc, char *argv[]) {
 
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("backend", &backend);
-    engine.rootContext()->setContextProperty("cameraNamesList", &cameraNamesList);
-    engine.rootContext()->setContextProperty("camrecbackend", &camrecbackend);
-    engine.rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
-    engine.rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
-    engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
     platform_setup(&engine);
