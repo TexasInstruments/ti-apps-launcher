@@ -5,9 +5,10 @@
 #include "backend/includes/benchmarks.h"
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/stats.h"
+#include "../backend/includes/live_camera.h"
 #define PLATFORM "generic"
 
-int include_apps_count = 4;
+int include_apps_count = 5;
 
 app_info include_apps[] = {
     {
@@ -30,6 +31,11 @@ app_info include_apps[] = {
         .name = "GPU Performance",
         .icon_source = "gpuperformance.png"
     },
+    {
+        .qml_source = "live_camera.qml",
+        .name = "Live Camera",
+        .icon_source = "camera.png"
+    },
 };
 
 
@@ -37,10 +43,12 @@ camera_recorder camrecbackend;
 benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
 stats statsbackend;
+LiveCamera live_camera;
 void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("camrecbackend", &camrecbackend);
     engine->rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine->rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
     engine->rootContext()->setContextProperty("statsbackend", &statsbackend);
+    engine->rootContext()->setContextProperty("live_camera", &live_camera);
 }
 
