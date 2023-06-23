@@ -44,7 +44,7 @@ uint32_t stats::getddrload() {
     ddrload=perfStatsDdrStatsGet();
     uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
     perfStatsResetDdrLoadCalcAll();
-    QString res = QString::number(r)+ " "+QString::number(ddrload->total_available_bw);
-    qDebug()<<res;
+    //QString res = QString::number(r)+ " "+QString::number(ddrload->total_available_bw);
+    //qDebug()<<res;
     return r;
 }

@@ -21,7 +21,7 @@ void benchmarks::playbutton1pressed() {
 void benchmarks::playbutton1pressedagain() {
     process11.start("killall glmark2-es2-wayland");
     process11.waitForFinished();
-    stdout11= process11.readAllStandardOutput();
+    //stdout11= process11.readAllStandardOutput();
 }
 QString benchmarks::playbutton1fps() {
     stdout1 = process1.readAllStandardOutput();

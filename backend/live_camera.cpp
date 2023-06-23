@@ -1,4 +1,5 @@
 #include "includes/live_camera.h"
+#include <QDebug>
 
 string LiveCamera::replaceAll(string str, const string &remove, const string &insert) {
     string::size_type pos = 0;
@@ -109,13 +110,14 @@ QString LiveCamera::liveCamera_gst_pipeline() {
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("v4l2src device=");
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
-    // if (_camera.contains("USB", Qt::CaseInsensitive))
-        gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
-    // else
-        // gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    #if defined(SOC_AM62)
+    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
+    #elif defined(SOC_J721E)
+    gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
+    #endif
     gst_pipeline.append(" ! videoconvert");
     gst_pipeline.append(" ! qtvideosink");
-
+    qDebug() << gst_pipeline;
     return gst_pipeline;
 }
 
