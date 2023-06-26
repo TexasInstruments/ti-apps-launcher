@@ -9,6 +9,5 @@ struct app_info {
     QString name;
     QString icon_source;
 };
-
 extern app_info include_apps[];
 void platform_setup(QQmlApplicationEngine *engine);

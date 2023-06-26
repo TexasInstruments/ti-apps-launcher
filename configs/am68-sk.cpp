@@ -6,8 +6,10 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/stats.h"
 #include "../backend/includes/live_camera.h"
-#define PLATFORM "generic"
 
+#define PLATFORM "am68-sk"
+
+QString platform = "am68-sk";
 int include_apps_count = 5;
 
 app_info include_apps[] = {
@@ -44,11 +46,13 @@ benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
 stats statsbackend;
 LiveCamera live_camera;
+
 void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("camrecbackend", &camrecbackend);
     engine->rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine->rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
     engine->rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
+    
 }
 

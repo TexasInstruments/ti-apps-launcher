@@ -9,6 +9,7 @@ using namespace std;
 
 #define PLATFORM "generic"
 
+
 int include_apps_count = 3;
 
 app_info include_apps[] = {
@@ -32,6 +33,7 @@ app_info include_apps[] = {
 SevaStore *seva_store = new SevaStore("gvim");
 
 Settings settings;
+
 
 void platform_setup(QQmlApplicationEngine *engine) {
     cout << "Running platform setup for" << PLATFORM << "!" << endl;

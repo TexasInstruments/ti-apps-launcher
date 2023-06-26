@@ -1,8 +1,8 @@
 /* Configuration file for Generic/Unknown Devices */
 
 #include "../backend/includes/common.h"
+#define PLATFORM "am69-sk"
 
-#define PLATFORM "generic"
 
 int include_apps_count = 4;
 

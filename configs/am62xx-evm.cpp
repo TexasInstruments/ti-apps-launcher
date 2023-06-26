@@ -5,7 +5,6 @@
 #include "../backend/includes/live_camera.h"
 #include "../backend/includes/seva_store.h"
 #include "../backend/includes/settings.h"
-
 #define PLATFORM "am62xx-evm"
 
 int include_apps_count = 5;
@@ -43,11 +42,13 @@ SevaStore *firefox_browser = new SevaStore(QStringLiteral("docker run -v ${XDG_R
 
 LiveCamera live_camera;
 Settings settings;
+
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("settings", &settings);
+    
 }
 

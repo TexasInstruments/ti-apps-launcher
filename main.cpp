@@ -91,6 +91,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
+    
     platform_setup(&engine);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
