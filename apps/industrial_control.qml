@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Extras.Private 1.0
 import QtGraphicalEffects 1.12
 import QtMultimedia 5.1
+
 Rectangle{
     id: window
     height: Screen.desktopAvailableHeight * 0.6
@@ -202,6 +203,21 @@ Rectangle{
                             if (backgroundrect.count == 1) {
                                 motorspeed1.count1 -=10
                                 thermometer1.value = motorspeed1.count1
+                                if (motorspeed1.count1 <= 40) {
+                                    red1.active = false
+                                    yellow1.active = false
+                                    green1.active = true
+                                }
+                                else if (motorspeed1.count1 <= 90) {
+                                    red1.active = false
+                                    yellow1.active = true
+                                    green1.active = false
+                                }
+                                else {
+                                    red1.active = true
+                                    yellow1.active = false
+                                    green1.active = false
+                                }
                             }
                         }
                     }
@@ -219,6 +235,21 @@ Rectangle{
                             if (backgroundrect.count == 1) {
                                 motorspeed1.count1 +=10
                                 thermometer1.value = motorspeed1.count1
+                                if (motorspeed1.count1 <= 40) {
+                                    red1.active = false
+                                    yellow1.active = false
+                                    green1.active = true
+                                }
+                                else if (motorspeed1.count1 <= 90) {
+                                    red1.active = false
+                                    yellow1.active = true
+                                    green1.active = false
+                                }
+                                else {
+                                    red1.active = true
+                                    yellow1.active = false
+                                    green1.active = false
+                                }
                             }
                         }
                     }
@@ -341,6 +372,21 @@ Rectangle{
                             if (backgroundrect.count == 1) {
                                 motorspeed2.count2 -=10
                                 thermometer2.value = motorspeed2.count2
+                                if (motorspeed2.count2 <= 40) {
+                                    red2.active = false
+                                    yellow2.active = false
+                                    green2.active = true
+                                }
+                                else if (motorspeed2.count2 <= 90) {
+                                    red2.active = false
+                                    yellow2.active = true
+                                    green2.active = false
+                                }
+                                else {
+                                    red2.active = true
+                                    yellow2.active = false
+                                    green2.active = false
+                                }
                             }
                         }
                     }
@@ -358,6 +404,21 @@ Rectangle{
                             if (backgroundrect.count == 1) {
                                 motorspeed2.count2 +=10
                                 thermometer2.value = motorspeed2.count2
+                                if (motorspeed2.count2 <= 40) {
+                                    red2.active = false
+                                    yellow2.active = false
+                                    green2.active = true
+                                }
+                                else if (motorspeed2.count2 <= 90) {
+                                    red2.active = false
+                                    yellow2.active = true
+                                    green2.active = false
+                                }
+                                else {
+                                    red2.active = true
+                                    yellow2.active = false
+                                    green2.active = false
+                                }
                             }
                         }
                     }
@@ -383,49 +444,40 @@ Rectangle{
             Rectangle {
                 id: lefthalf
                 width: parent.width * 0.5
-                height: parent.height
+                
                 anchors.left: parent.left
                 anchors.top: motortemperaturetxt.bottom
+                anchors.bottom: parent.bottom
                 color: "transparent"
-                //Image{
-                //    id: bulb
-                //    source: "../images/alarm.png"
-                //    sourceSize: Qt.size(parent.width, parent.height)
-                //    anchors.centerIn: parent
-                //    width: parent.width *0.2
-                //    height: width
-                //    smooth: true
-                //    visible: false
-                //}
-                //Glow {
-                //    anchors.fill: bulb
-                //    source: bulb
-                //    
-                //    samples: 32
-                //    radius: 10
-                //    color: Qt.rgba(thermometer1.value / thermometer1.maximumValue, 1-thermometer1.value / thermometer1.maximumValue , 0 , 1)
-                //    spread: 0.3
-                //}
-                Rectangle {
-                    width: 640
-                    height: 480
-
-                    MediaPlayer {
-                        id: mediaPlayer
-                        objectName: "mediaplayer"
-                        source: "file://home/root/welcome.mp4"
-                        autoPlay: true
-                    }
-
-                    VideoOutput {
-                        id: videoOutput
-                        source: mediaPlayer
-                        fillMode: VideoOutput.PreserveAspectCrop
-                        anchors.fill: parent
-                        anchors.margins: parent.border.width * 2
-                    }
-                }
                 
+                //Rectangle{
+                //    width: 600
+                //    height:480
+ //
+                //    //MediaPlayer {
+                //    //    id: mediaPlayer
+                //    //    objectName: "mediaplayer"
+                //    //    //source: "file:///home/root/sample.avi"
+                //    //    source: "gst-launch-1.0 filesrc location=/home/root/output_video111.mkv ! matroskademux ! h264parse ! v4l2h264dec capture-io-mode=5 ! tiovxmemalloc pool-size=8 ! video/x-raw, format=NV12 ! waylandsink"
+                //    //    autoPlay: true
+                //    //}
+////
+                //    //VideoOutput {//
+                //    //    id: videoOutput//
+                //    //    source: mediaPlayer
+                //    //    fillMode: VideoOutput.PreserveAspectCrop
+                //    //    anchors.fill: parent
+                //    //    anchors.margins: parent.border.width * 2
+                //    //}
+                //    Video{
+                //        id:video
+                //        anchors.centerIn: parent
+                //        source: "file:///home/root/sample.avi"
+                //        autoPlay: true
+                //    }
+                //    
+                //}
+        
                 Rectangle {
                     id: lightpanel1
                     width: parent.width * 0.15
@@ -447,7 +499,7 @@ Rectangle{
                         anchors.top: red1.bottom
                         width: parent.width 
                         height: width
-                        color: "yellow"
+                        color: "orange"
                     }
                     StatusIndicator {
                         id: green1
@@ -477,7 +529,7 @@ Rectangle{
                         anchors.top: red2.bottom
                         width: parent.width 
                         height: width
-                        color: "yellow"
+                        color: "orange"
                     }
                     StatusIndicator {
                         id: green2
@@ -485,6 +537,94 @@ Rectangle{
                         width: parent.width 
                         height: width
                         color: "green"
+                    }
+                }
+                Rectangle {
+                    id:telltales
+                    height: parent.height * 0.15
+                    width: height * 3
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.05
+                    anchors.bottom: parent.bottom
+                    color: "transparent"
+                    Image{
+                        id: alert
+                        source: "../images/alert.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.left: parent.left
+                        width: parent.width *0.15
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:alertglow
+                        anchors.fill: alert
+                        source: alert
+
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: tempalert
+                        source: "../images/tempalert.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.left: alert.right
+                        anchors.leftMargin: parent.width * 0.02
+                        width: parent.width *0.2
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:tempalertglow
+                        anchors.fill: tempalert
+                        source: tempalert
+
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: maintainence
+                        source: "../images/maintainence.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.left: tempalert.right
+                        anchors.leftMargin: parent.width * 0.02
+                        width: parent.width *0.15
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:maintainenceglow
+                        anchors.fill: maintainence
+                        source: maintainence
+
+                        samples: 32
+                        radius: 10
+                        color: "dodgerblue"
+                        spread: 0
+                    }
+                    Timer {
+                        id: maintainencetimer
+                        interval: 500
+                        running: true
+                        property int flag: 0
+                        repeat: true
+                        onTriggered: {
+                            if (flag == 1) {
+                                maintainenceglow.spread = 0.6
+                                maintainencetimer.flag = 0
+                            }
+                            else {
+                                maintainenceglow.spread = 0
+                                maintainencetimer.flag =1
+                            }
+                        }
                     }
                 }
             }
@@ -621,7 +761,17 @@ Rectangle{
                         slidebutton.visible = true
                         slidebutton2.visible = false
                         textupdate.text = "Automatic Control"
+                        
                         motorspeed1.count1 = 0
+                        red1.active = false
+                        yellow1.active = false
+                        green1.active = true
+                        
+                        motorspeed2.count2 = 0
+                        red2.active = false
+                        yellow2.active = false
+                        green2.active = true
+
                         autotimer1.running = true
                         backgroundrect.autocontrolmotor1 = 0
                         autotimer2.running = true
@@ -648,9 +798,8 @@ Rectangle{
                     motorspeed1.count1 +=10
                     if (motorspeed1.count1 >= 130) {
                         backgroundrect.autocontrolmotor1 = 1 
-                        
+                        //video.play()
                     }
-                    
                 }
                 else {
                     motorspeed1.count1 -=10
@@ -659,6 +808,30 @@ Rectangle{
                     }
                 }
                 thermometer1.value = motorspeed1.count1
+                if (motorspeed1.count1 <= 40) {
+                    red1.active = false
+                    yellow1.active = false
+                    green1.active = true
+                }
+                else if (motorspeed1.count1 <= 90) {
+                    red1.active = false
+                    yellow1.active = true
+                    green1.active = false
+                    
+                }
+                else {
+                    red1.active = true
+                    yellow1.active = false
+                    green1.active = false
+                }
+                if(motorspeed1.count1 <= 90) {
+                    alertglow.spread = 0
+                    tempalertglow.spread = 0
+                }
+                else {
+                    alertglow.spread = 0.6
+                    tempalertglow.spread = 0.6
+                }
             }
         }  
         Timer {
@@ -680,6 +853,21 @@ Rectangle{
                     }
                 }
                 thermometer2.value = motorspeed2.count2
+                if (motorspeed2.count2 <= 40) {
+                    red2.active = false
+                    yellow2.active = false
+                    green2.active = true
+                }
+                else if (motorspeed2.count2 <= 90) {
+                    red2.active = false
+                    yellow2.active = true
+                    green2.active = false
+                }
+                else {
+                    red2.active = true
+                    yellow2.active = false
+                    green2.active = false
+                }
             }
         }      
     }
