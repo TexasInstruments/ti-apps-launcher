@@ -11,13 +11,13 @@
 #include "backend/includes/common.h"
 #include "backend/includes/Backend.h"
 #include "backend/includes/appsmenu.h"
-
+#include "backend/includes/deviceinfo.h"
 QStringListModel modelNamesList;
 
 //objects 
 Backend backend;
 apps_menu appsmenu;
-
+Device_info deviceinfo;
 /*
 __attribute__((weak)) void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "No platform setup needed!" << endl;
@@ -91,7 +91,8 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
-    
+    engine.rootContext()->setContextProperty("deviceinfo", &deviceinfo);
+
     platform_setup(&engine);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

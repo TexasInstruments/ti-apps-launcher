@@ -21,9 +21,10 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             font.pointSize: 10
-            text: "Platform: am62xx-evm"
+            text: "Platform: "+deviceinfo.getplatform()
             color: "#FEFFFF"
         }
+        
         Text {
             id: ipAddr
             anchors.left: parent.left

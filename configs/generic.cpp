@@ -11,6 +11,7 @@ using namespace std;
 
 
 int include_apps_count = 3;
+QString platform = "generic" 
 
 app_info include_apps[] = {
     {

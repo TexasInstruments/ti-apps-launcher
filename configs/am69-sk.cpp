@@ -5,6 +5,7 @@
 
 
 int include_apps_count = 4;
+QString platform = "am69-sk"
 
 app_info include_apps[] = {
     {

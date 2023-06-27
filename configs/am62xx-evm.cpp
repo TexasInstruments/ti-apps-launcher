@@ -8,6 +8,7 @@
 #define PLATFORM "am62xx-evm"
 
 int include_apps_count = 5;
+QString platform = "am62xx-evm";
 
 app_info include_apps[] = {
     {
