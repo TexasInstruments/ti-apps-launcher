@@ -21,7 +21,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             font.pointSize: 10
-            text: "Platform: "+deviceinfo.getplatform()
+            text: "Platform: " + deviceinfo.getplatform()
             color: "#FEFFFF"
         }
         

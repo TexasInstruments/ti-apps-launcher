@@ -188,6 +188,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             if (backgroundrect.count == 1) {
+                                minusbox1Animation.start()
                                 motorspeed1.count1 -=10
                                 thermometer1.value = motorspeed1.count1
                                 if (motorspeed1.count1 <= 40) {
@@ -216,6 +217,17 @@ Rectangle{
                             }
                         }
                     }
+                    PropertyAnimation {
+                        id: minusbox1Animation
+                        target: minusbox1
+                        property: "scale"
+                        to: 0.5
+                        duration: 100
+                        easing.type: Easing.InOutQuad
+                        onStopped: {
+                          minusbox1.scale = 1
+                        }
+                    }
                 }
                 Image {
                     id: plusbox1
@@ -228,6 +240,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             if (backgroundrect.count == 1) {
+                                plusbox1Animation.start()
                                 motorspeed1.count1 +=10
                                 thermometer1.value = motorspeed1.count1
                                 if (motorspeed1.count1 <= 40) {
@@ -254,6 +267,17 @@ Rectangle{
                                     tempalert1glow.spread = 0.6
                                 }
                             }
+                        }
+                    }
+                    PropertyAnimation {
+                        id: plusbox1Animation
+                        target: plusbox1
+                        property: "scale"
+                        to: 0.5
+                        duration: 100
+                        easing.type: Easing.InOutQuad
+                        onStopped: {
+                          plusbox1.scale = 1
                         }
                     }
                 }
@@ -417,6 +441,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             if (backgroundrect.count == 1) {
+                                minusbox2Animation.start()
                                 motorspeed2.count2 -=10
                                 thermometer2.value = motorspeed2.count2
                                 if (motorspeed2.count2 <= 40) {
@@ -442,7 +467,19 @@ Rectangle{
                                     alert2glow.spread = 0.6
                                     tempalert2glow.spread = 0.6
                                 }
+                                
                             }
+                        }
+                    }
+                    PropertyAnimation {
+                        id: minusbox2Animation
+                        target: minusbox2
+                        property: "scale"
+                        to: 0.5
+                        duration: 100
+                        easing.type: Easing.InOutQuad
+                        onStopped: {
+                          minusbox2.scale = 1
                         }
                     }
                 }
@@ -457,6 +494,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             if (backgroundrect.count == 1) {
+                                plusbox2Animation.start()
                                 motorspeed2.count2 +=10
                                 thermometer2.value = motorspeed2.count2
                                 if (motorspeed2.count2 <= 40) {
@@ -482,7 +520,19 @@ Rectangle{
                                     alert2glow.spread = 0.6
                                     tempalert2glow.spread = 0.6
                                 }
+                                
                             }
+                        }
+                    }
+                    PropertyAnimation {
+                        id: plusbox2Animation
+                        target: plusbox2
+                        property: "scale"
+                        to: 0.5
+                        duration: 100
+                        easing.type: Easing.InOutQuad
+                        onStopped: {
+                          plusbox2.scale = 1
                         }
                     }
                 }
@@ -497,13 +547,6 @@ Rectangle{
             anchors.rightMargin: window.width * 0.28
             anchors.left: parent.left
             anchors.leftMargin: window.width * 0.01
-            //Image {
-            //    id: motortemperaturetxt
-            //    source: "../images/Motor_Temp.png"
-            //    anchors.top: parent.top
-            //    anchors.topMargin: parent.height * 0.005
-            //    anchors.horizontalCenter: parent.horizontalCenter
-            //}
             Rectangle {
                 id: lefthalf
                 width: parent.width * 0.5
@@ -614,6 +657,18 @@ Rectangle{
                             anchors.fill: parent
                             onClicked: {
                                 motorpressure1.count -=10
+                                minusboxpressure1Animation.start()
+                            }
+                        }
+                        PropertyAnimation {
+                            id: minusboxpressure1Animation
+                            target: minusboxpressure1
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              minusboxpressure1.scale = 1
                             }
                         }
                     }
@@ -628,6 +683,19 @@ Rectangle{
                             anchors.fill: parent
                             onClicked: {
                                 motorpressure1.count += 10
+                                plusboxpressure1Animation.start()
+                            }
+                            
+                        }
+                        PropertyAnimation {
+                            id: plusboxpressure1Animation
+                            target: plusboxpressure1
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              plusboxpressure1.scale = 1
                             }
                         }
                     }
@@ -886,6 +954,18 @@ Rectangle{
                             anchors.fill: parent
                             onClicked: {
                                 motorpressure2.count -=10
+                                minusboxpressure2Animation.start()
+                            }
+                        }
+                        PropertyAnimation {
+                            id: minusboxpressure2Animation
+                            target: minusboxpressure2
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              minusboxpressure2.scale = 1
                             }
                         }
                     }
@@ -900,6 +980,18 @@ Rectangle{
                             anchors.fill: parent
                             onClicked: {
                                 motorpressure2.count += 10
+                                plusboxpressure2Animation.start()
+                            }
+                        }
+                        PropertyAnimation {
+                            id: plusboxpressure2Animation
+                            target: plusboxpressure2
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              plusboxpressure2.scale = 1
                             }
                         }
                     }
@@ -1227,10 +1319,6 @@ Rectangle{
                 }
             }
         } 
-        //animation 
-        //NumberAnimation {
-        //    id: animation
-        //    target
-        //}     
+             
     }
 }

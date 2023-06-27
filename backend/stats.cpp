@@ -23,7 +23,6 @@ QString stats::getcpuload() {
     perfStatsCpuLoadCalc(&cpuload);
     perfStatsResetCpuLoadCalc(&cpuload);
     QString res = QString::number(cpuload.cpu_load/100)+"."+QString::number(cpuload.cpu_load%100);
-    //qDebug()<<res;
     return res;
 }
 
@@ -32,10 +31,6 @@ uint32_t stats::getddrtotalbw() {
     ddrload=perfStatsDdrStatsGet();
     perfStatsResetDdrLoadCalcAll();
     uint32_t res = ddrload->total_available_bw;
-    //uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
-    //perfStatsResetDdrLoadCalcAll();
-    //QString res = QString::number(r)+ " "+QString::number(ddrload->total_available_bw);
-    //qDebug()<<res;
     return res;
 }
 
@@ -44,7 +39,5 @@ uint32_t stats::getddrload() {
     ddrload=perfStatsDdrStatsGet();
     uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
     perfStatsResetDdrLoadCalcAll();
-    //QString res = QString::number(r)+ " "+QString::number(ddrload->total_available_bw);
-    //qDebug()<<res;
     return r;
 }
