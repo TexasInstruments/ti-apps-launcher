@@ -555,16 +555,169 @@ Rectangle{
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 color: "transparent"
-
+                Text {
+                    id:motor1textcb
+                    text: qsTr("MOTOR 1")
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.02
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: parent. width * 0.1
+                    color: "white"
+                }
+    
                 CircularGauge {
-                    id: motorpressure1
+                    id: motorcurrent1
                     maximumValue: 100
-                    height: parent.height * 0.3
+                    height: parent.height * 0.45
                     width: height
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.05
-                    anchors.bottom: telltales1.bottom
-                    anchors. bottomMargin : parent.height * 0.13
+                    anchors.top: motor1textcb.bottom
+                    anchors.topMargin: parent.height * 0.1
+                    property int count: 0
+                    value: count
+                    Behavior on value {
+                        NumberAnimation {
+                            duration: 200
+                        }
+                    }
+                    style: CircularGaugeStyle {
+                        id: style
+                        minimumValueAngle: -90
+                        maximumValueAngle: 90
+                        function degreesToRadians(degrees) {
+                            return degrees * (Math.PI / 180);
+                        }
+
+                        background: Canvas {
+                            onPaint: {
+                                var ctx = getContext("2d");
+                                ctx.reset();
+
+                                ctx.beginPath();
+                                ctx.strokeStyle = "#e34c22";
+                                ctx.lineWidth = outerRadius * 0.02;
+
+                                ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
+                                    degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(100) - 90));
+                                ctx.stroke();
+                            }
+                        }
+
+                        tickmark: Rectangle {
+                            visible: styleData.value < 80 || styleData.value % 10 == 0
+                            implicitWidth: outerRadius * 0.02
+                            antialiasing: true
+                            implicitHeight: outerRadius * 0.06
+                            color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
+                        }
+
+                        minorTickmark: Rectangle {
+                            visible: styleData.value < 80
+                            implicitWidth: outerRadius * 0.01
+                            antialiasing: true
+                            implicitHeight: outerRadius * 0.03
+                            color: "#e5e5e5"
+                        }
+
+                        tickmarkLabel:  Text {
+                            font.pixelSize: Math.max(6, outerRadius * 0.1)
+                            text: styleData.value
+                            color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
+                            antialiasing: true
+                        }
+
+                        needle: Rectangle {
+                            y: outerRadius * 0.15
+                            implicitWidth: outerRadius * 0.03
+                            implicitHeight: outerRadius * 0.9
+                            antialiasing: true
+                            color: "#e5e5e5"
+                        }
+
+                        foreground: Item {
+                            Rectangle {
+                                width: outerRadius * 0.2
+                                height: width
+                                radius: width / 2
+                                color: "#e5e5e5"
+                                anchors.centerIn: parent
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id: rectboxcurrent1
+                    color: "transparent"
+                    height: parent.height * 0.07
+                    width: height * 3
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.15
+                    anchors.bottom: motorcurrent1.bottom
+                    anchors.bottomMargin: parent.height * 0.1
+                    Image {
+                        id: minusboxcurrent1
+                        source: "../images/Minux_Box.png"
+                        fillMode: Image.PreserveAspectFit
+                        height: parent.height
+                        width: height
+                        anchors.left: parent.left
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                motorcurrent1.count -=10
+                                minusboxcurrent1Animation.start()
+                            }
+                        }
+                        PropertyAnimation {
+                            id: minusboxcurrent1Animation
+                            target: minusboxcurrent1
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              minusboxcurrent1.scale = 1
+                            }
+                        }
+                    }
+                    Image {
+                        id: plusboxcurrent1
+                        source: "../images/Plus_Box.png"
+                        fillMode: Image.PreserveAspectFit
+                        height: parent.height
+                        width: height
+                        anchors.right: parent.right
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                motorcurrent1.count += 10
+                                plusboxcurrent1Animation.start()
+                            }
+                            
+                        }
+                        PropertyAnimation {
+                            id: plusboxcurrent1Animation
+                            target: plusboxcurrent1
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              plusboxcurrent1.scale = 1
+                            }
+                        }
+                    }
+                }
+                CircularGauge {
+                    id: motorpressure1
+                    maximumValue: 100
+                    height: parent.height * 0.45
+                    width: height
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.05
+                    anchors.top: parent.top
+                    anchors.topMargin:parent.height * 0.6
                     property int count: 0
                     value: count
                     Behavior on value {
@@ -643,9 +796,9 @@ Rectangle{
                     height: parent.height * 0.07
                     width: height * 3
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.1
-                    anchors.bottom: telltales1.top
-                    anchors.bottomMargin: parent.height * 0.015
+                    anchors.leftMargin: parent.width * 0.15
+                    anchors.bottom: motorpressure1.bottom
+                    anchors.bottomMargin: parent.height * 0.1
                     Image {
                         id: minusboxpressure1
                         source: "../images/Minux_Box.png"
@@ -702,50 +855,51 @@ Rectangle{
                 }
                 Rectangle {
                     id: lightpanel1
-                    width: parent.width * 0.15
-                    height: width * 3
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.6
-                    anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.55
+                    height: parent.height * 0.075
+                    width: height * 3.3
+                    anchors.right: thermometer1.right
+                    anchors.top: thermometer1.bottom
+                    anchors.topMargin: parent.height * 0.02
                     color: "transparent"
                     StatusIndicator {
                         id: red1
-                        anchors.top: parent.top
-                        width: parent.width 
-                        height: width
+                        anchors.left: parent.left
+                        height: parent.height
+                        width: height
                         color: "red"
                     }
                     StatusIndicator {
                         id: yellow1
-                        anchors.top: red1.bottom
-                        width: parent.width 
-                        height: width
+                        height: parent.height
+                        width: height
+                        anchors.horizontalCenter: parent.horizontalCenter
                         color: "orange"
                     }
                     StatusIndicator {
                         id: green1
-                        anchors.top: yellow1.bottom
-                        width: parent.width 
-                        height: width
+                        anchors.right: parent.right
+                        height: parent.height
+                        width: height
                         color: "green"
                     }
                 }
                 
                 Rectangle {
                     id:telltales1
-                    height: parent.height * 0.15
-                    width: height * 3
+                    anchors.top: thermometer1.top
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.05
-                    anchors.bottom: parent.bottom
+                    anchors.leftMargin: parent.width * 0.7
+                    anchors.right: thermometer1.left
+                    anchors.rightMargin: parent.width* 0.05
+                    height: width * 6
                     color: "transparent"
                     Image{
                         id: alert1
                         source: "../images/alert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.left: parent.left
-                        width: parent.width *0.15
+                        anchors.top : parent.top
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: width
                         smooth: true
                         visible: false
@@ -764,9 +918,9 @@ Rectangle{
                         id: tempalert1
                         source: "../images/tempalert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.left: alert1.right
-                        anchors.leftMargin: parent.width * 0.02
-                        width: parent.width *0.2
+                        anchors.top : alert1.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: width
                         smooth: true
                         visible: false
@@ -775,7 +929,26 @@ Rectangle{
                         id:tempalert1glow
                         anchors.fill: tempalert1
                         source: tempalert1
-
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: lowbattery1
+                        source: "../images/low-battery.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : tempalert1.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:lowbattery1glow
+                        anchors.fill: lowbattery1
+                        source: lowbattery1
                         samples: 32
                         radius: 10
                         color: "red"
@@ -785,9 +958,9 @@ Rectangle{
                         id: maintainence1
                         source: "../images/maintainence.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.left: tempalert1.right
-                        anchors.leftMargin: parent.width * 0.02
-                        width: parent.width *0.15
+                        anchors.top : lowbattery1.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: width
                         smooth: true
                         visible: false
@@ -818,6 +991,7 @@ Rectangle{
                             }
                         }
                     }
+                    
                 }
                 Gauge {
                     id: thermometer1
@@ -851,16 +1025,168 @@ Rectangle{
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 color: "transparent"
-
+                Text {
+                    id:motor2textcb
+                    text: qsTr("MOTOR 2")
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.02
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: parent. width * 0.1
+                    color: "white"
+                }
                 CircularGauge {
-                    id: motorpressure2
+                    id: motorcurrent2
                     maximumValue: 100
-                    height: parent.height * 0.3
+                    height: parent.height * 0.45
                     width: height
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.05
-                    anchors.bottom: telltales2.bottom
-                    anchors.bottomMargin: parent.height * 0.13
+                    anchors.top: motor2textcb.bottom
+                    anchors.topMargin: parent.height * 0.1
+                    property int count: 0
+                    value: count
+                    Behavior on value {
+                        NumberAnimation {
+                            duration: 200
+                        }
+                    }
+                    style: CircularGaugeStyle {
+                        id: style
+                        minimumValueAngle: -90
+                        maximumValueAngle: 90
+                        function degreesToRadians(degrees) {
+                            return degrees * (Math.PI / 180);
+                        }
+
+                        background: Canvas {
+                            onPaint: {
+                                var ctx = getContext("2d");
+                                ctx.reset();
+
+                                ctx.beginPath();
+                                ctx.strokeStyle = "#e34c22";
+                                ctx.lineWidth = outerRadius * 0.02;
+
+                                ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
+                                    degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(100) - 90));
+                                ctx.stroke();
+                            }
+                        }
+
+                        tickmark: Rectangle {
+                            visible: styleData.value < 80 || styleData.value % 10 == 0
+                            implicitWidth: outerRadius * 0.02
+                            antialiasing: true
+                            implicitHeight: outerRadius * 0.06
+                            color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
+                        }
+
+                        minorTickmark: Rectangle {
+                            visible: styleData.value < 80
+                            implicitWidth: outerRadius * 0.01
+                            antialiasing: true
+                            implicitHeight: outerRadius * 0.03
+                            color: "#e5e5e5"
+                        }
+
+                        tickmarkLabel:  Text {
+                            font.pixelSize: Math.max(6, outerRadius * 0.1)
+                            text: styleData.value
+                            color: styleData.value >= 80 ? "#e34c22" : "#e5e5e5"
+                            antialiasing: true
+                        }
+
+                        needle: Rectangle {
+                            y: outerRadius * 0.15
+                            implicitWidth: outerRadius * 0.03
+                            implicitHeight: outerRadius * 0.9
+                            antialiasing: true
+                            color: "#e5e5e5"
+                        }
+
+                        foreground: Item {
+                            Rectangle {
+                                width: outerRadius * 0.2
+                                height: width
+                                radius: width / 2
+                                color: "#e5e5e5"
+                                anchors.centerIn: parent
+                            }
+                        }
+                    }
+                }
+                Rectangle {
+                    id: rectboxcurrent2
+                    color: "transparent"
+                    height: parent.height * 0.07
+                    width: height * 3
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.15
+                    anchors.bottom: motorcurrent2.bottom
+                    anchors.bottomMargin: parent.height * 0.1
+                    Image {
+                        id: minusboxcurrent2
+                        source: "../images/Minux_Box.png"
+                        fillMode: Image.PreserveAspectFit
+                        height: parent.height
+                        width: height
+                        anchors.left: parent.left
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                motorcurrent2.count -=10
+                                minusboxcurrent2Animation.start()
+                            }
+                        }
+                        PropertyAnimation {
+                            id: minusboxcurrent2Animation
+                            target: minusboxcurrent2
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              minusboxcurrent2.scale = 1
+                            }
+                        }
+                    }
+                    Image {
+                        id: plusboxcurrent2
+                        source: "../images/Plus_Box.png"
+                        fillMode: Image.PreserveAspectFit
+                        height: parent.height
+                        width: height
+                        anchors.right: parent.right
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                motorcurrent2.count += 10
+                                plusboxcurrent2Animation.start()
+                            }
+                            
+                        }
+                        PropertyAnimation {
+                            id: plusboxcurrent2Animation
+                            target: plusboxcurrent2
+                            property: "scale"
+                            to: 0.5
+                            duration: 100
+                            easing.type: Easing.InOutQuad
+                            onStopped: {
+                              plusboxcurrent2.scale = 1
+                            }
+                        }
+                    }
+                }
+                CircularGauge {
+                    id: motorpressure2
+                    maximumValue: 100
+                    height: parent.height * 0.45
+                    width: height
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.05
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.6
                     property int count: 0
                     value: count
                     
@@ -940,9 +1266,9 @@ Rectangle{
                     height: parent.height * 0.07
                     width: height * 3
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.1
-                    anchors.bottom: telltales2.top
-                    anchors.bottomMargin: parent.height * 0.015
+                    anchors.leftMargin: parent.width * 0.15
+                    anchors.bottom: motorpressure2.bottom
+                    anchors.bottomMargin: parent.height * 0.1
                     Image {
                         id: minusboxpressure2
                         source: "../images/Minux_Box.png"
@@ -998,49 +1324,50 @@ Rectangle{
                 }
                 Rectangle {
                     id: lightpanel2
-                    width: parent.width * 0.15
-                    height: width * 3
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.6
-                    anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.55
+                    height: parent.height * 0.075
+                    width: height * 3.3
+                    anchors.right: thermometer2.right
+                    anchors.top: thermometer2.bottom
+                    anchors.topMargin: parent.height * 0.02
                     color: "transparent"
                     StatusIndicator {
                         id: red2
-                        anchors.top: parent.top
-                        width: parent.width 
-                        height: width
+                        anchors.left: parent.left
+                        height: parent.height
+                        width: height
                         color: "red"
                     }
                     StatusIndicator {
                         id: yellow2
-                        anchors.top: red2.bottom
-                        width: parent.width 
-                        height: width
+                        height: parent.height
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: height
                         color: "orange"
                     }
                     StatusIndicator {
                         id: green2
-                        anchors.top: yellow2.bottom
-                        width: parent.width 
-                        height: width
+                        anchors.left: yellow2.right
+                        height: parent.height
+                        width: height
                         color: "green"
                     }
                 }
                 Rectangle {
                     id:telltales2
-                    height: parent.height * 0.15
-                    width: height * 3
+                    anchors.top: thermometer2.top
                     anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.05
-                    anchors.bottom: parent.bottom
+                    anchors.leftMargin: parent.width * 0.7
+                    anchors.right: thermometer2.left
+                    anchors.rightMargin: parent.width* 0.05
+                    height: width * 6
                     color: "transparent"
                     Image{
                         id: alert2
                         source: "../images/alert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.left: parent.left
-                        width: parent.width *0.15
+                        anchors.top : parent.top
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: width
                         smooth: true
                         visible: false
@@ -1059,9 +1386,9 @@ Rectangle{
                         id: tempalert2
                         source: "../images/tempalert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.left: alert2.right
-                        anchors.leftMargin: parent.width * 0.02
-                        width: parent.width *0.2
+                        anchors.top : alert2.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: width
                         smooth: true
                         visible: false
@@ -1077,12 +1404,32 @@ Rectangle{
                         spread: 0
                     }
                     Image{
+                        id: lowbattery2
+                        source: "../images/low-battery.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : tempalert2.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:lowbattery2glow
+                        anchors.fill: lowbattery2
+                        source: lowbattery2
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
                         id: maintainence2
                         source: "../images/maintainence.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.left: tempalert2.right
-                        anchors.leftMargin: parent.width * 0.02
-                        width: parent.width *0.15
+                        anchors.top : lowbattery2.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: width
                         smooth: true
                         visible: false
@@ -1268,6 +1615,7 @@ Rectangle{
                 if(motorspeed1.count1 <= 90) {
                     alert1glow.spread = 0
                     tempalert1glow.spread = 0
+                    
                 }
                 else {
                     alert1glow.spread = 0.6

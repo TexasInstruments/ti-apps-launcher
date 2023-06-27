@@ -113,7 +113,7 @@ QString LiveCamera::liveCamera_gst_pipeline() {
     #if defined(SOC_AM62)
     gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
     #elif defined(SOC_J721E)
-    gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
+    gst_pipeline.append(" ! image/jpeg, width=640, height=480 ! jpegdec");
     #endif
     gst_pipeline.append(" ! videoconvert");
     gst_pipeline.append(" ! qtvideosink");
