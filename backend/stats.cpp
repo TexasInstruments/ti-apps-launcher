@@ -12,7 +12,7 @@
 
 QString stats::getgpuload() {
     QProcess process;
-    process.start("cat /sys/kernel/debug/pvr/status");
+    process.start("sudo cat /sys/kernel/debug/pvr/status");
     process.waitForFinished(-1);
     QString output = process.readAllStandardOutput();
     return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
