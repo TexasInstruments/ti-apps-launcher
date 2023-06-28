@@ -52,6 +52,7 @@ Rectangle{
                 width: height
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: motor1text.bottom
+                anchors.topMargin: parent.height * 0.05
                 property int count1: 0
                 value: count1
                 Behavior on value {
@@ -307,6 +308,7 @@ Rectangle{
                 width: height
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: motor2text.bottom
+                anchors.topMargin: parent.height * 0.05
                 property int count2: 0
                 value: count2
                 Behavior on value {
@@ -559,12 +561,19 @@ Rectangle{
                     id:motor1textcb
                     text: qsTr("MOTOR 1")
                     anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.02
+                    anchors.topMargin: parent.height * 0.005
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: parent. width * 0.1
                     color: "white"
                 }
-    
+                Text {
+                    text: qsTr("Current Control")
+                    anchors.bottom: motorcurrent1.top
+                    anchors.bottomMargin: parent.height * 0.01
+                    anchors.horizontalCenter: motorcurrent1.horizontalCenter
+                    font.pixelSize: parent. width * 0.05
+                    color: "white"
+                }
                 CircularGauge {
                     id: motorcurrent1
                     maximumValue: 100
@@ -651,10 +660,9 @@ Rectangle{
                     color: "transparent"
                     height: parent.height * 0.07
                     width: height * 3
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.horizontalCenter: motorcurrent1.horizontalCenter
                     anchors.bottom: motorcurrent1.bottom
-                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxcurrent1
                         source: "../images/Minux_Box.png"
@@ -709,6 +717,14 @@ Rectangle{
                         }
                     }
                 }
+                Text {
+                    text: qsTr("Pressure Control")
+                    anchors.bottom: motorpressure1.top
+                    anchors.bottomMargin: parent.height * 0.01
+                    anchors.horizontalCenter: motorpressure1.horizontalCenter
+                    font.pixelSize: parent. width * 0.05
+                    color: "white"
+                }
                 CircularGauge {
                     id: motorpressure1
                     maximumValue: 100
@@ -717,7 +733,7 @@ Rectangle{
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: parent.top
-                    anchors.topMargin:parent.height * 0.6
+                    anchors.topMargin:parent.height * 0.65
                     property int count: 0
                     value: count
                     Behavior on value {
@@ -795,10 +811,9 @@ Rectangle{
                     color: "transparent"
                     height: parent.height * 0.07
                     width: height * 3
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.horizontalCenter: motorpressure1.horizontalCenter
                     anchors.bottom: motorpressure1.bottom
-                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxpressure1
                         source: "../images/Minux_Box.png"
@@ -991,7 +1006,48 @@ Rectangle{
                             }
                         }
                     }
-                    
+                    Image{
+                        id: security1
+                        source: "../images/security.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : maintainence1.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:security1glow
+                        anchors.fill: security1
+                        source: security1
+
+                        samples: 32
+                        radius: 10
+                        color: "green"
+                        spread: 0.5
+                    }
+                    Image{
+                        id: wifi1
+                        source: "../images/wifi.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : security1.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:wifi1glow
+                        anchors.fill: wifi1
+                        source: wifi1
+
+                        samples: 32
+                        radius: 10
+                        color: "green"
+                        spread: 0.5
+                    }
                 }
                 Gauge {
                     id: thermometer1
@@ -1029,9 +1085,17 @@ Rectangle{
                     id:motor2textcb
                     text: qsTr("MOTOR 2")
                     anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.02
+                    anchors.topMargin: parent.height * 0.005
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: parent. width * 0.1
+                    color: "white"
+                }
+                Text {
+                    text: qsTr("Current Control")
+                    anchors.bottom: motorcurrent2.top
+                    anchors.bottomMargin: parent.height * 0.01
+                    anchors.horizontalCenter: motorcurrent2.horizontalCenter
+                    font.pixelSize: parent. width * 0.05
                     color: "white"
                 }
                 CircularGauge {
@@ -1120,10 +1184,9 @@ Rectangle{
                     color: "transparent"
                     height: parent.height * 0.07
                     width: height * 3
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.horizontalCenter: motorcurrent2.horizontalCenter
                     anchors.bottom: motorcurrent2.bottom
-                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxcurrent2
                         source: "../images/Minux_Box.png"
@@ -1178,6 +1241,14 @@ Rectangle{
                         }
                     }
                 }
+                Text {
+                    text: qsTr("Pressure Control")
+                    anchors.bottom: motorpressure2.top
+                    anchors.bottomMargin: parent.height * 0.01
+                    anchors.horizontalCenter: motorpressure2.horizontalCenter
+                    font.pixelSize: parent. width * 0.05
+                    color: "white"
+                }
                 CircularGauge {
                     id: motorpressure2
                     maximumValue: 100
@@ -1186,7 +1257,7 @@ Rectangle{
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.6
+                    anchors.topMargin: parent.height * 0.65
                     property int count: 0
                     value: count
                     
@@ -1265,10 +1336,9 @@ Rectangle{
                     color: "transparent"
                     height: parent.height * 0.07
                     width: height * 3
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.15
+                    anchors.horizontalCenter: motorpressure2.horizontalCenter
                     anchors.bottom: motorpressure2.bottom
-                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxpressure2
                         source: "../images/Minux_Box.png"
@@ -1346,7 +1416,7 @@ Rectangle{
                     }
                     StatusIndicator {
                         id: green2
-                        anchors.left: yellow2.right
+                        anchors.right: parent.right
                         height: parent.height
                         width: height
                         color: "green"
@@ -1460,6 +1530,48 @@ Rectangle{
                                 maintainence2timer.flag = 1
                             }
                         }
+                    }
+                    Image{
+                        id: security2
+                        source: "../images/security.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : maintainence2.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:security2glow
+                        anchors.fill: security2
+                        source: security2
+
+                        samples: 32
+                        radius: 10
+                        color: "green"
+                        spread: 0.5
+                    }
+                    Image{
+                        id: wifi2
+                        source: "../images/wifi.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : security2.bottom
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:wifi2glow
+                        anchors.fill: wifi2
+                        source: wifi2
+
+                        samples: 32
+                        radius: 10
+                        color: "green"
+                        spread: 0.5
                     }
                 }
                 Gauge {
