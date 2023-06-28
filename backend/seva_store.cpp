@@ -36,14 +36,22 @@ SevaStore::SevaStore(QString command) {
     cout << "_command = " << _command.toStdString() << endl;
     _status_msg = "Click 'Launch' to start Seva Store.\n Note: Seva Store will be run in a separate window.";
     _button = "Launch";
+    env = QProcessEnvironment::systemEnvironment();
     QObject::connect(&seva_process, &QProcess::stateChanged, this, &SevaStore::onStateChanged);
 }
 
+
 void SevaStore::launch_or_stop() {
+    QByteArray output_bytes;
+    QString output_string;
     if( seva_process.state() == QProcess::NotRunning ) {
+	env.insert("WAYLAND_DISPLAY", "wayland-1");
+	seva_process.setProcessEnvironment(env);
         seva_process.start(_command);
+	output_bytes = seva_process.readAllStandardError();
+	output_string = QString(output_bytes);
+	cout << "output: " << output_string.toStdString() << endl;
     } else if ( seva_process.state() == QProcess::Running ) {
         seva_process.kill();
     }
 }
-
