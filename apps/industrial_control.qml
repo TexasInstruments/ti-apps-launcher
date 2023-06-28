@@ -43,7 +43,7 @@ Rectangle{
                 anchors.top: parent.top
                 anchors.topMargin: window.height * 0.02
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: parent.width * 0.035
+                font.pixelSize: parent.width * 0.07
             }
             CircularGauge {
                 id: motorspeed1
@@ -51,8 +51,8 @@ Rectangle{
                 height: parent.height * 0.8
                 width: height
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: motor1text.bottom
-                anchors.topMargin: parent.height * 0.05
+                anchors.top: parent.top
+                anchors.topMargin: parent.height * 0.15
                 property int count1: 0
                 value: count1
                 Behavior on value {
@@ -299,7 +299,7 @@ Rectangle{
                 anchors.top: parent.top
                 anchors.topMargin: window.height * 0.02
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: parent.width * 0.035
+                font.pixelSize: parent.width * 0.07
             }
             CircularGauge {
                 id: motorspeed2
@@ -307,8 +307,8 @@ Rectangle{
                 height: parent.height * 0.8
                 width: height
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: motor2text.bottom
-                anchors.topMargin: parent.height * 0.05
+                anchors.top: parent.top
+                anchors.topMargin: parent.height * 0.15
                 property int count2: 0
                 value: count2
                 Behavior on value {
@@ -563,7 +563,7 @@ Rectangle{
                     anchors.top: parent.top
                     anchors.topMargin: parent.height * 0.005
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: parent. width * 0.1
+                    font.pixelSize: parent. width * 0.07
                     color: "white"
                 }
                 Text {
@@ -571,7 +571,7 @@ Rectangle{
                     anchors.bottom: motorcurrent1.top
                     anchors.bottomMargin: parent.height * 0.01
                     anchors.horizontalCenter: motorcurrent1.horizontalCenter
-                    font.pixelSize: parent. width * 0.05
+                    font.pixelSize: parent. width * 0.04
                     color: "white"
                 }
                 CircularGauge {
@@ -722,7 +722,7 @@ Rectangle{
                     anchors.bottom: motorpressure1.top
                     anchors.bottomMargin: parent.height * 0.01
                     anchors.horizontalCenter: motorpressure1.horizontalCenter
-                    font.pixelSize: parent. width * 0.05
+                    font.pixelSize: parent. width * 0.04
                     color: "white"
                 }
                 CircularGauge {
@@ -906,74 +906,14 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.7
                     anchors.right: thermometer1.left
                     anchors.rightMargin: parent.width* 0.05
-                    height: width * 6
+                    height: width * 3.5
                     color: "transparent"
-                    Image{
-                        id: alert1
-                        source: "../images/alert.png"
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : parent.top
-                        width: parent.width 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                        smooth: true
-                        visible: false
-                    }
-                    Glow {
-                        id:alert1glow
-                        anchors.fill: alert1
-                        source: alert1
-
-                        samples: 32
-                        radius: 10
-                        color: "red"
-                        spread: 0
-                    }
-                    Image{
-                        id: tempalert1
-                        source: "../images/tempalert.png"
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : alert1.bottom
-                        width: parent.width 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                        smooth: true
-                        visible: false
-                    }
-                    Glow {
-                        id:tempalert1glow
-                        anchors.fill: tempalert1
-                        source: tempalert1
-                        samples: 32
-                        radius: 10
-                        color: "red"
-                        spread: 0
-                    }
-                    Image{
-                        id: lowbattery1
-                        source: "../images/low-battery.png"
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : tempalert1.bottom
-                        width: parent.width 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                        smooth: true
-                        visible: false
-                    }
-                    Glow {
-                        id:lowbattery1glow
-                        anchors.fill: lowbattery1
-                        source: lowbattery1
-                        samples: 32
-                        radius: 10
-                        color: "red"
-                        spread: 0
-                    }
+                    
                     Image{
                         id: maintainence1
                         source: "../images/maintainence.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : lowbattery1.bottom
+                        anchors.top : parent.top
                         width: parent.width 
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: width
@@ -1011,6 +951,7 @@ Rectangle{
                         source: "../images/security.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : maintainence1.bottom
+                        anchors.topMargin: parent.height * 0.1
                         width: parent.width 
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: width
@@ -1032,6 +973,7 @@ Rectangle{
                         source: "../images/wifi.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : security1.bottom
+                        anchors.topMargin: parent.height * 0.07
                         width: parent.width 
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: width
@@ -1047,6 +989,78 @@ Rectangle{
                         radius: 10
                         color: "green"
                         spread: 0.5
+                    }
+                }
+                Rectangle {
+                    id: criticaltelltales1
+                    height:telltales1.height
+                    width: telltales1.width
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.55
+                    anchors.left: telltales1.left
+                    color: "transparent"
+                    Image{
+                        id: alert1
+                        source: "../images/alert.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : parent.top
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:alert1glow
+                        anchors.fill: alert1
+                        source: alert1
+
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: tempalert1
+                        source: "../images/tempalert.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : alert1.bottom
+                        anchors.topMargin: parent.height * 0.1
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:tempalert1glow
+                        anchors.fill: tempalert1
+                        source: tempalert1
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: lowbattery1
+                        source: "../images/low-battery.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : tempalert1.bottom
+                        anchors.topMargin: parent.height * 0.05
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:lowbattery1glow
+                        anchors.fill: lowbattery1
+                        source: lowbattery1
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
                     }
                 }
                 Gauge {
@@ -1087,7 +1101,7 @@ Rectangle{
                     anchors.top: parent.top
                     anchors.topMargin: parent.height * 0.005
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: parent. width * 0.1
+                    font.pixelSize: parent. width * 0.07
                     color: "white"
                 }
                 Text {
@@ -1095,7 +1109,7 @@ Rectangle{
                     anchors.bottom: motorcurrent2.top
                     anchors.bottomMargin: parent.height * 0.01
                     anchors.horizontalCenter: motorcurrent2.horizontalCenter
-                    font.pixelSize: parent. width * 0.05
+                    font.pixelSize: parent. width * 0.04
                     color: "white"
                 }
                 CircularGauge {
@@ -1246,7 +1260,7 @@ Rectangle{
                     anchors.bottom: motorpressure2.top
                     anchors.bottomMargin: parent.height * 0.01
                     anchors.horizontalCenter: motorpressure2.horizontalCenter
-                    font.pixelSize: parent. width * 0.05
+                    font.pixelSize: parent. width * 0.04
                     color: "white"
                 }
                 CircularGauge {
@@ -1429,75 +1443,13 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.7
                     anchors.right: thermometer2.left
                     anchors.rightMargin: parent.width* 0.05
-                    height: width * 6
+                    height: width * 3.5
                     color: "transparent"
-                    Image{
-                        id: alert2
-                        source: "../images/alert.png"
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : parent.top
-                        width: parent.width 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                        smooth: true
-                        visible: false
-                    }
-                    Glow {
-                        id:alert2glow
-                        anchors.fill: alert2
-                        source: alert2
-
-                        samples: 32
-                        radius: 10
-                        color: "red"
-                        spread: 0
-                    }
-                    Image{
-                        id: tempalert2
-                        source: "../images/tempalert.png"
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : alert2.bottom
-                        width: parent.width 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                        smooth: true
-                        visible: false
-                    }
-                    Glow {
-                        id:tempalert2glow
-                        anchors.fill: tempalert2
-                        source: tempalert2
-
-                        samples: 32
-                        radius: 10
-                        color: "red"
-                        spread: 0
-                    }
-                    Image{
-                        id: lowbattery2
-                        source: "../images/low-battery.png"
-                        sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : tempalert2.bottom
-                        width: parent.width 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                        smooth: true
-                        visible: false
-                    }
-                    Glow {
-                        id:lowbattery2glow
-                        anchors.fill: lowbattery2
-                        source: lowbattery2
-                        samples: 32
-                        radius: 10
-                        color: "red"
-                        spread: 0
-                    }
                     Image{
                         id: maintainence2
                         source: "../images/maintainence.png"
                         sourceSize: Qt.size(parent.width, parent.height)
-                        anchors.top : lowbattery2.bottom
+                        anchors.top : parent.top
                         width: parent.width 
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: width
@@ -1536,6 +1488,7 @@ Rectangle{
                         source: "../images/security.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : maintainence2.bottom
+                        anchors.topMargin: parent.height * 0.1
                         width: parent.width 
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: width
@@ -1557,6 +1510,7 @@ Rectangle{
                         source: "../images/wifi.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : security2.bottom
+                        anchors.topMargin: parent.height * 0.1
                         width: parent.width 
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: width
@@ -1572,6 +1526,79 @@ Rectangle{
                         radius: 10
                         color: "green"
                         spread: 0.5
+                    }
+                }
+                Rectangle {
+                    id: criticaltelltales2
+                    height: telltales2.height
+                    width: telltales2.width
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.55
+                    anchors.left: telltales2.left
+                    color: "transparent"
+                    Image{
+                        id: alert2
+                        source: "../images/alert.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : parent.top
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:alert2glow
+                        anchors.fill: alert2
+                        source: alert2
+
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: tempalert2
+                        source: "../images/tempalert.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : alert2.bottom
+                        anchors.topMargin: parent.height * 0.1
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:tempalert2glow
+                        anchors.fill: tempalert2
+                        source: tempalert2
+
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
+                    }
+                    Image{
+                        id: lowbattery2
+                        source: "../images/low-battery.png"
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        anchors.top : tempalert2.bottom
+                        anchors.topMargin: parent.height * 0.05
+                        width: parent.width 
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: width
+                        smooth: true
+                        visible: false
+                    }
+                    Glow {
+                        id:lowbattery2glow
+                        anchors.fill: lowbattery2
+                        source: lowbattery2
+                        samples: 32
+                        radius: 10
+                        color: "red"
+                        spread: 0
                     }
                 }
                 Gauge {
