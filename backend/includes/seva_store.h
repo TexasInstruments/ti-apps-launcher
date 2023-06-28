@@ -13,6 +13,7 @@ private:
 
     QString _command;
     QProcess seva_process;
+    QProcessEnvironment env;
 
 public:
     Q_PROPERTY(QString button READ button NOTIFY button_changed);
