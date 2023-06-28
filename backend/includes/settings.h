@@ -7,11 +7,9 @@
 class Settings : public QObject {
     Q_OBJECT
 
-private:
+public:
     QString _https_proxy;
     QString _no_proxy;
-
-public:
     Q_INVOKABLE void set_proxy(QString https_proxy, QString no_proxy);
 
 };
