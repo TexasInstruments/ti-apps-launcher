@@ -6,11 +6,15 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/stats.h"
 #include "../backend/includes/live_camera.h"
+#include "../backend/includes/seva_store.h"
+#include "../backend/includes/settings.h"
 
 #define PLATFORM "am68-sk"
 
+using namespace std;
+
 QString platform = "am68-sk";
-int include_apps_count = 5;
+int include_apps_count = 7;
 
 app_info include_apps[] = {
     {
@@ -38,21 +42,36 @@ app_info include_apps[] = {
         .name = "Live Camera",
         .icon_source = "camera.png"
     },
+    {
+        .qml_source = "seva_store.qml",
+        .name = "Seva Store",
+        .icon_source = "seva_store.png"
+    },
+    {
+        .qml_source = "firefox_browser.qml",
+        .name = "Firefox",
+        .icon_source = "firefox.png"
+    }
 };
 
-
+Settings settings;
 camera_recorder camrecbackend;
 benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
 stats statsbackend;
 LiveCamera live_camera;
+QString seva_command = QString::fromStdString("seva-launcher-aarch64 -http_proxy=") + settings._https_proxy + QString::fromStdString(" -no_proxy=") + settings._no_proxy;
+SevaStore *seva_store = new SevaStore(seva_command);
+SevaStore *firefox_browser = new SevaStore(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0"));
 
 void platform_setup(QQmlApplicationEngine *engine) {
+    std::cout << "Running Platform Setup of AM68x!" << endl;
     engine->rootContext()->setContextProperty("camrecbackend", &camrecbackend);
     engine->rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine->rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
     engine->rootContext()->setContextProperty("statsbackend", &statsbackend);
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
-    
+    engine->rootContext()->setContextProperty("seva_store", seva_store);
+    engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
 }
 
