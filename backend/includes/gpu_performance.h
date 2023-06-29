@@ -24,6 +24,7 @@ public:
     Q_INVOKABLE void gpuload3();
     Q_INVOKABLE void gpuload4();
 
-    
+    Q_INVOKABLE QString getfps();
+    Q_INVOKABLE QString getscore();
 
 };

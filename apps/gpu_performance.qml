@@ -57,6 +57,7 @@ Rectangle {
                         level3.color = "transparent"
                         level4.color = "transparent"
                         gpuperfbackend.gpuload0()
+                        timer.running = false
                     }
                 }
             }
@@ -81,6 +82,8 @@ Rectangle {
                         level3.color = "transparent"
                         level4.color = "transparent"
                         gpuperfbackend.gpuload1()
+                        timer.running = false
+                        timer.running = true
                     }
                 }
             }
@@ -104,8 +107,9 @@ Rectangle {
                         level2.color = "yellow"
                         level3.color = "transparent"
                         level4.color = "transparent"
-                        
                         gpuperfbackend.gpuload2()
+                        timer.running = false
+                        timer.running = true
                     }
                 }
             }
@@ -130,6 +134,8 @@ Rectangle {
                         level3.color = "orange"
                         level4.color = "transparent"
                         gpuperfbackend.gpuload3()
+                        timer.running = false
+                        timer.running = true
                     }
                 }
             }
@@ -154,6 +160,8 @@ Rectangle {
                         level3.color = "orange"
                         level4.color = "red"
                         gpuperfbackend.gpuload4()
+                        timer.running = false
+                        timer.running = true
                     }
                 }
             }
@@ -171,6 +179,50 @@ Rectangle {
                 font.pixelSize: parent.width * 0.2
                 font.bold: true
                 anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: perfstats
+            width: parent.width * 0.3
+            height: parent.height * 0.1
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            Text {
+                id:lefttext
+                text: qsTr("gl mark2: FPS= ")
+                color: "black"
+                font.pixelSize: parent.width * 0.05
+                anchors.left: parent.left
+            }
+            Text {
+                id:fps
+                text: "1418"
+                color: "black"
+                font.pixelSize: parent.width * 0.05
+                anchors.left: lefttext.right
+            }
+            Text {
+                id: scoretext
+                text: "Score: "
+                anchors.left: fps.right
+                font.pixelSize: parent.width * 0.05
+            }
+            Text {
+                id: score
+                text: "712"
+                color: "black"
+                font.pixelSize: parent.width * 0.05
+                anchors.left: scoretext.right
+            }
+            Timer {
+                id: timer
+                interval: 102000
+                running: false
+                repeat: false
+                onTriggered: {
+                    fps.text = gpuperfbackend.getfps()
+                    score.text = gpuperfbackend.getscore()
+                }
             }
         }
     }
