@@ -203,7 +203,7 @@ Rectangle {
             }
             Text {
                 id: scoretext
-                text: "Score: "
+                text: " Score: "
                 anchors.left: fps.right
                 font.pixelSize: parent.width * 0.05
             }

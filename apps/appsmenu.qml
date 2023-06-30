@@ -18,7 +18,7 @@ Rectangle {
         id: leftSubMenu
 
         width: parent.width * 0.9
-        height: parent.height * 0.6
+        height: parent.height * 0.8
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         color: "#344045"
@@ -29,13 +29,15 @@ Rectangle {
 
         ColumnLayout {
             anchors.fill: parent
-
+            
             Repeater {
                 model: appsmenu.button_getcount()
 
                 Button {
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.fillWidth: parent * 0.9
+                    Layout.fillWidth: parent 
+                    Layout.leftMargin: parent.width * 0.1
+                    Layout.rightMargin: parent.width * 0.1
                     Layout.preferredHeight: 50
                     text: appsmenu.button_getname(index)
                     onClicked: appWindow.source = appsmenu.button_getqml(index)
@@ -43,7 +45,9 @@ Rectangle {
             }
             Button {
                 Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: parent * 0.9
+                Layout.fillWidth: parent 
+                Layout.leftMargin: parent.width * 0.1
+                Layout.rightMargin: parent.width * 0.1
                 Layout.preferredHeight: 50
                 text: "Settings"
                 onClicked: appWindow.source = "settings.qml"
