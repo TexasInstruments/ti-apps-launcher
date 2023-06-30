@@ -20,7 +20,7 @@ Rectangle {
             id: platform
             anchors.left: parent.left
             anchors.top: parent.top
-            font.pointSize: 15
+            font.pointSize: 13
             text: "Platform: " + deviceinfo.getplatform()
             color: "#FEFFFF"
         }
@@ -29,7 +29,7 @@ Rectangle {
             id: ipAddr
             anchors.left: parent.left
             anchors.top: platform.bottom
-            font.pointSize: 15
+            font.pointSize: 13
             text: backend.ip_addr
             color: "#FEFFFF"
         }

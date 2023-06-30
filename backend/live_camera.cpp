@@ -112,8 +112,8 @@ QString LiveCamera::liveCamera_gst_pipeline() {
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
     #if defined(SOC_AM62)
     gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
-    #elif defined(SOC_J721E)
-    gst_pipeline.append(" ! image/jpeg, width=640, height=480 ! jpegdec");
+    #elif defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4)
+    gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
     #endif
     gst_pipeline.append(" ! videoconvert");
     gst_pipeline.append(" ! qtvideosink");

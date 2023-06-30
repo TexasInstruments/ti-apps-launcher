@@ -1,7 +1,6 @@
 /* Configuration file for Generic/Unknown Devices */
 
 #include "../backend/includes/common.h"
-#include "backend/includes/camera_recorder.h"
 #include "backend/includes/benchmarks.h"
 #include "backend/includes/gpu_performance.h"
 #include "../backend/includes/live_camera.h"
@@ -13,18 +12,13 @@
 using namespace std;
 
 QString platform = "am68-sk";
-int include_apps_count = 7;
+int include_apps_count = 6;
 
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
         .name = "Industrial HMI",
         .icon_source = "hmi.png"
-    },
-    {
-        .qml_source = "camera_old.qml",
-        .name = "Camera Recorder",
-        .icon_source = "camera.png"
     },
     {
         .qml_source = "benchmarks.qml",
@@ -54,7 +48,6 @@ app_info include_apps[] = {
 };
 
 Settings settings;
-camera_recorder camrecbackend;
 benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
 LiveCamera live_camera;
@@ -64,7 +57,6 @@ SevaStore *firefox_browser = new SevaStore(QStringLiteral("docker run -v /run/us
 
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM68x!" << endl;
-    engine->rootContext()->setContextProperty("camrecbackend", &camrecbackend);
     engine->rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine->rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
     engine->rootContext()->setContextProperty("live_camera", &live_camera);

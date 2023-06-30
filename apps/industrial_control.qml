@@ -1633,7 +1633,7 @@ Rectangle{
                 text: qsTr("Status Message:")
                 anchors.centerIn: parent
                 color: "#FFFFFF"
-                font.pixelSize: parent.width * 0.12
+                font.pixelSize: parent.width * 0.1
             }
             color: "transparent"
             anchors.bottom: parent.bottom
