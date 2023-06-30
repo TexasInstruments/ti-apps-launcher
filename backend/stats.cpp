@@ -22,7 +22,7 @@ QString stats::getcpuload() {
     perfStatsCpuStatsInit(&cpuload);
     perfStatsCpuLoadCalc(&cpuload);
     perfStatsResetCpuLoadCalc(&cpuload);
-    QString res = QString::number(cpuload.cpu_load/100)+"."+QString::number(cpuload.cpu_load%100);
+    QString res = QString::number(cpuload.cpu_load/100);
     return res;
 }
 

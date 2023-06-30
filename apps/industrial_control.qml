@@ -1623,8 +1623,7 @@ Rectangle{
                         }
                     }
                 }
-            }
-            
+            } 
         }
         Rectangle{
             id: statusheader
@@ -1648,37 +1647,30 @@ Rectangle{
                 font.pixelSize: parent.width * 0.1
             }
         }
-        Image {
+        Rectangle {
             id: powerimage
-            source: "../images/bluerect.png"
-            fillMode: Image.PreserveAspectFit
-            height: statusheader.height
-            width: statusheader.width * 0.33
+            height: statusheader.height * 1.5
+            width: statusheader.width * 0.5
             anchors.left: parent.left
             anchors.leftMargin: parent.width * 0.5
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height * 0.01
+            color: "transparent"
             Image {
                 id:slidebutton
                 visible: true
-                source: "../images/modebutton.png"
+                source: "../images/mode1.png"
                 fillMode: Image.PreserveAspectFit
-                width: parent.width * 0.4
-                height: parent.height 
-                anchors.left: parent.left
-                anchors.leftMargin: parent.width * 0.1
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.fill: parent
             }
             Image {
                 id:slidebutton2
                 visible: false
-                source: "../images/modebutton.png"
+                source: "../images/mode2.png"
                 fillMode: Image.PreserveAspectFit
-                width: parent.width * 0.4
-                height: parent.height 
-                anchors.right: parent.right
-                anchors.rightMargin: parent.width * 0.1
-                anchors.verticalCenter: parent.verticalCenter
+                //width: parent.width 
+                //height: parent.height 
+                anchors.fill: parent
             }
             MouseArea {
                 anchors.fill: parent
@@ -1806,6 +1798,5 @@ Rectangle{
                 }
             }
         } 
-             
     }
 }

@@ -16,18 +16,18 @@ Rectangle {
     visible: true
     height: Screen.desktopAvailableHeight * 0.6
     width: Screen.desktopAvailableWidth * 0.825
-  
+    
     Rectangle {
         id: backgroundrect
         width: parent.width
         height: parent.height
-        
-        Image {
-            id: backgroundimage
-            source:"../images/Background.png"
-            width: parent.width
-            height: parent.height
-        }
+        color: "#ffebcd"
+        //Image {
+        //    id: backgroundimage
+        //    source:"../images/Background.png"
+        //    width: parent.width
+        //    height: parent.height
+        //}
         Rectangle {
             id: levelbar
             height: parent.height * 0.5
@@ -184,12 +184,13 @@ Rectangle {
         Rectangle {
             id: perfstats
             width: parent.width * 0.3
-            height: parent.height * 0.1
+            height: parent.height * 0.05
             anchors.left: parent.left
             anchors.bottom: parent.bottom
+            color: "transparent"
             Text {
                 id:lefttext
-                text: qsTr("gl mark2: FPS= ")
+                text: qsTr(" gl mark2: FPS= ")
                 color: "black"
                 font.pixelSize: parent.width * 0.05
                 anchors.left: parent.left
@@ -197,7 +198,7 @@ Rectangle {
             Text {
                 id:fps
                 text: "1418"
-                color: "black"
+                color: "red"
                 font.pixelSize: parent.width * 0.05
                 anchors.left: lefttext.right
             }
@@ -206,11 +207,12 @@ Rectangle {
                 text: " Score: "
                 anchors.left: fps.right
                 font.pixelSize: parent.width * 0.05
+                color: "black"
             }
             Text {
                 id: score
                 text: "712"
-                color: "black"
+                color: "red"
                 font.pixelSize: parent.width * 0.05
                 anchors.left: scoretext.right
             }
