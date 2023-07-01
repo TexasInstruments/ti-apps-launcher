@@ -141,7 +141,20 @@ Rectangle {
                 height: 0
                 anchors.bottom: parent.bottom
             }
-
+            Rectangle {
+                id: ddrwritebw
+                color: "red"
+                width: parent.width
+                height: 0
+                anchors.bottom: parent.bottom
+            }
+            Rectangle {
+                id: ddrreadbw
+                color: "yellow"
+                width: parent.width
+                height: 0
+                anchors.bottom: ddrwritebw.top
+            }
             Text {
                 id: ddrload
                 text: qsTr("0")
@@ -155,8 +168,44 @@ Rectangle {
                 repeat: true // repeat the timer
                 onTriggered: {
                     ddrload.text = statsbackend.getddrload()
-                    ddrbarfill.height = (ddrload.text * ddrbar.height )/ ddrbar.totalbw
+                    readbw.text = statsbackend.getddrreadbw() 
+                    writebw.text = statsbackend.getddrwritebw()
+                    ddrreadbw.height = (readbw.text * ddrbar.height) /ddrbar.totalbw
+                    ddrwritebw.height = (writebw.text * ddrbar.height) /ddrbar.totalbw
+                    
                 }
+            }
+        }
+        Rectangle {
+            id: writebwlegend
+            height: parent.height * 0.2
+            width: height * 1.5
+            anchors.left: ddrbar.right
+            anchors.bottom: ddrbar.bottom
+            anchors.leftMargin: parent.width * 0.02
+            color: "red"
+            Text{
+                id: writebw
+                text: qsTr("0")
+                color: "black"
+                anchors.centerIn: parent
+                font.pixelSize: parent.width * 0.3
+            }
+        }
+        Rectangle {
+            id: readbwlegend
+            height: writebwlegend.height
+            width: writebwlegend.width
+            anchors.left: writebwlegend.left
+            anchors.bottom: writebwlegend.top
+            anchors.bottomMargin: parent.height * 0.1
+            color: "yellow"
+            Text{
+                id: readbw
+                text: qsTr("0")
+                color: "black"
+                anchors.centerIn: parent
+                font.pixelSize: parent.width * 0.3
             }
         }
         Rectangle {
