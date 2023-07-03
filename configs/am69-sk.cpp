@@ -4,7 +4,6 @@
 #include "backend/includes/camera_recorder.h"
 #include "backend/includes/benchmarks.h"
 #include "backend/includes/gpu_performance.h"
-#include "backend/includes/stats.h"
 
 #define PLATFORM "am69-sk"
 
@@ -39,14 +38,12 @@ app_info include_apps[] = {
 camera_recorder camrecbackend;
 benchmarks benchmarksbackend;
 gpu_performance gpuperfbackend;
-stats statsbackend;
 //LiveCamera live_camera;
 
 void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("camrecbackend", &camrecbackend);
     engine->rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
     engine->rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
-    engine->rootContext()->setContextProperty("statsbackend", &statsbackend);
     //engine->rootContext()->setContextProperty("live_camera", &live_camera);
     
 }

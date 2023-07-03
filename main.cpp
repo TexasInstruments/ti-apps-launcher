@@ -12,9 +12,11 @@
 #include "backend/includes/Backend.h"
 #include "backend/includes/appsmenu.h"
 #include "backend/includes/deviceinfo.h"
+#include "../backend/includes/stats.h"
 QStringListModel modelNamesList;
 
 //objects 
+stats statsbackend;
 Backend backend;
 apps_menu appsmenu;
 Device_info deviceinfo;
@@ -92,7 +94,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
     engine.rootContext()->setContextProperty("deviceinfo", &deviceinfo);
-
+    engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     platform_setup(&engine);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

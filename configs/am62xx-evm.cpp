@@ -5,7 +5,7 @@
 #include "../backend/includes/live_camera.h"
 #include "../backend/includes/seva_store.h"
 #include "../backend/includes/settings.h"
-#include "../backend/includes/stats.h"
+
 #define PLATFORM "am62xx-evm"
 using namespace std;
 int include_apps_count = 5;
@@ -40,7 +40,6 @@ app_info include_apps[] = {
 };
 
 Settings settings;
-stats statsbackend;
 LiveCamera live_camera;
 
 QString seva_command = QString::fromStdString("seva-launcher-aarch64 -http_proxy=") + settings._https_proxy + QString::fromStdString(" -no_proxy=") + settings._no_proxy;
@@ -54,6 +53,5 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("settings", &settings);
-    engine->rootContext()->setContextProperty("statsbackend", &statsbackend);
 }
 
