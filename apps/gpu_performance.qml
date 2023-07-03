@@ -22,13 +22,13 @@ Rectangle {
         width: parent.width
         height: parent.height
         color: "#ffebcd"
-        //Image {
-        //    id: backgroundimage
-        //    source:"../images/Background.png"
-        //    width: parent.width
-        //    height: parent.height
-        //}
-        Rectangle {
+        Image {
+            id: backgroundimage
+            source:"file://home/root/jacinto_oob_demo_home_image.png"
+            width: parent.width
+            height: parent.height
+        }
+        Rectangle { 
             id: levelbar
             height: parent.height * 0.5
             width: parent.width * 0.05
@@ -169,7 +169,7 @@ Rectangle {
         Rectangle {
             width: levelbar.width
             height: levelbar.height * 0.4 * 0.35
-            anchors.top: levelbar.bottom
+            anchors.bottom: levelbar.top
             anchors.right: parent.right
             anchors.rightMargin: parent.width * 0.1
             color: "transparent"
@@ -182,39 +182,169 @@ Rectangle {
             }
         }
         Rectangle {
-            id: perfstats
-            width: parent.width * 0.3
-            height: parent.height * 0.05
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
+            id: benchmarksname
+            width: parent.width  * 0.1
+            height: levelbar.height * 0.8
+            anchors.right: levelbar.left
+            anchors.top: levelbar.top
+            color: "#fff5ee"
+            Rectangle{
+                id: level1benchmark
+                width: parent.width
+                height: parent.height * 0.25
+                anchors.bottom: parent.bottom
+                color: "transparent"
+                Text {
+                    text: qsTr("Buffer")
+                    color: "#F44336"
+                    font.pixelSize: parent.width * 0.1
+                    anchors.centerIn: parent
+                }
+            }
+            Rectangle{
+                id: level2benchmark
+                width: parent.width
+                height: parent.height * 0.25
+                anchors.bottom: level1benchmark.top
+                color: "transparent"
+                Text {
+                    text: qsTr("Ideas")
+                    color: "#F44336"
+                    font.pixelSize: parent.width * 0.1
+                    anchors.centerIn: parent
+                }
+            }
+            Rectangle{
+                id: level3benchmark
+                width: parent.width
+                height: parent.height * 0.25
+                anchors.bottom: level2benchmark.top
+                color: "transparent"
+                Text {
+                    text: qsTr("Texture")
+                    color: "#F44336"
+                    font.pixelSize: parent.width * 0.1
+                    anchors.centerIn: parent
+                }
+            }
+            Rectangle{
+                id: level4benchmark
+                width: parent.width
+                height: parent.height * 0.25
+                anchors.bottom: level3benchmark.top
+                color: "transparent"
+                Text {
+                    text: qsTr("Terrain")
+                    color: "#F44336"
+                    font.pixelSize: parent.width * 0.1
+                    anchors.centerIn: parent
+                }
+            }
+        }
+        Rectangle {
+            width: benchmarksname.width
+            height: benchmarksname.height * 0.4 * 0.35
+            anchors.bottom: benchmarksname.top
+            anchors.right: benchmarksname.right
             color: "transparent"
             Text {
-                id:lefttext
-                text: qsTr(" gl mark2: FPS= ")
-                color: "black"
-                font.pixelSize: parent.width * 0.05
+                text: qsTr("Benchmarks")
+                color: "#FFFFFF"
+                font.pixelSize: parent.width * 0.15
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: perfstats
+            height: parent.height * 0.25
+            width: parent.width * 0.2
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            
+            Rectangle {
+                id: headtitle
+                width: parent.width
+                height: parent.height * 0.33
+                border.color: "black"
+                border.width: 5
+                color: "transparent"
+                Text {
+                    id: title
+                    text: "glmark2"
+                    color: "black"
+                    anchors.centerIn: parent
+                    font.pixelSize: parent.width * 0.1
+                    font.bold: true
+                }
+            }
+            Rectangle {
+                id: index10
+                width: parent.width * 0.49
+                height: parent.height * 0.33
+                anchors.top: headtitle.bottom
                 anchors.left: parent.left
+                border.color: "black"
+                border.width: 5
+                color: "transparent"
+                Text {
+                    id: fpstext
+                    text: "FPS:"
+                    color: "black"
+                    anchors.centerIn: parent
+                    font.pixelSize: parent.width * 0.2 
+                }
             }
-            Text {
-                id:fps
-                text: "1418"
-                color: "red"
-                font.pixelSize: parent.width * 0.05
-                anchors.left: lefttext.right
+            Rectangle {
+                id: index11
+                height: parent.height * 0.33
+                anchors.top: headtitle.bottom
+                anchors.left: index10.right
+                anchors.right: headtitle.right
+                border.color: "black"
+                border.width: 5
+                color: "transparent"
+                Text {
+                    id:fps
+                    text: "Please click to run"
+                    color: "red"
+                    font.pixelSize: parent.width * 0.1
+                    anchors.centerIn: parent
+                }
             }
-            Text {
-                id: scoretext
-                text: " Score: "
-                anchors.left: fps.right
-                font.pixelSize: parent.width * 0.05
-                color: "black"
+            Rectangle {
+                id: index20
+                width: parent.width * 0.49
+                height: parent.height * 0.33
+                anchors.top: index10.bottom
+                anchors.left: index10.left
+                border.color: "black"
+                border.width: 5
+                color: "transparent"
+                Text {
+                    id: scoretext
+                    text: " Score: "
+                    font.pixelSize: parent.width * 0.2
+                    color: "black"
+                    anchors.centerIn: parent
+                }
             }
-            Text {
-                id: score
-                text: "712"
-                color: "red"
-                font.pixelSize: parent.width * 0.05
-                anchors.left: scoretext.right
+            Rectangle {
+                id: index21
+                height: parent.height * 0.33
+                anchors.top: index11.bottom
+                anchors.left: index11.left
+                anchors.right: headtitle.right
+                border.color: "black"
+                border.width: 5
+                color: "transparent"
+                Text {
+                    id: score
+                    text: "Please click to run"
+                    color: "red"
+                    font.pixelSize: parent.width * 0.1
+                    anchors.centerIn: parent
+                }
             }
             Timer {
                 id: timer
@@ -222,6 +352,8 @@ Rectangle {
                 running: false
                 repeat: false
                 onTriggered: {
+                    fps.font.pixelSize = index11.width * 0.2
+                    score.font.pixelSize = index21.width * 0.2
                     fps.text = gpuperformance.getfps()
                     score.text = gpuperformance.getscore()
                 }

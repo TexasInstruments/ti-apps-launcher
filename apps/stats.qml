@@ -44,7 +44,8 @@ Rectangle {
                 id: gpuload
                 text: qsTr("0%")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.3
+                font.pixelSize: parent.width * 0.24
+                font.bold: true
                 anchors.centerIn: parent
             }
             Timer {
@@ -94,7 +95,8 @@ Rectangle {
                 id: cpuload
                 text: qsTr("0")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.3
+                font.pixelSize: parent.width * 0.24
+                font.bold: true
                 anchors.centerIn: parent
             }
             Timer {
@@ -159,8 +161,17 @@ Rectangle {
                 id: ddrload
                 text: qsTr("0")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.3
+                font.pixelSize: parent.width * 0.24
+                font.bold: true
                 anchors.centerIn: parent
+            }
+            Text {
+                text: qsTr("MB/S")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.2
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.bold: true
+                anchors.top: ddrload.bottom
             }
             Timer {
                 interval: 1000 // interval in milliseconds
@@ -176,13 +187,22 @@ Rectangle {
                 }
             }
         }
+        Text {
+            anchors.left: ddrbar.right
+            anchors.leftMargin: parent.width * 0.005
+            anchors.right: writebwlegend.left
+            anchors.verticalCenter: writebwlegend.verticalCenter
+            text: "WR_BW"
+            color: "red"
+            font.pixelSize: anchors.width * 0.2
+        }
         Rectangle {
             id: writebwlegend
             height: parent.height * 0.2
             width: height * 1.5
             anchors.left: ddrbar.right
             anchors.bottom: ddrbar.bottom
-            anchors.leftMargin: parent.width * 0.02
+            anchors.leftMargin: parent.width * 0.04
             color: "red"
             Text{
                 id: writebw
@@ -191,6 +211,15 @@ Rectangle {
                 anchors.centerIn: parent
                 font.pixelSize: parent.width * 0.3
             }
+        }
+        Text {
+            anchors.left: ddrbar.right
+            anchors.leftMargin: parent.width * 0.005
+            anchors.right: readbwlegend.left
+            anchors.verticalCenter: readbwlegend.verticalCenter
+            text: "RD_BW"
+            color: "yellow"
+            font.pixelSize: anchors.width * 0.2
         }
         Rectangle {
             id: readbwlegend
