@@ -1652,7 +1652,7 @@ Rectangle{
             height: statusheader.height * 1.5
             width: statusheader.width * 0.5
             anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.5
+            anchors.leftMargin: parent.width * 0.8
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height * 0.01
             color: "transparent"
@@ -1672,6 +1672,22 @@ Rectangle{
                 //height: parent.height 
                 anchors.fill: parent
             }
+            Text {
+                id:autotext
+                visible:true
+                text: "Auto"
+                color: "white"
+                font.pixelSize: parent.width * 0.1
+                anchors.centerIn: parent
+            }
+            Text {
+                id: manualtext
+                visible: false
+                text: "Manual"
+                color: "white"
+                font.pixelSize: parent.width * 0.1
+                anchors.centerIn: parent
+            }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -1680,6 +1696,8 @@ Rectangle{
                         slidebutton.visible = true
                         slidebutton2.visible = false
                         textupdate.text = "Automatic Control"
+                        autotext.visible = true
+                        manualtext.visible = false
                         
                         motorspeed1.count1 = 0
                         red1.active = false
@@ -1701,6 +1719,8 @@ Rectangle{
                         slidebutton.visible = false
                         slidebutton2.visible = true
                         textupdate.text = "Manual Control"
+                        autotext.visible = false
+                        manualtext.visible = true
                         autotimer1.running = false
                         autotimer2.running = false
                     }
