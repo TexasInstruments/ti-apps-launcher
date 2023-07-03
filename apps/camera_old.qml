@@ -10,7 +10,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 Rectangle {
-    id: camerarecorder
+    id: camerarecord
     visible: true
     height: Screen.desktopAvailableHeight * 0.6
     width: Screen.desktopAvailableWidth * 0.825    
@@ -37,31 +37,31 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    if(camerarecorder.count == 0) {
-                        camerarecorder.count += 1
+                    if(camerarecord.count == 0) {
+                        camerarecord.count += 1
                         statustext.text = "Recording"
                         recordbutton.source = "../images/stop-button.png"
-                        camrecbackend.startrec()
+                        camerarecorder.startrec()
                     }
-                    else if(camerarecorder.count == 1) {
-                        camerarecorder.count += 1
+                    else if(camerarecord.count == 1) {
+                        camerarecord.count += 1
                         statustext.text = "Camera"
                         recordbutton.source = "../images/playbutton.png"
-                        camrecbackend.stoprec()
+                        camerarecorder.stoprec()
                     }
-                    else if(camerarecorder.count == 2) {
+                    else if(camerarecord.count == 2) {
                         recordbutton.source = "../images/videostop.png"
-                        camerarecorder.count += 1
+                        camerarecord.count += 1
                         statustext.text = "Playing"
-                        camrecbackend.startvideo()
+                        camerarecorder.startvideo()
                         isvideoover.running = true
                     }
-                    else if(camerarecorder.count == 3) {
-                        camerarecorder.count = 0
+                    else if(camerarecord.count == 3) {
+                        camerarecord.count = 0
                         isvideoover.running = false
                         statustext.text = "Camera"
                         recordbutton.source = "../images/record.png"
-                        camrecbackend.stopvideo()
+                        camerarecorder.stopvideo()
                     }
                 }
             }
@@ -71,10 +71,10 @@ Rectangle {
                 running: false // start the timer
                 repeat: true // repeat the timer
                 onTriggered: {
-                    recordbutton.flag = camrecbackend.isvideocomplete()
+                    recordbutton.flag = camerarecorder.isvideocomplete()
                     if(recordbutton.flag == 1) {
-                        camrecbackend.playcam()
-                        camerarecorder.count = 0
+                        camerarecorder.playcam()
+                        camerarecord.count = 0
                         statustext.text = "Camera"
                         recordbutton.source = "../images/record.png"
                         isvideoover.running = false

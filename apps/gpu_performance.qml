@@ -56,7 +56,7 @@ Rectangle {
                         level2.color = "transparent"
                         level3.color = "transparent"
                         level4.color = "transparent"
-                        gpuperfbackend.gpuload0()
+                        gpuperformance.gpuload0()
                         timer.running = false
                     }
                 }
@@ -81,7 +81,7 @@ Rectangle {
                         level2.color = "transparent"
                         level3.color = "transparent"
                         level4.color = "transparent"
-                        gpuperfbackend.gpuload1()
+                        gpuperformance.gpuload1()
                         timer.running = false
                         timer.running = true
                     }
@@ -107,7 +107,7 @@ Rectangle {
                         level2.color = "yellow"
                         level3.color = "transparent"
                         level4.color = "transparent"
-                        gpuperfbackend.gpuload2()
+                        gpuperformance.gpuload2()
                         timer.running = false
                         timer.running = true
                     }
@@ -133,7 +133,7 @@ Rectangle {
                         level2.color = "yellow"
                         level3.color = "orange"
                         level4.color = "transparent"
-                        gpuperfbackend.gpuload3()
+                        gpuperformance.gpuload3()
                         timer.running = false
                         timer.running = true
                     }
@@ -159,7 +159,7 @@ Rectangle {
                         level2.color = "yellow"
                         level3.color = "orange"
                         level4.color = "red"
-                        gpuperfbackend.gpuload4()
+                        gpuperformance.gpuload4()
                         timer.running = false
                         timer.running = true
                     }
@@ -222,8 +222,8 @@ Rectangle {
                 running: false
                 repeat: false
                 onTriggered: {
-                    fps.text = gpuperfbackend.getfps()
-                    score.text = gpuperfbackend.getscore()
+                    fps.text = gpuperformance.getfps()
+                    score.text = gpuperformance.getscore()
                 }
             }
         }

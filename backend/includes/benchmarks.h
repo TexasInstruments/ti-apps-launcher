@@ -11,7 +11,7 @@
 using namespace std;
 
 
-class benchmarks : public QObject {
+class Benchmarks : public QObject {
     Q_OBJECT
 
 private:

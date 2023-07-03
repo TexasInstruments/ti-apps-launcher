@@ -11,7 +11,7 @@
 using namespace std;
 
 
-class gpu_performance : public QObject {
+class Gpu_performance : public QObject {
     Q_OBJECT
 
 private:

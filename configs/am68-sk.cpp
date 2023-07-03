@@ -48,8 +48,8 @@ app_info include_apps[] = {
 };
 
 Settings settings;
-benchmarks benchmarksbackend;
-gpu_performance gpuperfbackend;
+Benchmarks benchmarks;
+Gpu_performance gpuperformance;
 LiveCamera live_camera;
 QString seva_command = QString::fromStdString("seva-launcher-aarch64 -http_proxy=") + settings._https_proxy + QString::fromStdString(" -no_proxy=") + settings._no_proxy;
 SevaStore *seva_store = new SevaStore(seva_command);
@@ -57,8 +57,8 @@ SevaStore *firefox_browser = new SevaStore(QStringLiteral("docker run -v /run/us
 
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM68x!" << endl;
-    engine->rootContext()->setContextProperty("benchmarksbackend", &benchmarksbackend);
-    engine->rootContext()->setContextProperty("gpuperfbackend", &gpuperfbackend);
+    engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
+    engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
