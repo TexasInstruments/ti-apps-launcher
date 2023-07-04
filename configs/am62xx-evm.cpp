@@ -8,7 +8,7 @@
 
 #define PLATFORM "am62xx-evm"
 using namespace std;
-int include_apps_count = 5;
+int include_apps_count = 6;
 QString platform = "am62xx-evm";
 
 app_info include_apps[] = {
@@ -36,6 +36,11 @@ app_info include_apps[] = {
         .qml_source = "firefox_browser.qml",
         .name = "Firefox",
         .icon_source = "firefox.png"
+    },
+    {
+        .qml_source = "3d_demo.qml",
+        .name = "3D Demo",
+        .icon_source = "3d.png"
     }
 };
 
@@ -45,13 +50,14 @@ LiveCamera live_camera;
 QString seva_command = QString::fromStdString("seva-launcher-aarch64 -http_proxy=") + settings._https_proxy + QString::fromStdString(" -no_proxy=") + settings._no_proxy;
 RunCmd *seva_store = new RunCmd(seva_command);
 RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0"));
-
+RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
+    engine->rootContext()->setContextProperty("demo_3d", demo_3d);
     engine->rootContext()->setContextProperty("settings", &settings);
 
     docker_load_images();
