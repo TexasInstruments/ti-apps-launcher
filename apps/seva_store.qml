@@ -9,12 +9,12 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 Rectangle {
-    id: sevastore
+    id: runcommand
     visible: true
     anchors.fill: parent
 
     Text {
-        id: seva_status_msg
+        id: cmd_status_msg
         text: seva_store.status_msg
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
@@ -23,12 +23,12 @@ Rectangle {
         color: "red"
     }
     Button {
-        id: seva_button
+        id: cmd_button
         text: seva_store.button
         palette {
             button: "#0000FF"
         }
-        anchors.top: seva_status_msg.bottom
+        anchors.top: cmd_status_msg.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         onClicked: seva_store.launch_or_stop()
     }

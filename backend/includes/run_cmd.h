@@ -4,7 +4,7 @@
 #include <QQmlContext>
 #include <QProcess>
 
-class SevaStore : public QObject {
+class RunCmd : public QObject {
     Q_OBJECT
 
 private:
@@ -12,14 +12,14 @@ private:
     QString _status_msg;
 
     QString _command;
-    QProcess seva_process;
+    QProcess process;
     QProcessEnvironment env;
 
 public:
     Q_PROPERTY(QString button READ button NOTIFY button_changed);
     Q_PROPERTY(QString status_msg READ status_msg NOTIFY status_msg_changed);
 
-    SevaStore(QString command);
+    RunCmd(QString command);
 
     Q_INVOKABLE QString button();
 

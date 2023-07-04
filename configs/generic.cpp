@@ -31,7 +31,7 @@ app_info include_apps[] = {
     }
 };
 
-SevaStore *seva_store = new SevaStore("gvim");
+RunCmd *seva_store = new RunCmd("gvim");
 
 Settings settings;
 

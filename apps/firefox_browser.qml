@@ -9,7 +9,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 Rectangle {
-    id: sevastore
+    id: firefox
     visible: true
     anchors.fill: parent
 
