@@ -1709,32 +1709,10 @@ Rectangle{
                 }
             } 
         }
-        Rectangle{
-            id: statusheader
-            width: parent.width * 0.2
-            height: parent.height * 0.05
-            Text {
-                text: qsTr("Status Message:")
-                anchors.centerIn: parent
-                color: "#FFFFFF"
-                font.pixelSize: parent.width * 0.1
-            }
-            color: "transparent"
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            Text {
-                id: textupdate
-                text: qsTr("Automatic Control")
-                anchors.top: parent.top
-                anchors.left: parent.right
-                color: "#14AFC0"
-                font.pixelSize: parent.width * 0.1
-            }
-        }
         Rectangle {
             id: powerimage
-            height: statusheader.height * 1.5
-            width: statusheader.width * 0.5
+            height: parent.height * 0.12
+            width: parent.width * 0.1
             anchors.left: parent.left
             anchors.leftMargin: parent.width * 0.8
             anchors.bottom: parent.bottom
@@ -1779,7 +1757,6 @@ Rectangle{
                         backgroundrect.count = 0
                         slidebutton.visible = true
                         slidebutton2.visible = false
-                        textupdate.text = "Automatic Control"
                         autotext.visible = true
                         manualtext.visible = false
                         
@@ -1802,7 +1779,6 @@ Rectangle{
                         backgroundrect.count = 1
                         slidebutton.visible = false
                         slidebutton2.visible = true
-                        textupdate.text = "Manual Control"
                         autotext.visible = false
                         manualtext.visible = true
                         autotimer1.running = false
