@@ -34,6 +34,7 @@
         <file>images/Analytics_with_text.png</file>
         <file>images/Camera_with_text.png</file>
         <file>images/Minux_Box.png</file>
+        <file>images/minuxboxhovered.png</file>
         <file>images/Motor_Temp.png</file>
         <file>images/3D_with_text.png</file>
         <file>images/On_Button.png</file>
@@ -43,7 +44,7 @@
         <file>images/Repeat_Grid.png</file>
         <file>images/servo-drives-icon.png</file>
         <file>images/Plus_Box.png</file>
-        <file>images/up-arrow.png</file>
+        <file>images/plusboxhovered.png</file>
         <file>images/alarm.png</file>
         <file>images/security.png</file>
         <file>images/low-battery.png</file>

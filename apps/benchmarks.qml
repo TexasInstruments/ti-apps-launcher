@@ -15,168 +15,384 @@ Rectangle {
     height: Screen.desktopAvailableHeight * 0.6
     width: Screen.desktopAvailableWidth * 0.825
 
-    Rectangle {
-        id: backgroundrect
-        width: parent.width
-        height: parent.height
-        Image {
-            id: backgroundimage
-            source: "file://home/root/jacinto_oob_demo_home_image.png"
+    Rectangle{
+        id: gpu_benchmarks
+        height: parent.height * 0.25
+        width: parent.width * 0.3
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        Rectangle{
+            id:title_gpubenchmark
             width: parent.width
-            height: parent.height
+            height: parent.height * 0.33
+            anchors.top: parent.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("GPU Benchmarks")
+                color: "black"
+                font.pixelSize: parent.width * 0.08
+                font.bold: true
+                anchors.centerIn: parent
+            }
         }
         Rectangle {
-            id:benchmarkswindow
-            //visible: false
-            height: parent.height * 0.5
-            width: parent.width * 0.5
-            anchors.top: parent.top
-            anchors.topMargin: parent.height * 0.25
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height * 0.25
+            id: gpu_benchmark1
+            width: parent.width * 0.25
             anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.25
-            anchors.right: parent.right
-            anchors.rightMargin: parent.width * 0.25
-
-            Rectangle {
-                id:appname
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top:parent.top
-                anchors.left:parent.left
-                Text {
-                    id: apptext
-                    text: qsTr("App Name")
-                    color: "black"
-                    font.pixelSize: parent.width * 0.12
-                    font.bold: true
-                    anchors.centerIn: parent
-                }
+            anchors.top: title_gpubenchmark.bottom
+            anchors.bottom: parent.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("glmark2")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.15
+                font.bold: true
+                anchors.centerIn: parent
             }
-            Rectangle {
-                id: fpshead
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top:parent.top
-                anchors.left: appname.right
-                Text {
-                    id: fpstext
-                    text: qsTr("FPS")
-                    color: "black"
-                    font.pixelSize: parent.width * 0.15
-                    font.bold: true
-                    anchors.centerIn: parent
-                }
+        }
+        Rectangle {
+            id: index11
+            width: parent.width * 0.25
+            height: gpu_benchmark1.height * 0.5
+            anchors.top: title_gpubenchmark.bottom
+            anchors.left: gpu_benchmark1.right
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                id: fpstext
+                text: qsTr("FPS")
+                color: "black"
+                font.pixelSize: parent.width * 0.15
+                anchors.centerIn: parent
             }
-            Rectangle {
-                id: scorehead
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top:parent.top
-                anchors.left: fpshead.right
-                Text {
-                    id: scoretext
-                    text: qsTr("Score")
-                    color: "black"
-                    font.pixelSize: parent.width * 0.15
-                    font.bold: true
-                    anchors.centerIn: parent
-                }
+        }
+        Rectangle {
+            id: index12
+            width: parent.width * 0.25
+            height: index11.height
+            anchors.left: index11.right
+            anchors.top: index11.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                id: index12text
+                text: qsTr("-")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.17
+                anchors.centerIn: parent
             }
-            Rectangle {
-                id: index00
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top:appname.bottom
-                anchors.left:parent.left
-
-                Text {
-                    id: index00text
-                    text: qsTr("glmark2")
-                    color: "#F44336"
-                    font.pixelSize: parent.width * 0.1
-                    anchors.centerIn: parent
-                }
+        }
+        Rectangle {
+            id: index21
+            width: index11.width
+            height: index11.height
+            anchors.left: index11.left
+            anchors.top: index11.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                id: scoretext
+                text: qsTr("Score")
+                color: "black"
+                font.pixelSize: parent.width * 0.15
+                anchors.centerIn: parent
             }
-            Rectangle {
-                id:index01
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top: fpshead.bottom
-                anchors.left:index00.right
-
-                Text {
-                    id: index01text
-                    text: qsTr("1418")
-                    color: "#F44336"
-                    font.pixelSize: parent.width * 0.17
-                    anchors.centerIn: parent
-                }
+        }
+        Rectangle {
+            id: index22
+            width: index12.width
+            height: index12.height
+            anchors.left: index12.left
+            anchors.top: index12.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                id: index22text
+                text: qsTr("-")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.17
+                anchors.centerIn: parent
             }
-            Rectangle {
-                id:index02
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top: scorehead.bottom
-                anchors.left: index01.right
-
-                Text {
-                    id: index02text
-                    text: qsTr("980")
-                    color: "#F44336"
-                    font.pixelSize: parent.width * 0.17
-                    anchors.centerIn: parent
-                }
-            }
-            Rectangle {
-                id: index03
-                height: parent.height * 0.2
-                width: parent.width * 0.25
-                anchors.top:parent.top
-                anchors.topMargin: parent.height * 0.2
-                anchors.left:index02.right
+        }
+        Rectangle{
+            id: glmark2playbutton
+            width: parent.width * 0.25
+            height: gpu_benchmark1.height
+            anchors.left: index12.right
+            anchors.top: title_gpubenchmark.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Image {
+                id: playbutton1
+                width: parent.width * 0.7
+                height: parent.height * 0.7
+                source: "../images/playbutton.png"
+                anchors.centerIn: parent
                 property int flag1: 0
-                Image {
-                    id: playmanhat
-                    scale: Qt.KeepAspectRatio
-                    height: parent.height * 0.8
-                    width: height  // To maintain the aspect ratio of the image
-                    anchors.top: parent.top
-                    anchors.topMargin: parent.height * 0.1
-                    source: "../images/playbutton.png"
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if(index03.flag1 == 0) {
-                                benchmarks.playbutton1pressed()
-                                index03.flag1 = 1
-                                playbutton1timer.running = true
-                                playmanhat.source = "../images/stop-button.png"
-                            }
-                            else {
-                                benchmarks.playbutton1pressedagain()
-                                index03.flag1 = 0
-                                playbutton1timer.running = false
-                                playmanhat.source = "../images/playbutton.png"
-                                //index01text.text = benchmarks.playbutton1fps()
-                                //index02text.text = benchmarks.playbutton1score()
-                            }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if(playbutton1.flag1 == 0) {
+                            benchmarks.playbutton1pressed()
+                            playbutton1.flag1 = 1
+                            playbutton1timer.running = true
+                            playbutton1.source = "../images/stop-button.png"
+                        }
+                        else {
+                            benchmarks.playbutton1pressedagain()
+                            playbutton1.flag1 = 0
+                            playbutton1timer.running = false
+                            playbutton1.source = "../images/playbutton.png"
                         }
                     }
                 }
-                Timer {
-                    id: playbutton1timer
-                    interval: 73000
-                    running: false
-                    repeat: false
-                    onTriggered: {
-                        index03.flag1 = 0
-                        index01text.text = benchmarks.playbutton1fps()
-                        index02text.text = benchmarks.playbutton1score()
+            }
+            Timer {
+                id: playbutton1timer
+                interval: 11000
+                running: false
+                repeat: false
+                onTriggered: {
+                    playbutton1.flag1 = 0
+                    index12text.text = benchmarks.playbutton1fps()
+                    index22text.text = benchmarks.playbutton1score()
+                }
+            }
+        }
+    }
+    Rectangle {
+        id: system_benchmarks
+        width: gpu_benchmarks.width
+        height: parent.height * 0.5
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        Rectangle {
+            id: title_systembenchmark
+            width: parent.width
+            height: parent.height * 0.2
+            anchors.top: parent.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("System Benchmarks")
+                color: "black"
+                font.pixelSize: parent.width * 0.08
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: systemindex10
+            height: parent.height * 0.16
+            width: parent.width * 0.5
+            anchors.left: parent.left
+            anchors.top: title_systembenchmark.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("dhrystone")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.075
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: systemindex11
+            height: parent.height * 0.16
+            width : parent.width * 0.5
+            anchors.left: systemindex10.right
+            anchors.top: systemindex10.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Image {
+                id: systemplaybutton1
+                height: parent.height * 0.9
+                width: height
+                source: "../images/playbutton.png"
+                anchors.centerIn: parent
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        benchmarks.systemplaybutton1pressed()
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: systemindex20
+            height: parent.height * 0.16
+            width: parent.width * 0.5
+            anchors.left: parent.left
+            anchors.top: systemindex10.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("linpack")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.075
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: systemindex21
+            height: parent.height * 0.16
+            width : parent.width * 0.5
+            anchors.left: systemindex20.right
+            anchors.top: systemindex20.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Image {
+                id: systemplaybutton2
+                height: parent.height * 0.9
+                width: height
+                source: "../images/playbutton.png"
+                anchors.centerIn: parent
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        benchmarks.systemplaybutton2pressed()
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: systemindex30
+            height: parent.height * 0.16
+            width: parent.width * 0.5
+            anchors.left: parent.left
+            anchors.top: systemindex20.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("nbench")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.075
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: systemindex31
+            height: parent.height * 0.16
+            width : parent.width * 0.5
+            anchors.left: systemindex30.right
+            anchors.top: systemindex30.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Image {
+                id: systemplaybutton3
+                height: parent.height * 0.9
+                width: height
+                source: "../images/playbutton.png"
+                anchors.centerIn: parent
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        benchmarks.systemplaybutton3pressed()
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: systemindex40
+            height: parent.height * 0.16
+            width: parent.width * 0.5
+            anchors.left: parent.left
+            anchors.top: systemindex30.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("stream")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.075
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: systemindex41
+            height: parent.height * 0.16
+            width : parent.width * 0.5
+            anchors.left: systemindex40.right
+            anchors.top: systemindex40.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Image {
+                id: systemplaybutton4
+                height: parent.height * 0.9
+                width: height
+                source: "../images/playbutton.png"
+                anchors.centerIn: parent
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        benchmarks.systemplaybutton4pressed()
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: systemindex50
+            height: parent.height * 0.16
+            width: parent.width * 0.5
+            anchors.left: parent.left
+            anchors.top: systemindex40.bottom
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Text {
+                text: qsTr("whetstone")
+                color: "#F44336"
+                font.pixelSize: parent.width * 0.075
+                font.bold: true
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: systemindex51
+            height: parent.height * 0.16
+            width : parent.width * 0.5
+            anchors.left: systemindex50.right
+            anchors.top: systemindex50.top
+            color: "transparent"
+            border.color: "black"
+            border.width: 5
+            Image {
+                id: systemplaybutton5
+                height: parent.height * 0.9
+                width: height
+                source: "../images/playbutton.png"
+                anchors.centerIn: parent
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        benchmarks.systemplaybutton5pressed()
                     }
                 }
             }
         }
     }
-}
+
+}   
+
+    
