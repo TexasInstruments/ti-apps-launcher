@@ -187,6 +187,13 @@ Rectangle{
                     anchors.bottom: parent.bottom
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            minusbox1.source = "../images/minuxboxhovered.png"
+                        }
+                        onExited: {
+                            minusbox1.source = "../images/Minux_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 minusbox1Animation.start()
@@ -239,6 +246,13 @@ Rectangle{
                     anchors.top: parent.top
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            plusbox1.source = "../images/plusboxhovered.png"
+                        }
+                        onExited: {
+                            plusbox1.source = "../images/Plus_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 plusbox1Animation.start()
@@ -441,6 +455,13 @@ Rectangle{
                     anchors.bottom: parent.bottom
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            minusbox2.source = "../images/minuxboxhovered.png"
+                        }
+                        onExited: {
+                            minusbox2.source = "../images/Minux_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 minusbox2Animation.start()
@@ -494,6 +515,13 @@ Rectangle{
                     anchors.top: parent.top
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            plusbox2.source = "../images/plusboxhovered.png"
+                        }
+                        onExited: {
+                            plusbox2.source = "../images/Plus_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 plusbox2Animation.start()
@@ -672,6 +700,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxcurrent1.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxcurrent1.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent1.count -=10
                                 minusboxcurrent1Animation.start()
@@ -698,6 +733,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxcurrent1.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxcurrent1.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent1.count += 10
                                 plusboxcurrent1Animation.start()
@@ -823,6 +865,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxpressure1.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxpressure1.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorpressure1.count -=10
                                 minusboxpressure1Animation.start()
@@ -849,6 +898,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxpressure1.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxpressure1.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorpressure1.count += 10
                                 plusboxpressure1Animation.start()
@@ -1210,6 +1266,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxcurrent2.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxcurrent2.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent2.count -=10
                                 minusboxcurrent2Animation.start()
@@ -1236,6 +1299,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxcurrent2.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxcurrent2.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent2.count += 10
                                 plusboxcurrent2Animation.start()
@@ -1362,6 +1432,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxpressure2.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxpressure2.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorpressure2.count -=10
                                 minusboxpressure2Animation.start()
@@ -1388,6 +1465,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxpressure2.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxpressure2.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorpressure2.count += 10
                                 plusboxpressure2Animation.start()
