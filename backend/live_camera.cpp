@@ -47,7 +47,7 @@ void LiveCamera::liveCamera_get_camera_info(map<string, map<string,string>> &cam
     unsigned int i,j;
 
     for (string line; getline(ss, line, '\n');) {
-        cout << line << endl;
+        qDebug() << QString::fromStdString(line);
         split_string.push_back(line);
     }
 
@@ -68,7 +68,6 @@ void LiveCamera::liveCamera_get_camera_info(map<string, map<string,string>> &cam
                 token =  strtok(NULL, "=");
                 string value = trimString(token);
                 info[key] = value;
-                cout << "key = " << key << ", value = " << value << endl;
             }
             if (info.size() > 0) {
                 cameraInfo[cameraName] = info;
@@ -92,10 +91,7 @@ void LiveCamera::liveCamera_get_camera_info(map<string, map<string,string>> &cam
     }
     LiveCamera_list.setStringList(list);
 
-    cout << "Setting LiveCamera_list context property." << endl;
     LiveCamera_count = LiveCamera_list.rowCount();
-    cout << "Camera: " << LiveCamera_list.stringList().at(0).toStdString() << endl;
-    cout << "device: " << cameraInfo[LiveCamera_list.stringList().at(0).toStdString()]["device"] << endl;
 }
 
 void LiveCamera::liveCamera_update_gst_pipeline(QString camera) {
