@@ -44,10 +44,13 @@ void RunCmd::launch_or_stop() {
         env.insert("QT_QPA_PLATFORM", "wayland");
         process.setProcessEnvironment(env);
         process.start(_command);
-        output_bytes = process.readAllStandardError();
-        output_string = QString(output_bytes);
-        cout << "output: " << output_string.toStdString() << endl;
     } else if ( process.state() == QProcess::Running ) {
         process.kill();
     }
+}
+
+QProcess docker_process;
+
+void docker_load_images() {
+    docker_process.start("docker load --input /opt/seva-browser.tar.gz");
 }
