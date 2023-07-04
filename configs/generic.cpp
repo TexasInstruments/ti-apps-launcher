@@ -1,9 +1,9 @@
 /* Configuration file for Generic/Unknown Devices */
 
 #include <iostream>
-#include "../backend/includes/common.h"
-#include "../backend/includes/seva_store.h"
-#include "../backend/includes/settings.h"
+#include "backend/includes/common.h"
+#include "backend/includes/seva_store.h"
+#include "backend/includes/settings.h"
 
 using namespace std;
 

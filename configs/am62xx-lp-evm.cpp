@@ -1,10 +1,10 @@
 /* Configuration file for AM62x and AM62x-LP */
 
 #include <iostream>
-#include "../backend/includes/common.h"
-#include "../backend/includes/live_camera.h"
-#include "../backend/includes/run_cmd.h"
-#include "../backend/includes/settings.h"
+#include "backend/includes/common.h"
+#include "backend/includes/live_camera.h"
+#include "backend/includes/run_cmd.h"
+#include "backend/includes/settings.h"
 
 #define PLATFORM "am62xx-evm"
 using namespace std;

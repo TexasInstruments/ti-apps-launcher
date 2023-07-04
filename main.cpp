@@ -11,7 +11,7 @@
 #include "backend/includes/common.h"
 #include "backend/includes/appsmenu.h"
 #include "backend/includes/deviceinfo.h"
-#include "../backend/includes/stats.h"
+#include "backend/includes/stats.h"
 QStringListModel modelNamesList;
 
 //objects 

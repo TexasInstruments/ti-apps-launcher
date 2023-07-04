@@ -7,7 +7,7 @@
 #include <QProcess>
 #include <QDebug>
 #include "includes/stats.h"
-#include "../utils/includes/perf_stats.h"
+#include "utils/includes/perf_stats.h"
 
 
 QString stats::getgpuload() {

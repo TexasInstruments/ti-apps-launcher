@@ -1,11 +1,11 @@
 /* Configuration file for Generic/Unknown Devices */
 
-#include "../backend/includes/common.h"
+#include "backend/includes/common.h"
 #include "backend/includes/benchmarks.h"
 #include "backend/includes/gpu_performance.h"
-#include "../backend/includes/live_camera.h"
-#include "../backend/includes/run_cmd.h"
-#include "../backend/includes/settings.h"
+#include "backend/includes/live_camera.h"
+#include "backend/includes/run_cmd.h"
+#include "backend/includes/settings.h"
 
 #define PLATFORM "am68-sk"
 
