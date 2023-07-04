@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include "backend/includes/common.h"
-#include "backend/includes/Backend.h"
 #include "backend/includes/appsmenu.h"
 #include "backend/includes/deviceinfo.h"
 #include "../backend/includes/stats.h"
@@ -17,7 +16,6 @@ QStringListModel modelNamesList;
 
 //objects 
 stats statsbackend;
-Backend backend;
 apps_menu appsmenu;
 Device_info deviceinfo;
 /*
@@ -41,8 +39,8 @@ void GetIpAddr()
             if( (bool)(flags & QNetworkInterface::IsRunning) && !(bool)(flags & QNetworkInterface::IsLoopBack)){
                 foreach (const QNetworkAddressEntry &address, netInterface.addressEntries()) {
                     if(address.ip().protocol() == QAbstractSocket::IPv4Protocol) {
-                        backend.set_ip_addr("IP Addr: " + address.ip().toString());
-                        emit backend.ip_addr_changed();
+                        deviceinfo.set_ip_addr("IP Addr: " + address.ip().toString());
+                        emit deviceinfo.ip_addr_changed();
                         return;
                     }
                 }
@@ -70,11 +68,6 @@ int main(int argc, char *argv[]) {
 
     QQmlApplicationEngine engine;
 
-    // Get SOC
-    const char* SOC = std::getenv("SOC");
-    backend.soc = SOC;
-
-
     // Get and Populate contents of /opt/oob-demo-assets/allowedModels.txt to modelNamesList
     // Add the model to list only if it's available in the filesystem
     modelsfile.open("/opt/oob-demo-assets/allowedModels.txt",ios::in);
@@ -90,7 +83,6 @@ int main(int argc, char *argv[]) {
     modelNamesList.setStringList(modelslist);
 
     // set context properties to access in QML
-    engine.rootContext()->setContextProperty("backend", &backend);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
     engine.rootContext()->setContextProperty("deviceinfo", &deviceinfo);

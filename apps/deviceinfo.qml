@@ -30,7 +30,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: platform.bottom
             font.pixelSize: parent.width * 0.08
-            text: backend.ip_addr
+            text: deviceinfo.ip_addr
             color: "#FEFFFF"
         }
         Text {

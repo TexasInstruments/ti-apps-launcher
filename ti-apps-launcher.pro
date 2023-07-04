@@ -27,7 +27,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += backend/includes/common.h
-HEADERS += backend/includes/Backend.h
 HEADERS += backend/includes/camera_recorder.h
 HEADERS += backend/includes/live_camera.h
 HEADERS += backend/includes/benchmarks.h
