@@ -15,10 +15,10 @@ void Benchmarks::playbutton1pressedagain() {
 QString Benchmarks::playbutton1fps() {
     stdout1 = process1.readAllStandardOutput();
     //qDebug()<<stdout1;
-    return stdout1.mid(stdout1.indexOf("FPS")+7,6);
+    return stdout1.mid(stdout1.indexOf("FPS")+5,4);
 }
 QString Benchmarks::playbutton1score() {
-    return stdout1.mid(stdout1.indexOf("Score")+7,5);
+    return stdout1.mid(stdout1.indexOf("Score")+7,4);
 }
 
 QProcess systembenchmarks;

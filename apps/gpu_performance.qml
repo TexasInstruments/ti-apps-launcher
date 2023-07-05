@@ -261,13 +261,14 @@ Rectangle {
             width: parent.width * 0.2
             anchors.left: parent.left
             anchors.bottom: parent.bottom
-            
+            border.color: "black"
+            border.width: 5
             Rectangle {
                 id: headtitle
                 width: parent.width
                 height: parent.height * 0.33
                 border.color: "black"
-                border.width: 5
+                border.width: 2.5
                 color: "transparent"
                 Text {
                     id: title
@@ -285,7 +286,7 @@ Rectangle {
                 anchors.top: headtitle.bottom
                 anchors.left: parent.left
                 border.color: "black"
-                border.width: 5
+                border.width: 2.5
                 color: "transparent"
                 Text {
                     id: fpstext
@@ -302,7 +303,7 @@ Rectangle {
                 anchors.left: index10.right
                 anchors.right: headtitle.right
                 border.color: "black"
-                border.width: 5
+                border.width: 2.5
                 color: "transparent"
                 Text {
                     id:fps
@@ -319,7 +320,7 @@ Rectangle {
                 anchors.top: index10.bottom
                 anchors.left: index10.left
                 border.color: "black"
-                border.width: 5
+                border.width: 2.5
                 color: "transparent"
                 Text {
                     id: scoretext
@@ -336,7 +337,7 @@ Rectangle {
                 anchors.left: index11.left
                 anchors.right: headtitle.right
                 border.color: "black"
-                border.width: 5
+                border.width: 2.5
                 color: "transparent"
                 Text {
                     id: score

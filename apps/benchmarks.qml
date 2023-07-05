@@ -20,7 +20,10 @@ Rectangle {
         height: parent.height * 0.25
         width: parent.width * 0.3
         anchors.left: parent.left
+        anchors.leftMargin: parent.width * 0.1
         anchors.verticalCenter: parent.verticalCenter
+        border.color: "black"
+        border.width: 5
         Rectangle{
             id:title_gpubenchmark
             width: parent.width
@@ -28,7 +31,7 @@ Rectangle {
             anchors.top: parent.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("GPU Benchmarks")
                 color: "black"
@@ -45,7 +48,7 @@ Rectangle {
             anchors.bottom: parent.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("glmark2")
                 color: "#F44336"
@@ -62,7 +65,7 @@ Rectangle {
             anchors.left: gpu_benchmark1.right
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 id: fpstext
                 text: qsTr("FPS")
@@ -79,7 +82,7 @@ Rectangle {
             anchors.top: index11.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 id: index12text
                 text: qsTr("-")
@@ -96,7 +99,7 @@ Rectangle {
             anchors.top: index11.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 id: scoretext
                 text: qsTr("Score")
@@ -113,7 +116,7 @@ Rectangle {
             anchors.top: index12.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 id: index22text
                 text: qsTr("-")
@@ -130,11 +133,11 @@ Rectangle {
             anchors.top: title_gpubenchmark.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Image {
                 id: playbutton1
-                width: parent.width * 0.7
-                height: parent.height * 0.7
+                width: systemplaybutton1.width
+                height: width
                 source: "../images/playbutton.png"
                 anchors.centerIn: parent
                 property int flag1: 0
@@ -174,7 +177,10 @@ Rectangle {
         width: gpu_benchmarks.width
         height: parent.height * 0.5
         anchors.right: parent.right
+        anchors.rightMargin: parent.width * 0.1
         anchors.verticalCenter: parent.verticalCenter
+        border.color: "black"
+        border.width: 5
         Rectangle {
             id: title_systembenchmark
             width: parent.width
@@ -182,7 +188,7 @@ Rectangle {
             anchors.top: parent.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("System Benchmarks")
                 color: "black"
@@ -199,7 +205,7 @@ Rectangle {
             anchors.top: title_systembenchmark.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("dhrystone")
                 color: "#F44336"
@@ -216,10 +222,10 @@ Rectangle {
             anchors.top: systemindex10.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Image {
                 id: systemplaybutton1
-                height: parent.height * 0.9
+                height: parent.height * 0.8
                 width: height
                 source: "../images/playbutton.png"
                 anchors.centerIn: parent
@@ -239,7 +245,7 @@ Rectangle {
             anchors.top: systemindex10.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("linpack")
                 color: "#F44336"
@@ -256,10 +262,10 @@ Rectangle {
             anchors.top: systemindex20.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Image {
                 id: systemplaybutton2
-                height: parent.height * 0.9
+                height: parent.height * 0.8
                 width: height
                 source: "../images/playbutton.png"
                 anchors.centerIn: parent
@@ -279,7 +285,7 @@ Rectangle {
             anchors.top: systemindex20.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("nbench")
                 color: "#F44336"
@@ -296,10 +302,10 @@ Rectangle {
             anchors.top: systemindex30.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Image {
                 id: systemplaybutton3
-                height: parent.height * 0.9
+                height: parent.height * 0.8
                 width: height
                 source: "../images/playbutton.png"
                 anchors.centerIn: parent
@@ -319,7 +325,7 @@ Rectangle {
             anchors.top: systemindex30.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("stream")
                 color: "#F44336"
@@ -336,10 +342,10 @@ Rectangle {
             anchors.top: systemindex40.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Image {
                 id: systemplaybutton4
-                height: parent.height * 0.9
+                height: parent.height * 0.8
                 width: height
                 source: "../images/playbutton.png"
                 anchors.centerIn: parent
@@ -359,7 +365,7 @@ Rectangle {
             anchors.top: systemindex40.bottom
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Text {
                 text: qsTr("whetstone")
                 color: "#F44336"
@@ -376,10 +382,10 @@ Rectangle {
             anchors.top: systemindex50.top
             color: "transparent"
             border.color: "black"
-            border.width: 5
+            border.width: 2.5
             Image {
                 id: systemplaybutton5
-                height: parent.height * 0.9
+                height: parent.height * 0.8
                 width: height
                 source: "../images/playbutton.png"
                 anchors.centerIn: parent
@@ -392,6 +398,26 @@ Rectangle {
             }
         }
     }
+    Rectangle {
+        id: link
+        height: parent.height * 0.05
+        width: parent.width * 0.1
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        Text {
+            id: info1
+            anchors.centerIn: parent
+            font.pixelSize: parent.width * 0.1
+            text: "<font color=\"blue\">click here</font>"
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                firefox_browser2.launch_or_stop()
+            }
+        }
+    }
+
 
 }   
 
