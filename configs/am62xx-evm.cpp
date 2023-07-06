@@ -3,12 +3,13 @@
 #include <iostream>
 #include "backend/includes/common.h"
 #include "backend/includes/live_camera.h"
+#include "backend/includes/arm_analytics.h"
 #include "backend/includes/run_cmd.h"
 #include "backend/includes/settings.h"
 
 #define PLATFORM "am62xx-evm"
 using namespace std;
-int include_apps_count = 6;
+int include_apps_count = 7;
 QString platform = "am62xx-evm";
 
 app_info include_apps[] = {
@@ -21,6 +22,11 @@ app_info include_apps[] = {
         .qml_source = "live_camera.qml",
         .name = "Live Camera",
         .icon_source = "camera.png"
+    },
+    {
+        .qml_source = "arm_analytics.qml",
+        .name = "ARM Analytics",
+        .icon_source = "analytics.png"
     },
     {
         .qml_source = "benchmarks.qml",
@@ -46,6 +52,7 @@ app_info include_apps[] = {
 
 Settings settings;
 LiveCamera live_camera;
+ArmAnalytics arm_analytics;
 
 QString seva_command = QString::fromStdString("seva-launcher-aarch64");
 RunCmd *seva_store = new RunCmd(seva_command);
@@ -55,6 +62,7 @@ RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLES
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
+    engine->rootContext()->setContextProperty("arm_analytics", &arm_analytics);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("demo_3d", demo_3d);
