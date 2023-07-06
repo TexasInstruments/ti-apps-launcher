@@ -32,9 +32,9 @@ Rectangle {
         anchors.top: parent.top
         color: "#FEFFFF"
 
-        font.family: "Ubuntu"
+        font.family: "Helvetica"
         font.bold: true
-        font.pointSize: 35
+        font.pixelSize: parent.width * 0.03
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }

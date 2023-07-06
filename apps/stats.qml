@@ -18,12 +18,15 @@ Rectangle {
         id: backgroundrect
         width: statswindow.width
         height: statswindow.height
+        color: "#344045"
+        /*
         Image {
             id: backgroundimage
             source:"../images/Background.png"
             width: parent.width
             height: parent.height
         }
+        */
         Rectangle {
             id: gpubar
             width: parent.width * 0.05

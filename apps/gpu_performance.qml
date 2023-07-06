@@ -21,13 +21,8 @@ Rectangle {
         id: backgroundrect
         width: parent.width
         height: parent.height
-        color: "#ffebcd"
-        Image {
-            id: backgroundimage
-            source:"file://home/root/jacinto_oob_demo_home_image.png"
-            width: parent.width
-            height: parent.height
-        }
+        color: "#344045"
+
         Rectangle { 
             id: levelbar
             height: parent.height * 0.5

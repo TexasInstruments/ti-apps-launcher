@@ -28,6 +28,8 @@ Window {
             height: parent.height * 0.1
             anchors.top: parent.top
             anchors.left: parent.left
+            border.color: "#CCCCCC"
+            border.width: 2
             Loader {
                 id: topBar
                 anchors.fill: parent
@@ -44,7 +46,7 @@ Window {
             anchors.top: topBarRect.bottom
             anchors.left: parent.left
             border.color: "#CCCCCC"
-            border.width: 5
+            border.width: 2
             Loader {
                 id: appsMenu
                 anchors.fill: parent
@@ -62,9 +64,10 @@ Window {
             anchors.left: appsMenuRect.right
             anchors.rightMargin: parent.width * 0.015
             border.color: "#CCCCCC"
-            border.width: 5
+            border.width: 2
+            /*
             Image {
-                id:mainimg
+                id: mainimg
                 visible: true
                 width: parent.width
                 height: parent.height
@@ -72,6 +75,7 @@ Window {
                 anchors.fill: parent
                 anchors.margins: parent.border.width * 2
             }
+            */
             Loader {
                 id: appWindow
                 anchors.fill: parent
@@ -91,7 +95,7 @@ Window {
             height: parent.height * 0.15
             width: parent.width * 0.15
             border.color: "#CCCCCC"
-            border.width: 5
+            border.width: 2
             anchors.topMargin: parent.height * 0.025
             anchors.bottomMargin: parent.height * 0.025
             Loader {
@@ -110,7 +114,7 @@ Window {
             anchors.horizontalCenter: appWindowRect.horizontalCenter
             anchors.top: appWindowRect.bottom
             border.color: "#CCCCCC"
-            border.width: 5
+            border.width: 2
             anchors.topMargin: parent.height * 0.025
             anchors.bottomMargin: parent.height * 0.025
             Loader {

@@ -9,27 +9,38 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 Rectangle {
-    id: runcommand
+    id: seva
     visible: true
     anchors.fill: parent
-
+    color: "#344045"
     Text {
-        id: cmd_status_msg
-        text: seva_store.status_msg
+        id: heading
+        text: "Seva Store"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         font.family: "Helvetica"
-        font.pixelSize: 24
-        color: "red"
+        font.pixelSize: seva.width * 0.03
+        font.bold: true
+        color: "#FEFEFE"
+    }
+    Text {
+        id: seva_status_msg
+        text: seva_store.status_msg
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: heading.bottom
+        anchors.topMargin: parent.height * 0.01
+        font.family: "Helvetica"
+        font.pixelSize: seva.width * 0.01
+        color: "#DDDDDD"
     }
     Button {
         id: cmd_button
         text: seva_store.button
-        palette {
-            button: "#0000FF"
-        }
-        anchors.top: cmd_status_msg.bottom
+        anchors.top: seva_status_msg.bottom
+        anchors.topMargin: parent.height * 0.02
         anchors.horizontalCenter: parent.horizontalCenter
         onClicked: seva_store.launch_or_stop()
+        font.pixelSize: seva.width * 0.015
+        font.family: "Helvetica"
     }
 }

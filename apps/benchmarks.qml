@@ -14,7 +14,7 @@ Rectangle {
     visible: true
     height: Screen.desktopAvailableHeight * 0.6
     width: Screen.desktopAvailableWidth * 0.825
-
+    color: "#344045"
     Rectangle{
         id: gpu_benchmarks
         height: parent.height * 0.25
