@@ -6,10 +6,12 @@
 #include "backend/includes/arm_analytics.h"
 #include "backend/includes/run_cmd.h"
 #include "backend/includes/settings.h"
+#include "backend/includes/gpu_performance.h"
+#include "backend/includes/benchmarks.h"
 
 #define PLATFORM "am62xx-evm"
 using namespace std;
-int include_apps_count = 7;
+int include_apps_count = 8;
 QString platform = "am62xx-evm";
 
 app_info include_apps[] = {
@@ -34,6 +36,11 @@ app_info include_apps[] = {
         .icon_source = "benchmarks.png"
     },
     {
+        .qml_source = "gpu_performance.qml",
+        .name = "GPU Performance",
+        .icon_source = "gpuperformance.png"
+    },
+    {
         .qml_source = "seva_store.qml",
         .name = "Seva Store",
         .icon_source = "seva_store.png"
@@ -53,6 +60,8 @@ app_info include_apps[] = {
 Settings settings;
 LiveCamera live_camera;
 ArmAnalytics arm_analytics;
+Benchmarks benchmarks;
+Gpu_performance gpuperformance;
 
 QString seva_command = QString::fromStdString("seva-launcher-aarch64");
 RunCmd *seva_store = new RunCmd(seva_command);
@@ -67,6 +76,8 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("demo_3d", demo_3d);
     engine->rootContext()->setContextProperty("settings", &settings);
+    engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
+    engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
 
     docker_load_images();
 }
