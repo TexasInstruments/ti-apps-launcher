@@ -23,7 +23,7 @@ string LiveCamera::trimString(string str) {
 }
 
 LiveCamera::LiveCamera() {
-    liveCamera_get_camera_info(cameraInfo);
+    // liveCamera_get_camera_info(cameraInfo);
 }
 
 // Get and Populate CameraInfo to CameraList
@@ -118,6 +118,12 @@ QString LiveCamera::liveCamera_gst_pipeline() {
 }
 
 int LiveCamera::liveCamera_get_count() {
+    cameraInfo.clear();
+    LiveCamera_count = 0;
+    for (int i = LiveCamera_list.rowCount(); i > 0; i--) {
+        LiveCamera_list.removeRow(--i);
+    }
+    liveCamera_get_camera_info(cameraInfo);
     return LiveCamera_count;
 }
 
