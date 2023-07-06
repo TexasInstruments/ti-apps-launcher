@@ -8,6 +8,7 @@
 #include <QProcess>
 #include <QDebug>
 #include<QMediaPlayer>
+#include <QFile>
 using namespace std;
 
 
@@ -24,6 +25,11 @@ public:
     Q_INVOKABLE void playbutton1pressedagain(); 
     Q_INVOKABLE QString playbutton1fps();
     Q_INVOKABLE QString playbutton1score();
-    
-
+    Q_INVOKABLE void playedcompletely();
+    Q_INVOKABLE bool islogavl();
+    Q_INVOKABLE void systemplaybutton1pressed();
+    Q_INVOKABLE void systemplaybutton2pressed();
+    Q_INVOKABLE void systemplaybutton3pressed();
+    Q_INVOKABLE void systemplaybutton4pressed();
+    Q_INVOKABLE void systemplaybutton5pressed();
 };

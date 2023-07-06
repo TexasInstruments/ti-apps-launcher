@@ -54,7 +54,7 @@ LiveCamera live_camera;
 QString seva_command = QString::fromStdString("seva-launcher-aarch64");
 RunCmd *seva_store = new RunCmd(seva_command);
 RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env http_proxy --env https_proxy --env no_proxy --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0"));
-
+RunCmd *firefox_browser2 = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0 https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-j721s2/08_06_01_02/exports/docs/devices/J7_Family/linux/Release_Specific_Performance_Guide.html"));
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM68x!" << endl;
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
@@ -62,6 +62,7 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
+    engine->rootContext()->setContextProperty("firefox_browser2", firefox_browser2);
     engine->rootContext()->setContextProperty("settings", &settings);
 
     docker_load_images();

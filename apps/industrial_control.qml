@@ -187,6 +187,13 @@ Rectangle{
                     anchors.bottom: parent.bottom
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            minusbox1.source = "../images/minuxboxhovered.png"
+                        }
+                        onExited: {
+                            minusbox1.source = "../images/Minux_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 minusbox1Animation.start()
@@ -239,6 +246,13 @@ Rectangle{
                     anchors.top: parent.top
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            plusbox1.source = "../images/plusboxhovered.png"
+                        }
+                        onExited: {
+                            plusbox1.source = "../images/Plus_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 plusbox1Animation.start()
@@ -441,6 +455,13 @@ Rectangle{
                     anchors.bottom: parent.bottom
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            minusbox2.source = "../images/minuxboxhovered.png"
+                        }
+                        onExited: {
+                            minusbox2.source = "../images/Minux_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 minusbox2Animation.start()
@@ -494,6 +515,13 @@ Rectangle{
                     anchors.top: parent.top
                     MouseArea {
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            plusbox2.source = "../images/plusboxhovered.png"
+                        }
+                        onExited: {
+                            plusbox2.source = "../images/Plus_Box.png"
+                        }
                         onClicked: {
                             if (backgroundrect.count == 1) {
                                 plusbox2Animation.start()
@@ -583,7 +611,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: motor1textcb.bottom
                     anchors.topMargin: parent.height * 0.1
-                    property int count: 0
+                    property int count: 40
                     value: count
                     Behavior on value {
                         NumberAnimation {
@@ -672,6 +700,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxcurrent1.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxcurrent1.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent1.count -=10
                                 minusboxcurrent1Animation.start()
@@ -698,6 +733,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxcurrent1.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxcurrent1.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent1.count += 10
                                 plusboxcurrent1Animation.start()
@@ -734,7 +776,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: parent.top
                     anchors.topMargin:parent.height * 0.65
-                    property int count: 0
+                    property int count: 60
                     value: count
                     Behavior on value {
                         NumberAnimation {
@@ -823,6 +865,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxpressure1.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxpressure1.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorpressure1.count -=10
                                 minusboxpressure1Animation.start()
@@ -849,6 +898,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxpressure1.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxpressure1.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorpressure1.count += 10
                                 plusboxpressure1Animation.start()
@@ -1121,7 +1177,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: motor2textcb.bottom
                     anchors.topMargin: parent.height * 0.1
-                    property int count: 0
+                    property int count: 60
                     value: count
                     Behavior on value {
                         NumberAnimation {
@@ -1210,6 +1266,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxcurrent2.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxcurrent2.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent2.count -=10
                                 minusboxcurrent2Animation.start()
@@ -1236,6 +1299,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxcurrent2.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxcurrent2.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorcurrent2.count += 10
                                 plusboxcurrent2Animation.start()
@@ -1272,7 +1342,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: parent.top
                     anchors.topMargin: parent.height * 0.65
-                    property int count: 0
+                    property int count: 40
                     value: count
                     
                     Behavior on value {
@@ -1362,6 +1432,13 @@ Rectangle{
                         anchors.left: parent.left
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                minusboxpressure2.source = "../images/minuxboxhovered.png"
+                            }
+                            onExited: {
+                                minusboxpressure2.source = "../images/Minux_Box.png"
+                            }
                             onClicked: {
                                 motorpressure2.count -=10
                                 minusboxpressure2Animation.start()
@@ -1388,6 +1465,13 @@ Rectangle{
                         anchors.right: parent.right
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                plusboxpressure2.source = "../images/plusboxhovered.png"
+                            }
+                            onExited: {
+                                plusboxpressure2.source = "../images/Plus_Box.png"
+                            }
                             onClicked: {
                                 motorpressure2.count += 10
                                 plusboxpressure2Animation.start()
@@ -1625,36 +1709,13 @@ Rectangle{
                 }
             } 
         }
-        Rectangle{
-            id: statusheader
-            width: parent.width * 0.2
-            height: parent.height * 0.05
-            Text {
-                text: qsTr("Status Message:")
-                anchors.centerIn: parent
-                color: "#FFFFFF"
-                font.pixelSize: parent.width * 0.1
-            }
-            color: "transparent"
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            Text {
-                id: textupdate
-                text: qsTr("Automatic Control")
-                anchors.top: parent.top
-                anchors.left: parent.right
-                color: "#14AFC0"
-                font.pixelSize: parent.width * 0.1
-            }
-        }
         Rectangle {
             id: powerimage
-            height: statusheader.height * 1.5
-            width: statusheader.width * 0.5
+            height: parent.height * 0.08
+            width: parent.width * 0.1
             anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.8
+            anchors.leftMargin: parent.width * 0.715
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height * 0.01
             color: "transparent"
             Image {
                 id:slidebutton
@@ -1667,9 +1728,7 @@ Rectangle{
                 id:slidebutton2
                 visible: false
                 source: "../images/mode2.png"
-                fillMode: Image.PreserveAspectFit
-                //width: parent.width 
-                //height: parent.height 
+                fillMode: Image.PreserveAspectFit 
                 anchors.fill: parent
             }
             Text {
@@ -1695,7 +1754,6 @@ Rectangle{
                         backgroundrect.count = 0
                         slidebutton.visible = true
                         slidebutton2.visible = false
-                        textupdate.text = "Automatic Control"
                         autotext.visible = true
                         manualtext.visible = false
                         
@@ -1718,7 +1776,6 @@ Rectangle{
                         backgroundrect.count = 1
                         slidebutton.visible = false
                         slidebutton2.visible = true
-                        textupdate.text = "Manual Control"
                         autotext.visible = false
                         manualtext.visible = true
                         autotimer1.running = false
