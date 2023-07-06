@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QProcess>
+#include <unordered_map>
 
 class RunCmd : public QObject {
     Q_OBJECT

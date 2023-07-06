@@ -1,8 +1,12 @@
+#include <unordered_map>
 #include <QString>
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QProcess>
+
+using namespace std;
+extern unordered_map<string, string> proxy_list;
 
 class Settings : public QObject {
     Q_OBJECT
