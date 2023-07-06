@@ -11,49 +11,54 @@
 
 #define PLATFORM "am62xx-evm"
 using namespace std;
-int include_apps_count = 8;
+int include_apps_count = 9;
 QString platform = "am62xx-evm";
 
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
         .name = "Industrial HMI",
-        .icon_source = "hmi.png"
+        .icon_source = "qrc:/images/hmi.png"
     },
     {
         .qml_source = "live_camera.qml",
         .name = "Live Camera",
-        .icon_source = "camera.png"
+        .icon_source = "qrc:/images/camera.png"
     },
     {
         .qml_source = "arm_analytics.qml",
         .name = "ARM Analytics",
-        .icon_source = "analytics.png"
+        .icon_source = "qrc:/images/analytics.png"
     },
     {
         .qml_source = "benchmarks.qml",
         .name = "Benchmarks",
-        .icon_source = "benchmarks.png"
+        .icon_source = "qrc:/images/benchmarks.png"
     },
     {
         .qml_source = "gpu_performance.qml",
         .name = "GPU Performance",
-        .icon_source = "gpuperformance.png"
+        .icon_source = "qrc:/images/gpu_performance.png"
     },
     {
         .qml_source = "seva_store.qml",
         .name = "Seva Store",
-        .icon_source = "seva_store.png"
+        .icon_source = "qrc:/images/seva_store.png"
     },
     {
         .qml_source = "firefox_browser.qml",
         .name = "Firefox",
-        .icon_source = "firefox.png"
+        .icon_source = "qrc:/images/firefox.png"
     },
     {
         .qml_source = "3d_demo.qml",
         .name = "3D Demo",
-        .icon_source = "3d.png"
+        .icon_source = "qrc:/images/3d.png"
+    },
+    {
+        .qml_source = "settings.qml",
+        .name = "Settings",
+        .icon_source = "qrc:/images/settings.png"
     }
 };
 

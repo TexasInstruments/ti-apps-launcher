@@ -54,5 +54,15 @@
         <file>images/maintainence.png</file>
         <file>images/playbutton.png</file>
         <file>images/wifi.png</file>
+
+        <file>images/seva_store.png</file>
+        <file>images/hmi.png</file>
+        <file>images/firefox.png</file>
+        <file>images/analytics.png</file>
+        <file>images/benchmarks.png</file>
+        <file>images/camera.png</file>
+        <file>images/3d.png</file>
+        <file>images/gpu_performance.png</file>
+        <file>images/settings.png</file>
     </qresource>
 </RCC>
