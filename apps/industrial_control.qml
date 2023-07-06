@@ -611,7 +611,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: motor1textcb.bottom
                     anchors.topMargin: parent.height * 0.1
-                    property int count: 0
+                    property int count: 40
                     value: count
                     Behavior on value {
                         NumberAnimation {
@@ -776,7 +776,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: parent.top
                     anchors.topMargin:parent.height * 0.65
-                    property int count: 0
+                    property int count: 60
                     value: count
                     Behavior on value {
                         NumberAnimation {
@@ -1177,7 +1177,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: motor2textcb.bottom
                     anchors.topMargin: parent.height * 0.1
-                    property int count: 0
+                    property int count: 60
                     value: count
                     Behavior on value {
                         NumberAnimation {
@@ -1342,7 +1342,7 @@ Rectangle{
                     anchors.leftMargin: parent.width * 0.05
                     anchors.top: parent.top
                     anchors.topMargin: parent.height * 0.65
-                    property int count: 0
+                    property int count: 40
                     value: count
                     
                     Behavior on value {
@@ -1711,12 +1711,11 @@ Rectangle{
         }
         Rectangle {
             id: powerimage
-            height: parent.height * 0.12
+            height: parent.height * 0.08
             width: parent.width * 0.1
             anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.8
+            anchors.leftMargin: parent.width * 0.715
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height * 0.01
             color: "transparent"
             Image {
                 id:slidebutton
@@ -1729,9 +1728,7 @@ Rectangle{
                 id:slidebutton2
                 visible: false
                 source: "../images/mode2.png"
-                fillMode: Image.PreserveAspectFit
-                //width: parent.width 
-                //height: parent.height 
+                fillMode: Image.PreserveAspectFit 
                 anchors.fill: parent
             }
             Text {

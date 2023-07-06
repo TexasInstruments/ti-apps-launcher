@@ -85,7 +85,7 @@ Rectangle {
             border.width: 2.5
             Text {
                 id: index12text
-                text: qsTr("-")
+                text: qsTr("click")
                 color: "#F44336"
                 font.pixelSize: parent.width * 0.17
                 anchors.centerIn: parent
@@ -119,7 +119,7 @@ Rectangle {
             border.width: 2.5
             Text {
                 id: index22text
-                text: qsTr("-")
+                text: qsTr("click")
                 color: "#F44336"
                 font.pixelSize: parent.width * 0.17
                 anchors.centerIn: parent
@@ -152,6 +152,14 @@ Rectangle {
                         }
                         else {
                             benchmarks.playbutton1pressedagain()
+                            if(benchmarks.islogavl()) {
+                                index12text.text = benchmarks.playbutton1fps()
+                                index22text.text = benchmarks.playbutton1score()
+                            }
+                            else {
+                                index12text.text = "-"
+                                index22text.text = "-"
+                            }
                             playbutton1.flag1 = 0
                             playbutton1timer.running = false
                             playbutton1.source = "../images/playbutton.png"
@@ -166,8 +174,10 @@ Rectangle {
                 repeat: false
                 onTriggered: {
                     playbutton1.flag1 = 0
+                    benchmarks.playedcompletely()
                     index12text.text = benchmarks.playbutton1fps()
                     index22text.text = benchmarks.playbutton1score()
+                    playbutton1.source = "../images/playbutton.png"
                 }
             }
         }
@@ -398,26 +408,36 @@ Rectangle {
             }
         }
     }
+
     Rectangle {
-        id: link
+        id: linkstarter
         height: parent.height * 0.05
-        width: parent.width * 0.1
+        width: parent.width * 0.2
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
+        color: "transparent"
         Text {
             id: info1
-            anchors.centerIn: parent
-            font.pixelSize: parent.width * 0.1
-            text: "<font color=\"blue\">click here</font>"
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: parent.width * 0.05
+            text: "For SDK performance data sheet: click "
+            color: "black"
         }
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                firefox_browser2.launch_or_stop()
+        Text {
+            anchors.left: info1.right
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: parent.width * 0.05
+            text: "<font color=\"blue\">here</font>"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    firefox_browser2.launch_or_stop()
+                }
             }
         }
     }
-
+    
 
 }   
 
