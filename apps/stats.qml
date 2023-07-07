@@ -123,7 +123,7 @@ Rectangle {
 
             Text {
                 
-                text: qsTr("A72 Load")
+                text: qsTr("CPU Load")
                 color: "#FFFFFF"
                 font.pixelSize: parent.width * 0.12
                 anchors.centerIn: parent
