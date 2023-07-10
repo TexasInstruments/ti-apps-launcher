@@ -408,37 +408,6 @@ Rectangle {
             }
         }
     }
-
-    Rectangle {
-        id: linkstarter
-        height: parent.height * 0.05
-        width: parent.width * 0.2
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        color: "transparent"
-        Text {
-            id: info1
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.width * 0.05
-            text: "For SDK performance data sheet: click "
-            color: "black"
-        }
-        Text {
-            anchors.left: info1.right
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.width * 0.05
-            text: "<font color=\"blue\">here</font>"
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    firefox_browser2.launch_or_stop()
-                }
-            }
-        }
-    }
-    
-
 }   
 
     
