@@ -50,25 +50,25 @@ QProcess systembenchmarks;
 void Benchmarks::systemplaybutton1pressed() {
     systembenchmarks.kill();
     systembenchmarks.waitForFinished();
-    systembenchmarks.start("weston-terminal --shell=/home/weston/run-dhrystone.sh");
+    systembenchmarks.start("weston-terminal --shell=/opt/ti-apps-launcher/run-dhrystone.sh");
 }
 void Benchmarks::systemplaybutton2pressed() {
     systembenchmarks.kill();
     systembenchmarks.waitForFinished();
-    systembenchmarks.start("weston-terminal --shell=/home/weston/run-linpack.sh");
+    systembenchmarks.start("weston-terminal --shell=/opt/ti-apps-launcher/run-linpack.sh");
 }
 void Benchmarks::systemplaybutton3pressed() {
     systembenchmarks.kill();
     systembenchmarks.waitForFinished();
-    systembenchmarks.start("weston-terminal --shell=/home/weston/run-nbench.sh");
+    systembenchmarks.start("weston-terminal --shell=/opt/ti-apps-launcher/run-nbench.sh");
 }
 void Benchmarks::systemplaybutton4pressed() {
     systembenchmarks.kill();
     systembenchmarks.waitForFinished();
-    systembenchmarks.start("weston-terminal --shell=/home/weston/run-stream.sh");
+    systembenchmarks.start("weston-terminal --shell=/opt/ti-apps-launcher/run-stream.sh");
 }
 void Benchmarks::systemplaybutton5pressed() {
     systembenchmarks.kill();
     systembenchmarks.waitForFinished();
-    systembenchmarks.start("weston-terminal --shell=/home/weston/run-whetstone.sh");
+    systembenchmarks.start("weston-terminal --shell=/opt/ti-apps-launcher/run-whetstone.sh");
 }
