@@ -4,10 +4,10 @@ using namespace std;
 bool isfirsttime=1;
 QString stdout1;
 QProcess process1,gpuprocess;
-QFile file("/home/weston/log.txt");
+QFile file("/opt/ti-apps-launcher/glmark2-log.txt");
 void Benchmarks::playbutton1pressed() {
-    gpuprocess.setStandardOutputFile("/home/weston/temp.txt");
-    gpuprocess.start("glmark2-es2-wayland -b build:duration=10");
+    gpuprocess.setStandardOutputFile("/opt/ti-apps-launcher/glmark2-temp-log.txt");
+    gpuprocess.start("glmark2-es2-wayland -b build:duration=30");
 }
 
 bool Benchmarks::islogavl() {
@@ -26,23 +26,34 @@ bool Benchmarks::islogavl() {
 void Benchmarks::playbutton1pressedagain() {
     gpuprocess.kill();
     gpuprocess.waitForFinished(-1);
-    process1.start("rm /home/weston/temp.txt");
+    process1.start("rm /opt/ti-apps-launcher/glmark2-temp-log.txt");
 }
 void Benchmarks::playedcompletely() {
-    process1.start("mv /home/weston/temp.txt /home/weston/log.txt");
+    process1.start("mv /opt/ti-apps-launcher/glmark2-temp-log.txt /opt/ti-apps-launcher/glmark2-log.txt");
     process1.waitForFinished(-1);
-    //process1.start("rm /home/weston/temp.txt");
-    //process1.waitForFinished(-1);
 }
 QString Benchmarks::playbutton1fps() {
     file.open(QIODevice::ReadOnly);
     stdout1 = file.readAll();
     file.close();
-    //qDebug()<<stdout1;
-    return stdout1.mid(stdout1.indexOf("FPS")+5,4);
+    // Index of actual score comes 5 indices after index of "F". Ex: FPS: <FPS>
+    int index = stdout1.indexOf("FPS")+5;
+    QString res;
+    for(int i = index; stdout1[i] != ' ' && stdout1[i] != '\n'; i++)
+    {
+        res.append(stdout1[i]);
+    }
+    return res;
 }
 QString Benchmarks::playbutton1score() {
-    return stdout1.mid(stdout1.indexOf("Score")+7,4);
+    // Index of actual score comes 7 indices after index of "S". Ex: Score: <Score>
+    int index = stdout1.indexOf("Score") + 7;
+    QString res;
+    for(int i = index; stdout1[i] != ' ' && stdout1[i] != '\n'; i++)
+    {
+        res.append(stdout1[i]);
+    }
+    return res;
 }
 
 QProcess systembenchmarks;
