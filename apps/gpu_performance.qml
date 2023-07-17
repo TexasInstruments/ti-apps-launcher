@@ -344,7 +344,9 @@ Rectangle {
             }
             Timer {
                 id: timer
-                interval: 102000
+                /* The time duration needs to be more than the duration of
+                   running the glmark2 benchmark */
+                interval: 32000
                 running: false
                 repeat: false
                 onTriggered: {
