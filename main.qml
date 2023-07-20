@@ -65,17 +65,15 @@ Window {
             anchors.rightMargin: parent.width * 0.015
             border.color: "#CCCCCC"
             border.width: 2
-            /*
             Image {
                 id: mainimg
                 visible: true
                 width: parent.width
                 height: parent.height
-                source: "file://home/root/jacinto_oob_demo_home_image.png"
+                source: "file://opt/ti-apps-launcher/am6x_oob_demo_home_image.png"
                 anchors.fill: parent
                 anchors.margins: parent.border.width * 2
             }
-            */
             Loader {
                 id: appWindow
                 anchors.fill: parent
