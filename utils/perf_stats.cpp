@@ -145,11 +145,11 @@ void perfStatsCpuStatsPrint(perfStatsCpuLoad *cpu_load)
 #define PERF_DDR_MHZ                (2133u)  /* DDR clock speed in MHZ */
 #elif defined (SOC_AM62A)
 #define PERF_DDR_MHZ                (1866u)  /* DDR clock speed in MHZ */
-#elif defined (SOC_AM62)
+#elif defined (SOC_AM62) || defined (SOC_AM62_LP)
 #define PERF_DDR_MHZ                (800u)  /* DDR clock speed in MHZ */
 #endif
 
-#if defined (SOC_AM62)
+#if defined (SOC_AM62) || defined (SOC_AM62_LP)
 #define PERF_DDR_BUS_WIDTH          (  16u)  /* in units of bits */
 #else
 #define PERF_DDR_BUS_WIDTH          (  32u)  /* in units of bits */
@@ -158,6 +158,8 @@ void perfStatsCpuStatsPrint(perfStatsCpuLoad *cpu_load)
 #if defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_AM62A)
 #define PERF_DDR_BURST_SIZE_BYTES   (  64u)  /* in units of bytes */
 #elif defined (SOC_AM62)
+#define PERF_DDR_BURST_SIZE_BYTES   (  16u)  /* in units of bytes */
+#elif defined (SOC_AM62_LP)
 #define PERF_DDR_BURST_SIZE_BYTES   (  32u)  /* in units of bytes */
 #endif
 
@@ -167,7 +169,7 @@ void perfStatsCpuStatsPrint(perfStatsCpuLoad *cpu_load)
 #define PERF_DDR_STATS_CTR2         (0x03) /* A value of 0x03 configures counter 3 to return number of command activations */
 #define PERF_DDR_STATS_CTR3         (0x1C) /* A value of 0x1C configures counter 4 to return number of queue full states   */
 
-#if defined(SOC_J721E) || defined(SOC_AM62A) || defined(SOC_AM62)
+#if defined(SOC_J721E) || defined(SOC_AM62A) || defined(SOC_AM62) || defined (SOC_AM62_LP)
 #define PERF_NUM_DDR_INSTANCES      (1u)
 #elif defined (SOC_J721S2)
 #define PERF_NUM_DDR_INSTANCES      (2u)
@@ -239,7 +241,7 @@ void perfStatsDdrStatsReadCounters(uint32_t *val0, uint32_t *val1, uint32_t *val
         fd = open("/dev/mem", O_RDWR | O_SYNC);
         base = mmap(0, 0xF400000, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0x0);
 
-        #if defined(SOC_AM62A) || defined(SOC_AM62)
+        #if defined(SOC_AM62A) || defined(SOC_AM62) || defined (SOC_AM62_LP)
         cnt_sel[0] = (volatile uint32_t *)(base + 0x0f300000);
         cnt0[0]    = (volatile uint32_t *)(base + 0x0f300104);
         cnt1[0]    = (volatile uint32_t *)(base + 0x0f300108);
@@ -406,3 +408,4 @@ void perfStatsDdrStatsPrintAll()
         ddr_load->read_bw_avg+ddr_load->write_bw_avg);
     printf("\n");
 }
+
