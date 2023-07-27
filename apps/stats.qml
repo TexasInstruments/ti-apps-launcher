@@ -28,64 +28,13 @@ Rectangle {
         }
         */
         Rectangle {
-            id: gpubar
-            width: parent.width * 0.05
-            height: parent.height * 0.7
-            color: "#A0A0A0"
-            anchors.top: parent.top
-            anchors.topMargin: parent.height * 0.1
-            anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.05
-            Rectangle {
-                id: gpubarfill
-                color: "steelblue"
-                width: parent.width
-                height: 0
-                anchors.bottom: parent.bottom
-            }
-            Text {
-                id: gpuload
-                text: qsTr("0%")
-                color: "#F44336"
-                font.pixelSize: parent.width * 0.24
-                font.bold: true
-                anchors.centerIn: parent
-            }
-            Timer {
-                interval: 1000 // interval in milliseconds
-                running: true // start the timer
-                repeat: true // repeat the timer
-                onTriggered: {
-                    gpuload.text = statsbackend.getgpuload()
-                    gpubarfill.height = gpuload.text * gpubar.height * 0.01
-                    gpuload.text = gpuload.text +"%"
-                }
-            }
-        }
-        Rectangle {
-            width: parent.width * 0.080
-            height: parent.height * 0.8 * 0.2
-            anchors.top: gpubar.bottom
-            color: "transparent"
-            anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.035
-
-            Text {
-                //id: gpuload
-                text: qsTr("GPU Load")
-                color: "#FFFFFF"
-                font.pixelSize: parent.width * 0.12
-                anchors.centerIn: parent
-            }
-        }
-        Rectangle {
             id: cpubar
             width: parent.width * 0.05
             height: parent.height * 0.7
             color: "#A0A0A0"
             anchors.top: parent.top
             anchors.topMargin: parent.height * 0.1
-            anchors.left: gpubar.right
+            anchors.left: parent.left
             anchors.leftMargin: parent.width * 0.05
             Rectangle {
                 id: cpubarfill
@@ -119,7 +68,7 @@ Rectangle {
             anchors.top: cpubar.bottom
             color: "transparent"
             anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.135
+            anchors.leftMargin: parent.width * 0.035
 
             Text {
                 

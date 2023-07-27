@@ -18,7 +18,6 @@ private:
 
 public:
 
-    Q_INVOKABLE QString getgpuload();
     Q_INVOKABLE QString getcpuload();
     Q_INVOKABLE uint32_t getddrload();
     Q_INVOKABLE uint32_t getddrtotalbw(); 
