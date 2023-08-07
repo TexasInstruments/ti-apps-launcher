@@ -26,6 +26,19 @@ QString stats::getcpuload() {
     return res;
 }
 
+QString stats::get_soc_temp() {
+    QProcess process;
+    QString output;
+    float temp = 0;
+
+    process.start("sudo cat /sys/class/thermal/thermal_zone0/temp");
+    process.waitForFinished(-1);
+    temp = process.readAllStandardOutput().toFloat();
+
+    // The temperature value returned is in millidegree celsius, so convert to celsius before sending to QML
+    return QString::number(temp / 1000, 'f', 2);
+}
+
 uint32_t stats::getddrtotalbw() {
     perf_stats_ddr_stats_t *ddrload;
     ddrload=perfStatsDdrStatsGet();
