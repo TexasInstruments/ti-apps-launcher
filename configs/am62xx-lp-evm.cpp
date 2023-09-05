@@ -74,7 +74,7 @@ RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/100
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 
 void platform_setup(QQmlApplicationEngine *engine) {
-    std::cout << "Running Platform Setup of AM62x!" << endl;
+    std::cout << "Running Platform Setup of AM62x LP EVM!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("arm_analytics", &arm_analytics);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
