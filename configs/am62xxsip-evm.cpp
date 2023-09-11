@@ -1,4 +1,4 @@
-/* Configuration file for AM62x and AM62x-LP */
+/* Configuration file for AM62x SIP EVM */
 
 #include <iostream>
 #include "backend/includes/common.h"
@@ -6,10 +6,10 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
 
-#define PLATFORM "am62xx-sip-evm"
+#define PLATFORM "am62xxsip-evm"
 using namespace std;
 int include_apps_count = 3;
-QString platform = "am62xx-sip-evm";
+QString platform = "am62xxsip-evm";
 
 app_info include_apps[] = {
     {
