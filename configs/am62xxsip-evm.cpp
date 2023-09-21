@@ -8,10 +8,15 @@
 
 #define PLATFORM "am62xxsip-evm"
 using namespace std;
-int include_apps_count = 3;
+int include_apps_count = 4;
 QString platform = "am62xxsip-evm";
 
 app_info include_apps[] = {
+    {
+        .qml_source = "industrial_control_minimal.qml",
+        .name = "Industrial HMI",
+        .icon_source = "qrc:/images/hmi.png"
+    },
     {
         .qml_source = "benchmarks.qml",
         .name = "Benchmarks",
@@ -39,6 +44,5 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
 
-    docker_load_images();
 }
 
