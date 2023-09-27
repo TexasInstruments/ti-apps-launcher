@@ -38,7 +38,5 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("settings", &settings);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
-
-    docker_load_images();
 }
 
