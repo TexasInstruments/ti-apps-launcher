@@ -13,4 +13,6 @@ public:
     Q_INVOKABLE QString button_getqml(int n);
 
     Q_INVOKABLE QString button_geticon(int n);
+
+    Q_INVOKABLE void cache_flush();
 };

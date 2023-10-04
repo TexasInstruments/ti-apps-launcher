@@ -89,11 +89,20 @@ Rectangle {
                             verticalOffset: height * 0.15
                         }
 
-                        onClicked: appWindow.source = appsmenu.button_getqml(index)
+                        onClicked: {
+                            if (appWindow.source != appsmenu.button_getqml(index)) {
+                                appWindow.source = appsmenu.button_getqml(index);
+                                appsmenu.cache_flush();
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    Component.onCompleted: {
+        appsmenu.cache_flush();
     }
 }
 

@@ -1,4 +1,5 @@
 #include <QObject>
+#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -26,4 +27,8 @@ QString apps_menu::button_getqml(int n) {
 
 QString apps_menu::button_geticon(int n) {
     return include_apps[n].icon_source;
+}
+
+void apps_menu::cache_flush() {
+    int returnCode = system("echo \"1\" > /proc/sys/vm/drop_caches");
 }
