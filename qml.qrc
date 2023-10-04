@@ -20,6 +20,7 @@
         <file>apps/arm_analytics.qml</file>
 
         <file>images/Texas-Instruments.png</file>
+        <file>images/am6x_oob_demo_home_image.png</file>
         <file>images/record.png</file>
         <file>images/videostop.png</file>
         <file>images/stop-button.png</file>
