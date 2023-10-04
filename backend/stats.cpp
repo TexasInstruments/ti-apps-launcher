@@ -39,26 +39,26 @@ QString stats::get_soc_temp() {
     return QString::number(temp / 1000, 'f', 2);
 }
 
-uint32_t stats::getddrtotalbw() {
+unsigned int stats::getddrtotalbw() {
     perf_stats_ddr_stats_t *ddrload;
     ddrload=perfStatsDdrStatsGet();
     perfStatsResetDdrLoadCalcAll();
-    uint32_t res = ddrload->total_available_bw;
+    unsigned int res = ddrload->total_available_bw;
     return res;
 }
 perf_stats_ddr_stats_t *ddrload;
-uint32_t stats::getddrload() {
+unsigned int stats::getddrload() {
     ddrload=perfStatsDdrStatsGet();
-    uint32_t r= ddrload->read_bw_avg+ddrload->write_bw_avg;
+    unsigned int r= ddrload->read_bw_avg+ddrload->write_bw_avg;
     return r;
 }
-uint32_t stats::getddrreadbw() {
-    uint32_t r= ddrload->read_bw_avg;
+unsigned int stats::getddrreadbw() {
+    unsigned int r= ddrload->read_bw_avg;
     return r;
 }
 
-uint32_t stats::getddrwritebw() {
-    uint32_t r= ddrload->write_bw_avg;
+unsigned int stats::getddrwritebw() {
+    unsigned int r= ddrload->write_bw_avg;
     perfStatsResetDdrLoadCalcAll();
     return r;
 }

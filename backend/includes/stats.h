@@ -21,8 +21,8 @@ public:
     Q_INVOKABLE QString getgpuload();
     Q_INVOKABLE QString getcpuload();
     Q_INVOKABLE QString get_soc_temp();
-    Q_INVOKABLE uint32_t getddrload();
-    Q_INVOKABLE uint32_t getddrtotalbw();
-    Q_INVOKABLE uint32_t getddrreadbw();
-    Q_INVOKABLE uint32_t getddrwritebw();
+    Q_INVOKABLE unsigned int getddrload();
+    Q_INVOKABLE unsigned int getddrtotalbw();
+    Q_INVOKABLE unsigned int getddrreadbw();
+    Q_INVOKABLE unsigned int getddrwritebw();
 };
