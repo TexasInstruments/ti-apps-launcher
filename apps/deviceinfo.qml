@@ -25,7 +25,7 @@ Rectangle {
             anchors.leftMargin: parent.width * 0.05
             anchors.top: parent.top
             anchors.topMargin: parent.height * 0.05
-            font.pixelSize: parent.width * 0.07
+            font.pixelSize: parent.width * 0.06
             text: "Platform: " + deviceinfo.getplatform()
             color: "#FEFFFF"
         }
@@ -36,7 +36,7 @@ Rectangle {
             anchors.leftMargin: parent.width * 0.05
             anchors.top: platform.bottom
             anchors.topMargin: parent.height * 0.05
-            font.pixelSize: parent.width * 0.07
+            font.pixelSize: parent.width * 0.06
             text: deviceinfo.ip_addr
             color: "#FEFFFF"
         }
@@ -46,8 +46,8 @@ Rectangle {
             anchors.leftMargin: parent.width * 0.05
             anchors.top: ipAddr.bottom
             anchors.topMargin: parent.height * 0.05
-            font.pixelSize: parent.width * 0.07
-            text: "<font color=\"#FEFFFF\"> Support: </font><font color=\"#FF0000\">https://e2e.ti.com/</font>"
+            font.pixelSize: parent.width * 0.06
+            text: "<font color=\"#FEFFFF\"> Support: <br></font><font color=\"#FF0000\">https://e2e.ti.com/</font>"
         }
     }
 }

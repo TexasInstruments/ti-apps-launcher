@@ -43,7 +43,7 @@ Rectangle {
                 id: gpuload
                 text: qsTr("0%")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.24
+                font.pixelSize: parent.width * 0.20
                 font.bold: true
                 anchors.centerIn: parent
             }
@@ -99,7 +99,7 @@ Rectangle {
                 id: cpuload
                 text: qsTr("0")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.24
+                font.pixelSize: parent.width * 0.20
                 font.bold: true
                 anchors.centerIn: parent
             }
@@ -171,7 +171,7 @@ Rectangle {
                 id: ddrload
                 text: qsTr("0")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.24
+                font.pixelSize: parent.width * 0.20
                 font.bold: true
                 anchors.centerIn: parent
             }
@@ -307,7 +307,7 @@ Rectangle {
                 id: temperature
                 text: qsTr("0")
                 color: "#F44336"
-                font.pixelSize: parent.width * 0.24
+                font.pixelSize: parent.width * 0.20
                 font.bold: true
                 anchors.centerIn: parent
             }

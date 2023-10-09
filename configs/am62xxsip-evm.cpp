@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "backend/includes/common.h"
+#include "backend/includes/live_camera.h"
 #include "backend/includes/settings.h"
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
@@ -13,14 +14,14 @@ QString platform = "am62xxsip-evm";
 
 app_info include_apps[] = {
     {
-        .qml_source = "benchmarks.qml",
-        .name = "Benchmarks",
-        .icon_source = "qrc:/images/benchmarks.png"
+        .qml_source = "industrial_control_minimal.qml",
+        .name = "Industrial HMI",
+        .icon_source = "qrc:/images/hmi.png"
     },
     {
-        .qml_source = "gpu_performance.qml",
-        .name = "GPU Performance",
-        .icon_source = "qrc:/images/gpu_performance.png"
+        .qml_source = "live_camera.qml",
+        .name = "Live Camera",
+        .icon_source = "qrc:/images/camera.png"
     },
     {
         .qml_source = "settings.qml",
@@ -30,11 +31,13 @@ app_info include_apps[] = {
 };
 
 Settings settings;
+LiveCamera live_camera;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62x SIP EVM!" << endl;
+    engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("settings", &settings);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
