@@ -21,6 +21,8 @@ public:
 
     Q_INVOKABLE QString getplatform();
 
+    Q_INVOKABLE QString getWallpaper();
+
     Q_INVOKABLE QString ip_addr() {
         return ip_addr_p;
     }

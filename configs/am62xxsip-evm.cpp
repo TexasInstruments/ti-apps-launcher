@@ -11,6 +11,7 @@
 using namespace std;
 int include_apps_count = 3;
 QString platform = "am62xxsip-evm";
+QString wallpaper = "images/am62sip_wallpaper.png";
 
 app_info include_apps[] = {
     {

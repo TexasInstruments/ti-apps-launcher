@@ -70,7 +70,7 @@ Window {
                 visible: true
                 width: parent.width
                 height: parent.height
-                source: "images/am6x_oob_demo_home_image.png"
+                source: deviceinfo.getWallpaper()
                 anchors.fill: parent
                 anchors.margins: parent.border.width * 2
             }
