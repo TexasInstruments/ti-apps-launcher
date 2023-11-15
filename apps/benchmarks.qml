@@ -138,7 +138,7 @@ Rectangle {
                 id: playbutton1
                 width: systemplaybutton1.width
                 height: width
-                source: "../images/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 anchors.centerIn: parent
                 property int flag1: 0
                 MouseArea {
@@ -148,7 +148,7 @@ Rectangle {
                             benchmarks.playbutton1pressed()
                             playbutton1.flag1 = 1
                             playbutton1timer.running = true
-                            playbutton1.source = "../images/stop-button.png"
+                            playbutton1.source = "file:///opt/ti-apps-launcher/assets/stop-button.png"
                         }
                         else {
                             benchmarks.playbutton1pressedagain()
@@ -162,7 +162,7 @@ Rectangle {
                             }
                             playbutton1.flag1 = 0
                             playbutton1timer.running = false
-                            playbutton1.source = "../images/playbutton.png"
+                            playbutton1.source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
                         }
                     }
                 }
@@ -179,7 +179,7 @@ Rectangle {
                     benchmarks.playedcompletely()
                     index12text.text = benchmarks.playbutton1fps()
                     index22text.text = benchmarks.playbutton1score()
-                    playbutton1.source = "../images/playbutton.png"
+                    playbutton1.source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 }
             }
         }
@@ -239,7 +239,7 @@ Rectangle {
                 id: systemplaybutton1
                 height: parent.height * 0.8
                 width: height
-                source: "../images/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 anchors.centerIn: parent
                 MouseArea {
                     anchors.fill: parent
@@ -279,7 +279,7 @@ Rectangle {
                 id: systemplaybutton2
                 height: parent.height * 0.8
                 width: height
-                source: "../images/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 anchors.centerIn: parent
                 MouseArea {
                     anchors.fill: parent
@@ -319,7 +319,7 @@ Rectangle {
                 id: systemplaybutton3
                 height: parent.height * 0.8
                 width: height
-                source: "../images/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 anchors.centerIn: parent
                 MouseArea {
                     anchors.fill: parent
@@ -359,7 +359,7 @@ Rectangle {
                 id: systemplaybutton4
                 height: parent.height * 0.8
                 width: height
-                source: "../images/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 anchors.centerIn: parent
                 MouseArea {
                     anchors.fill: parent
@@ -399,7 +399,7 @@ Rectangle {
                 id: systemplaybutton5
                 height: parent.height * 0.8
                 width: height
-                source: "../images/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 anchors.centerIn: parent
                 MouseArea {
                     anchors.fill: parent
@@ -410,6 +410,6 @@ Rectangle {
             }
         }
     }
-}   
+}
 
-    
+

@@ -29,7 +29,7 @@ Rectangle {
             id: recordbutton
             height: parent.height * 0.1
             width: height
-            source: "../images/record.png"
+            source: "file:///opt/ti-apps-launcher/assets/record.png"
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             visible: true
@@ -40,17 +40,17 @@ Rectangle {
                     if(camerarecord.count == 0) {
                         camerarecord.count += 1
                         statustext.text = "Recording"
-                        recordbutton.source = "../images/stop-button.png"
+                        recordbutton.source = "file:///opt/ti-apps-launcher/assets/stop-button.png"
                         camerarecorder.startrec()
                     }
                     else if(camerarecord.count == 1) {
                         camerarecord.count += 1
                         statustext.text = "Camera"
-                        recordbutton.source = "../images/playbutton.png"
+                        recordbutton.source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
                         camerarecorder.stoprec()
                     }
                     else if(camerarecord.count == 2) {
-                        recordbutton.source = "../images/videostop.png"
+                        recordbutton.source = "file:///opt/ti-apps-launcher/assets/videostop.png"
                         camerarecord.count += 1
                         statustext.text = "Playing"
                         camerarecorder.startvideo()
@@ -60,7 +60,7 @@ Rectangle {
                         camerarecord.count = 0
                         isvideoover.running = false
                         statustext.text = "Camera"
-                        recordbutton.source = "../images/record.png"
+                        recordbutton.source = "file:///opt/ti-apps-launcher/assets/record.png"
                         camerarecorder.stopvideo()
                     }
                 }
@@ -76,7 +76,7 @@ Rectangle {
                         camerarecorder.playcam()
                         camerarecord.count = 0
                         statustext.text = "Camera"
-                        recordbutton.source = "../images/record.png"
+                        recordbutton.source = "file:///opt/ti-apps-launcher/assets/record.png"
                         isvideoover.running = false
                     }
                 }

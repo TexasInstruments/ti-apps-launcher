@@ -30,7 +30,7 @@ Rectangle {
 
         SoundEffect {
             id: buttonSound
-            source: "qrc:/audios/button_click.wav"
+            source: "file:///opt/ti-apps-launcher/assets/button_click.wav"
         }
         ScrollView {
             anchors.fill: parent

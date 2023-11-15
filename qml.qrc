@@ -18,57 +18,5 @@
         <file>apps/3d_demo.qml</file>
         <file>apps/settings.qml</file>
         <file>apps/arm_analytics.qml</file>
-
-        <file>images/Texas-Instruments.png</file>
-        <file>audios/button_click.wav</file>
-        <file>images/am6x_oob_demo_home_image.png</file>
-        <file>images/am62sip_wallpaper.png</file>
-        <file>images/record.png</file>
-        <file>images/videostop.png</file>
-        <file>images/stop-button.png</file>
-        <file>images/Top_Righ_Box.png</file>
-        <file>images/Status_Message.png</file>
-        <file>images/Control_Panel_with_text.png</file>
-        <file>images/Center_Box.png</file>
-        <file>images/Bottom_Right_Box.png</file>
-        <file>images/Background.png</file>
-        <file>images/gaugebackground.png</file>
-        <file>images/gaugebackground.svg</file>
-        <file>images/needle.svg</file>
-        <file>images/tickmark.svg</file>
-        <file>images/Rectangle.png</file>
-        <file>images/Analytics_with_text.png</file>
-        <file>images/Camera_with_text.png</file>
-        <file>images/Minux_Box.png</file>
-        <file>images/minuxboxhovered.png</file>
-        <file>images/Motor_Temp.png</file>
-        <file>images/3D_with_text.png</file>
-        <file>images/On_Button.png</file>
-        <file>images/Off_Button.png</file>
-        <file>images/mode1.png</file>
-        <file>images/mode2.png</file>
-        <file>images/Repeat_Grid.png</file>
-        <file>images/servo-drives-icon.png</file>
-        <file>images/Plus_Box.png</file>
-        <file>images/plusboxhovered.png</file>
-        <file>images/alarm.png</file>
-        <file>images/security.png</file>
-        <file>images/low-battery.png</file>
-        <file>images/tempalert.png</file>
-        <file>images/alert.png</file>
-        <file>images/maintainence.png</file>
-        <file>images/playbutton.png</file>
-        <file>images/wifi.png</file>
-
-        <file>images/seva_store.png</file>
-        <file>images/hmi.png</file>
-        <file>images/firefox.png</file>
-        <file>images/analytics.png</file>
-        <file>images/benchmarks.png</file>
-        <file>images/camera.png</file>
-        <file>images/3d.png</file>
-        <file>images/gpu_performance.png</file>
-        <file>images/settings.png</file>
-
     </qresource>
 </RCC>
