@@ -43,4 +43,16 @@ Rectangle {
         font.pixelSize: demo3d.width * 0.015
         font.family: "Helvetica"
     }
+    Text {
+        id: demo3d_notice
+        textFormat: Text.MarkdownText
+        text: "**Note:** The 3D demo launches as a new window hence the position cannot be controlled.\n
+To stop the demo, click outside of the 3D demo on ti-apps-launcher window and click 'Stop' or Enter 'Esc' if keyboard is connected."
+        anchors.top: demo3d_button.bottom
+        anchors.topMargin: parent.height * 0.02
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.family: "Helvetica"
+        font.pixelSize: demo3d.width * 0.01
+        color: "#FF0000"
+    }
 }
