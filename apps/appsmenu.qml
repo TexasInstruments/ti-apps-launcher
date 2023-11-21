@@ -28,6 +28,10 @@ Rectangle {
         border.width: 3
         radius: 10
 
+        SoundEffect {
+            id: buttonSound
+            source: "file:///opt/ti-apps-launcher/assets/button_click.wav"
+        }
         ScrollView {
             anchors.fill: parent
             anchors.topMargin: parent.height * 0.05
@@ -91,6 +95,7 @@ Rectangle {
 
                         onClicked: {
                             if (appWindow.source != appsmenu.button_getqml(index)) {
+                                buttonSound.play()
                                 appWindow.source = appsmenu.button_getqml(index);
                                 appsmenu.cache_flush();
                             }

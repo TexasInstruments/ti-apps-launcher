@@ -11,23 +11,23 @@
 using namespace std;
 int include_apps_count = 3;
 QString platform = "am62xxsip-evm";
-QString wallpaper = "images/am62sip_wallpaper.png";
+QString wallpaper = "file:///opt/ti-apps-launcher/assets/am62sip_wallpaper.png";
 
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_minimal.qml",
         .name = "Industrial HMI",
-        .icon_source = "qrc:/images/hmi.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
     {
         .qml_source = "live_camera.qml",
         .name = "Live Camera",
-        .icon_source = "qrc:/images/camera.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
         .qml_source = "settings.qml",
         .name = "Settings",
-        .icon_source = "qrc:/images/settings.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
     }
 };
 

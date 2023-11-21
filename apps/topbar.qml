@@ -18,7 +18,7 @@ Rectangle {
         width: height * 2.84 // To maintain the aspect ratio of the image
         anchors.top: parent.top
         anchors.topMargin: parent.height * 0.1
-        source: "../images/Texas-Instruments.png"
+        source: "file:///opt/ti-apps-launcher/assets/Texas-Instruments.png"
     }
 
     Text {

@@ -11,33 +11,33 @@
 using namespace std;
 int include_apps_count = 5;
 QString platform = "am62pxx-evm";
-QString wallpaper = "images/am6x_oob_demo_home_image.png";
+QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
         .name = "Industrial HMI",
-        .icon_source = "qrc:/images/hmi.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
     {
         .qml_source = "benchmarks.qml",
         .name = "Benchmarks",
-        .icon_source = "qrc:/images/benchmarks.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
     },
     {
         .qml_source = "gpu_performance.qml",
         .name = "GPU Performance",
-        .icon_source = "qrc:/images/gpu_performance.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/gpu_performance.png"
     },
     {
         .qml_source = "firefox_browser.qml",
         .name = "Firefox",
-        .icon_source = "qrc:/images/firefox.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/firefox.png"
     },
     {
         .qml_source = "settings.qml",
         .name = "Settings",
-        .icon_source = "qrc:/images/settings.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
     }
 };
 

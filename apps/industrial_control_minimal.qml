@@ -15,13 +15,13 @@ Item {
         property int count: 0
         Image {
             id: backgroundimage
-            source:"../images/Background.png"
+            source:"file:///opt/ti-apps-launcher/assets/Background.png"
             width: parent.width
             height: parent.height
         }
 
         Image {
-            source: "../images/Center_Box.png"
+            source: "file:///opt/ti-apps-launcher/assets/Center_Box.png"
             anchors.top: parent.top
             anchors.topMargin: window.height * 0.05
             anchors.bottom: parent.bottom
@@ -54,7 +54,7 @@ Item {
                         }
                     }
                     Component.onCompleted: forceActiveFocus()
-    
+
                     style: CircularGaugeStyle {
                         needle: Rectangle {
                             implicitWidth: outerRadius * 0.02
@@ -78,11 +78,11 @@ Item {
                             onPaint: {
                                 var ctx = getContext("2d");
                                 ctx.reset();
-    
+
                                 ctx.beginPath();
                                 ctx.strokeStyle = "#C6C6C6";
                                 ctx.lineWidth = outerRadius * 0.04;
-    
+
                                 ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
                                         degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(130) - 90));
                                 ctx.stroke();
@@ -110,7 +110,7 @@ Item {
                         id: plusbox1
                         height: parent.width
                         width: height
-                        source: "../images/Plus_Box.png"
+                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
                         anchors.top: parent.top
                         MouseArea {
                             anchors.fill: parent
@@ -138,7 +138,7 @@ Item {
                         id: minusbox1
                         height: parent.width
                         width: height
-                        source: "../images/Minux_Box.png"
+                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
                         anchors.left: parent.left
                         anchors.top: valuebox1.bottom
                         MouseArea {
@@ -151,7 +151,7 @@ Item {
                         }
                     }
                 }
-    
+
             }
 
             Rectangle {
@@ -175,7 +175,7 @@ Item {
                         }
                     }
                     Component.onCompleted: forceActiveFocus()
-    
+
                     style: CircularGaugeStyle {
                         needle: Rectangle {
                             implicitWidth: outerRadius * 0.02
@@ -199,11 +199,11 @@ Item {
                             onPaint: {
                                 var ctx = getContext("2d");
                                 ctx.reset();
-    
+
                                 ctx.beginPath();
                                 ctx.strokeStyle = "#C6C6C6";
                                 ctx.lineWidth = outerRadius * 0.04;
-    
+
                                 ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
                                         degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(130) - 90));
                                 ctx.stroke();
@@ -231,7 +231,7 @@ Item {
                         id: plusbox2
                         height: parent.width
                         width: height
-                        source: "../images/Plus_Box.png"
+                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
                         anchors.top: parent.top
                         MouseArea {
                             anchors.fill: parent
@@ -259,7 +259,7 @@ Item {
                         id: minusbox2
                         height: parent.width
                         width: height
-                        source: "../images/Minux_Box.png"
+                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
                         anchors.left: parent.left
                         anchors.top: valuebox2.bottom
                         MouseArea {
@@ -272,13 +272,13 @@ Item {
                         }
                     }
                 }
-    
+
             }
         }
 
         Image {
             id: centreb
-            source: "../images/Center_Box.png"
+            source: "file:///opt/ti-apps-launcher/assets/Center_Box.png"
             anchors.top: parent.top
             anchors.topMargin: window.height * 0.05
             anchors.bottom: parent.bottom
@@ -287,7 +287,7 @@ Item {
             anchors.rightMargin: window.width * 0.38
             anchors.left: parent.left
             anchors.leftMargin: window.width * 0.05
-    
+
             Rectangle {
                 height: parent.height * 0.5
                 width: parent.width
