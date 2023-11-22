@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>ti-apps-launcher.qml</file>
         <file>apps/topbar.qml</file>
         <file>apps/appsmenu.qml</file>
         <file>apps/deviceinfo.qml</file>
