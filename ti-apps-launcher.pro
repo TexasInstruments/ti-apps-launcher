@@ -5,11 +5,11 @@ QT += quick
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += main.cpp backend/appsmenu.cpp backend/stats.cpp backend/benchmarks.cpp backend/camera_recorder.cpp backend/gpu_performance.cpp backend/live_camera.cpp utils/perf_stats.cpp backend/deviceinfo.cpp
+SOURCES += ti-apps-launcher.cpp backend/appsmenu.cpp backend/stats.cpp backend/benchmarks.cpp backend/camera_recorder.cpp backend/gpu_performance.cpp backend/live_camera.cpp utils/perf_stats.cpp backend/deviceinfo.cpp
 SOURCES += backend/run_cmd.cpp backend/settings.cpp backend/arm_analytics.cpp
 CONFIG += debug_and_release
 
-RESOURCES += qml.qrc
+RESOURCES += ti-apps-launcher.qrc
 QT += multimedia
 
 QML_IMPORT_NAME = io.qt.examples.backend
