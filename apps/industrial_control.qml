@@ -19,10 +19,15 @@ Rectangle{
         property int count: 0
         property int autocontrolmotor1: 0
         property int autocontrolmotor2: 0
-        color: "#17252A"
-        Rectangle {
+        Image {
+            id: backgroundimage
+            source:"file:///opt/ti-apps-launcher/assets/Background.png"
+            width: parent.width
+            height: parent.height
+        }
+        Image {
             id: toprb
-            color: "#344045"
+            source: "file:///opt/ti-apps-launcher/assets/Top_Righ_Box.png"
             anchors.top: parent.top
             anchors.topMargin: window.height * 0.01
             anchors.bottom: parent.bottom
@@ -293,9 +298,9 @@ Rectangle{
                 }
             }
         }
-        Rectangle {
+        Image {
             id: bottomrb
-            color: "#344045"
+            source: "file:///opt/ti-apps-launcher/assets/Bottom_Right_Box.png"
             anchors.top: toprb.bottom
             anchors.topMargin: window.height * 0.005
             anchors.left: toprb.left
@@ -563,9 +568,9 @@ Rectangle{
                 }
             }
         }
-        Rectangle {
+        Image {
             id: centreb
-            color: "#344045"
+            source: "file:///opt/ti-apps-launcher/assets/Center_Box.png"
             anchors.top: toprb.top
             anchors.bottom: bottomrb.bottom
             anchors.right: parent.right
