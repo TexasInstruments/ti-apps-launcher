@@ -410,6 +410,18 @@ Rectangle {
             }
         }
     }
+    Text {
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        textFormat: Text.MarkdownText
+        text: "**Note:** The glmark2 window doesn't have a titlebar. Hence it cannot be moved around by dragging the window when using Touch controls.\n
+To stop the glmark2 before it ends, click outside of the glmark2 window on ti-apps-launcher window and click stop icon.\n
+A mouse can still be used as an alternative to move it around."
+        color: "red"
+
+        font.pixelSize: parent.width * 0.015
+    }
 }
 
 
