@@ -14,14 +14,39 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: gpuperformancewindow
     visible: true
-    height: Screen.desktopAvailableHeight * 0.6
-    width: Screen.desktopAvailableWidth * 0.825
+    // height: Screen.desktopAvailableHeight * 0.6
+    // width: Screen.desktopAvailableWidth * 0.825
+    height: parent.height
+    width: parent.width
     
     Rectangle {
         id: backgroundrect
         width: parent.width
         height: parent.height
         color: "#344045"
+
+        Rectangle {
+            anchors.left: parent.left
+            anchors.top: parent.top
+            width: parent.width * 0.75
+            height: parent.height * 0.5
+            color: "transparent"
+            Text {
+                width: parent.width
+                anchors.top: parent.top
+                anchors.left: parent.left
+
+                textFormat: Text.MarkdownText
+                text: "**Instructions:**\n
+This application allows you to load GPU at 4 different levels using glmark2.\n
+Select a level from 0 - 4 from the 'GPU Load Levels' table on the right to load the GPU.\n
+Once the complete scene is run, the scores will be displayed in the table at bottom left corner."
+                color: "white"
+
+                font.pixelSize: 25 // parent.width * 0.020
+                wrapMode: Text.WordWrap
+            }
+        }
 
         Rectangle { 
             id: levelbar
@@ -355,6 +380,27 @@ Rectangle {
                     fps.text = gpuperformance.getfps()
                     score.text = gpuperformance.getscore()
                 }
+            }
+        }
+        Rectangle {
+            width: parent.width * 0.8
+            // height: parent.height * 0.25
+            anchors.right: parent.right
+            anchors.left: perfstats.right
+            anchors.bottom: parent.bottom
+            color: "transparent"
+            Text {
+                width: parent.width
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+
+                textFormat: Text.MarkdownText
+                text: "**Note:** The glmark2 windows doesn't have a titlebar. Hence it cannot be moved around by dragging the window when using Touch controls.\n To stop the glmark2 before it ends, click outside of the glmark2 on ti-apps-launcher window and select **'0'** from the load level selector.\n
+A mouse can still be used as an alternative to move it around."
+                color: "red"
+
+                font.pixelSize: parent.width * 0.015
+                wrapMode: Text.WordWrap
             }
         }
     }

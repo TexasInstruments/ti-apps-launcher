@@ -46,13 +46,13 @@ Rectangle {
     Text {
         id: demo3d_notice
         textFormat: Text.MarkdownText
-        text: "**Note:** The 3D demo launches as a new window hence the position cannot be controlled.\n
-To stop the demo, click outside of the 3D demo on ti-apps-launcher window and click 'Stop' or Enter 'Esc' if keyboard is connected."
-        anchors.top: demo3d_button.bottom
-        anchors.topMargin: parent.height * 0.02
+        text: "**Note:** The 3D demo launches as a new window without a titlebar. Hence it cannot be repositioned.\n
+To stop the 3d demo, you can either\n
+1. Press 'Esc' if a keyboard is connected.\n
+2. Click outside of the 3D demo on ti-apps-launcher window and click 'Stop'."
+        anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        font.family: "Helvetica"
-        font.pixelSize: demo3d.width * 0.01
+        font.pixelSize: parent.width * 0.015
         color: "#FF0000"
     }
 }
