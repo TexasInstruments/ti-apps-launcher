@@ -17,7 +17,7 @@ QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_imag
 
 app_info include_apps[] = {
     {
-        .qml_source = "industrial_control.qml",
+        .qml_source = "industrial_control_sitara.qml",
         .name = "Industrial HMI",
         .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
