@@ -18,6 +18,8 @@ Rectangle {
     Rectangle {
         id: leftSubMenu
 
+        property url next_source: ""
+        property url prev_source: ""
         width: parent.width * 0.9
         height: parent.height * 0.9
         anchors.horizontalCenter: parent.horizontalCenter
@@ -94,10 +96,15 @@ Rectangle {
                         }
 
                         onClicked: {
-                            if (appWindow.source != appsmenu.button_getqml(index)) {
-                                buttonSound.play()
-                                appWindow.source = appsmenu.button_getqml(index);
-                                appsmenu.cache_flush();
+                            buttonSound.play()
+                            leftSubMenu.next_source = appsmenu.button_getqml(index)
+                            if (leftSubMenu.next_source !== leftSubMenu.prev_source) {
+                                mainimg.visible = false;
+                                progressbar.visible = true;
+                                appWindow.visible = false;
+                                leftSubMenu.next_source = appsmenu.button_getqml(index);
+                                app_launch_timer.running = true
+                                app_launch_timer.start()
                             }
                         }
                     }
@@ -105,9 +112,16 @@ Rectangle {
             }
         }
     }
-
-    Component.onCompleted: {
-        appsmenu.cache_flush();
+    Timer {
+        id: app_launch_timer
+        interval: 100
+        repeat: false
+        running: true
+        onTriggered: {
+            appWindow.source = leftSubMenu.next_source
+            leftSubMenu.prev_source = leftSubMenu.next_source
+            running = false
+        }
     }
 }
 
