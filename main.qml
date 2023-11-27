@@ -81,6 +81,23 @@ Window {
                 anchors.rightMargin: 5
                 anchors.leftMargin: 5
                 anchors.bottomMargin: 5
+                // asynchronous: true
+                visible: false
+                onLoaded: {
+                    progressbar.visible = false;
+                    visible = true
+                }
+                Component.onCompleted: {
+                    appsmenu.cache_flush();
+                }
+            }
+            ProgressBar {
+                id: progressbar
+                anchors.horizontalCenter: appWindowRect.horizontalCenter
+                anchors.verticalCenter: appWindowRect.verticalCenter
+                width: parent.width / 3
+                indeterminate: true
+                visible: false
             }
         }
 
