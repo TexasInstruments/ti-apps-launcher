@@ -4,6 +4,7 @@
 #include "backend/includes/common.h"
 #include "backend/includes/run_cmd.h"
 #include "backend/includes/settings.h"
+#include "backend/includes/live_camera.h"
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
 
@@ -18,6 +19,11 @@ app_info include_apps[] = {
         .qml_source = "industrial_control_sitara.qml",
         .name = "Industrial HMI",
         .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
+    },
+    {
+        .qml_source = "live_camera.qml",
+        .name = "Live Camera",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
         .qml_source = "benchmarks.qml",
@@ -42,6 +48,7 @@ app_info include_apps[] = {
 };
 
 Settings settings;
+LiveCamera live_camera;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
@@ -52,6 +59,7 @@ RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/100
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62P!" << endl;
     // engine->rootContext()->setContextProperty("seva_store", seva_store);
+    engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("settings", &settings);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);

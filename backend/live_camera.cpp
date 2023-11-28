@@ -94,8 +94,12 @@ void LiveCamera::liveCamera_get_camera_info(map<string, map<string,string>> &cam
     LiveCamera_count = LiveCamera_list.rowCount();
 }
 
-void LiveCamera::liveCamera_update_gst_pipeline(QString camera) {
+void LiveCamera::liveCamera_update_gst_pipeline_camera(QString camera) {
     _camera = camera;
+}
+
+void LiveCamera::liveCamera_update_gst_pipeline_function(QString function) {
+    gst_pipeline_function = function;
 }
 
 QString LiveCamera::liveCamera_get_camera_name(int index) {
@@ -106,15 +110,27 @@ QString LiveCamera::liveCamera_gst_pipeline() {
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("v4l2src device=");
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
+    qDebug() << QString::fromStdString((cameraInfo[_camera.toStdString()]["device"]));
     #if defined(SOC_AM62) || defined(SOC_AM62_LP)
-    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
+    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    qDebug() << gst_pipeline_function;
+    if ( gst_pipeline_function.compare("live") == 0 ) {
+        gst_pipeline.append(" ! qtvideosink");
+    } else if ( gst_pipeline_function.compare("record") == 0 ) {
+        gst_pipeline.append("! tee name=t ! queue ! fpsdisplaysink text-overlay=false name=fpssink video-sink=\"qtvideosink\" t. ! queue ! ticolorconvert ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=\"progressive\", format=\"NV12\", colorimetry=\"bt601\"  ! v4l2h264enc extra-controls=\"controls,h264_i_frame_period=60\" ! filesink location=\"/opt/ti-apps-launcher/data/ti-apps-launcher.h264\"");
+    }
     #elif defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4)
     gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
-    #endif
     gst_pipeline.append(" ! videoconvert");
     gst_pipeline.append(" ! qtvideosink");
+    gst_pipeline.append(" ! sravanthi");
+    #endif
     qDebug() << gst_pipeline;
     return gst_pipeline;
+}
+
+QString LiveCamera::liveCamera_gst_pipeline_function() {
+    return gst_pipeline_function;
 }
 
 int LiveCamera::liveCamera_get_count() {

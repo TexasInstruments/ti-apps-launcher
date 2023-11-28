@@ -33,6 +33,48 @@ Rectangle {
         anchors.fill: parent
         source: mediaplayer
 
+        property string selected_camera: ""
+        property string cam_function: "live"
+
+        Button {
+            id: camera_shutter
+            property bool recording: false
+            text: recording ? "Stop" : "Record"
+            onClicked: {
+                if (recording === false) {
+                    recording = true
+                    camera_feed.cam_function = "record"
+                    live_camera.liveCamera_update_gst_pipeline_camera(camera_feed.selected_camera)
+                    live_camera.liveCamera_update_gst_pipeline_function(camera_feed.cam_function)
+                    mediaplayer.stop()
+                    mediaplayer.source = live_camera.liveCamera_gst_pipeline()
+                    mediaplayer.play()
+                    camera_playback.enabled = false
+                } else {
+                    recording = false
+                    camera_feed.cam_function = "live"
+                    live_camera.liveCamera_update_gst_pipeline_camera(camera_feed.selected_camera)
+                    live_camera.liveCamera_update_gst_pipeline_function(camera_feed.cam_function)
+                    mediaplayer.stop()
+                    mediaplayer.source = live_camera.liveCamera_gst_pipeline()
+                    mediaplayer.play()
+                    camera_playback.enabled = true
+                }
+            }
+        }
+
+        Button {
+            id: camera_playback
+            enabled: true
+            text: "playback"
+            anchors.bottom: parent.bottom
+            onClicked: {
+                mediaplayer.stop()
+                mediaplayer.source = "gst-pipeline: playbin uri=file:///opt/ti-apps-launcher/data/ti-apps-launcher.h264 video-sink=qtvideosink"
+                mediaplayer.play()
+            }
+        }
+
         RowLayout {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
@@ -47,7 +89,9 @@ Rectangle {
                     height: parent.height * 0.1
                     text: live_camera.liveCamera_get_camera_name(index)
                     onClicked: {
-                        live_camera.liveCamera_update_gst_pipeline(text)
+                        camera_feed.selected_camera = text
+                        live_camera.liveCamera_update_gst_pipeline_camera(text)
+                        live_camera.liveCamera_update_gst_pipeline_function("live")
                         mediaplayer.stop()
                         mediaplayer.source = live_camera.liveCamera_gst_pipeline()
                         mediaplayer.play()
@@ -65,7 +109,9 @@ Rectangle {
             no_cameras.visible = false
             camera_feed.visible = true
 
-            live_camera.liveCamera_update_gst_pipeline(camera_buttons.itemAt(0).text)
+            camera_feed.selected_camera = camera_buttons.itemAt(0).text
+            live_camera.liveCamera_update_gst_pipeline_camera(camera_buttons.itemAt(0).text)
+            live_camera.liveCamera_update_gst_pipeline_function("live")
             mediaplayer.stop()
             mediaplayer.source = live_camera.liveCamera_gst_pipeline()
             mediaplayer.play()
