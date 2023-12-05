@@ -10,6 +10,7 @@
         <file>apps/benchmarks.qml</file>
         <file>apps/benchmarks_jacinto.qml</file>
         <file>apps/stats.qml</file>
+        <file>apps/codecs.qml</file>
         <file>apps/gpu_performance.qml</file>
         <file>apps/camera_recorder.qml</file>
         <file>apps/camera_old.qml</file>
