@@ -10,7 +10,7 @@
 
 #define PLATFORM "am62pxx-evm"
 using namespace std;
-int include_apps_count = 8;
+int include_apps_count = 9;
 QString platform = "am62pxx-evm";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
@@ -24,6 +24,11 @@ app_info include_apps[] = {
         .qml_source = "arm_analytics.qml",
         .name = "ARM Analytics",
         .icon_source = "file:///opt/ti-apps-launcher/assets/analytics.png"
+    },
+    {
+        .qml_source = "codecs.qml",
+        .name = "Video Playback",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
     },
     {
         .qml_source = "benchmarks.qml",
