@@ -11,10 +11,30 @@
 
 #define PLATFORM "am62xx-evm"
 using namespace std;
-int include_apps_count = 8;
 QString platform = "am62xx-evm";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
+int include_powerbuttons_count = 3;
+power_actions include_powerbuttons[] = {
+    {
+        .name = "Shutdown",
+        .command = "shutdown now",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/shutdown.png",
+    },
+    {
+        .name = "Reboot",
+        .command = "reboot",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/reboot.png",
+    },
+    {
+        .name = "Suspend",
+        .command = "/opt/ti-apps-launcher/suspend",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/suspend.png",
+    }
+};
+
+
+int include_apps_count = 8;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
@@ -76,6 +96,8 @@ RunCmd *seva_store = new RunCmd(seva_command);
 RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env http_proxy --env https_proxy --env no_proxy --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0 https://www.ti.com/microcontrollers-mcus-processors/arm-based-processors/overview.html"));
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 
+RunCmd *poweraction = new RunCmd(QStringLiteral(""));
+
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
@@ -86,6 +108,8 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("settings", &settings);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
+
+    engine->rootContext()->setContextProperty("poweraction", poweraction);
 
     docker_load_images();
 }

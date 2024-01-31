@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include "backend/includes/common.h"
 #include "backend/includes/appsmenu.h"
+#include "backend/includes/topbar.h"
 #include "backend/includes/deviceinfo.h"
 #include "backend/includes/stats.h"
 QStringListModel modelNamesList;
@@ -17,6 +18,7 @@ QStringListModel modelNamesList;
 //objects 
 stats statsbackend;
 apps_menu appsmenu;
+power_menu powermenu;
 Device_info deviceinfo;
 /*
 __attribute__((weak)) void platform_setup(QQmlApplicationEngine *engine) {
@@ -85,6 +87,7 @@ int main(int argc, char *argv[]) {
     // set context properties to access in QML
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
+    engine.rootContext()->setContextProperty("powermenu", &powermenu);
     engine.rootContext()->setContextProperty("deviceinfo", &deviceinfo);
     engine.rootContext()->setContextProperty("statsbackend", &statsbackend);
     platform_setup(&engine);

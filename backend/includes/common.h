@@ -9,5 +9,13 @@ struct app_info {
     QString name;
     QString icon_source;
 };
+
+struct power_actions {
+    QString name;
+    QString command;
+    QString icon_source;
+};
+
 extern app_info include_apps[];
+extern power_actions include_powerbuttons[];
 void platform_setup(QQmlApplicationEngine *engine);

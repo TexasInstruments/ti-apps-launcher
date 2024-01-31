@@ -27,6 +27,7 @@ public:
     QString status_msg();
 
     Q_INVOKABLE void launch_or_stop();
+    Q_INVOKABLE void run(QString command);
 
 signals:
     void button_changed();

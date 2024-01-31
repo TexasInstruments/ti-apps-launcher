@@ -8,7 +8,7 @@ extern unordered_map<string, string> proxy_list;
 
 void RunCmd::onStateChanged(const QProcess::ProcessState &new_state) {
     if( process.state() == QProcess::NotRunning ) {
-        cout << "Killed " << _command.toStdString() << endl;
+        cout << "Exited " << _command.toStdString() << endl;
         _button = "Launch";
         _status_msg = "Click 'Launch' to run.";
     } else if ( process.state() == QProcess::Running ) {
@@ -63,6 +63,35 @@ void RunCmd::launch_or_stop() {
         process.kill();
     }
 }
+
+void RunCmd::run(QString command) {
+    QByteArray output_bytes;
+    QString output_string;
+    _command = command;
+
+    if( process.state() == QProcess::NotRunning ) {
+        env.insert("XDG_RUNTIME_DIR", "/run/user/1000");
+        env.insert("WAYLAND_DISPLAY", "wayland-1");
+        env.insert("QT_QPA_PLATFORM", "wayland");
+        if(proxy_list["https_proxy"].size()) {
+            env.insert("http_proxy",proxy_list["https_proxy"].c_str());
+            env.insert("https_proxy",proxy_list["https_proxy"].c_str());
+            env.insert("ftp_proxy",proxy_list["https_proxy"].c_str());
+            env.insert("HTTP_PROXY",proxy_list["https_proxy"].c_str());
+            env.insert("HTTPS_PROXY",proxy_list["https_proxy"].c_str());
+            env.insert("FTP_PROXY",proxy_list["https_proxy"].c_str());
+        }
+        if(proxy_list["no_proxy"].size()) {
+            env.insert("no_proxy",proxy_list["no_proxy"].c_str());
+            env.insert("NO_PROXY",proxy_list["no_proxy"].c_str());
+        }
+        process.setProcessEnvironment(env);
+        process.start(_command);
+    } else if ( process.state() == QProcess::Running ) {
+        process.kill();
+    }
+}
+
 
 QProcess docker_process;
 
