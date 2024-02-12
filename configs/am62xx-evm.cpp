@@ -34,20 +34,18 @@ power_actions include_powerbuttons[] = {
 };
 
 
-int include_apps_count = 8;
+int include_apps_count = 9;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
         .name = "Industrial HMI",
         .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
-    /*
     {
         .qml_source = "live_camera.qml",
         .name = "Live Camera",
         .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
-    */
     {
         .qml_source = "arm_analytics.qml",
         .name = "ARM Analytics",
