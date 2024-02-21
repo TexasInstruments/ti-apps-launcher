@@ -1,4 +1,5 @@
 #include "includes/camera.h"
+#include <filesystem>
 #include <QDebug>
 
 string Camera::replaceAll(string str, const string &remove, const string &insert) {
@@ -94,36 +95,8 @@ void Camera::get_camera_info(map<string, map<string,string>> &cameraInfo)
     Camera_count = Camera_list.rowCount();
 }
 
-void Camera::update_gst_pipeline(QString camera) {
-    _camera = camera;
-}
-
 QString Camera::get_camera_name(int index) {
     return Camera_list.stringList().at(index);
-}
-
-void Camera::update_codec(bool codec_choice) {
-    if (codec_choice == true) {
-        codec = "h264";
-    }
-    else {
-        codec = "h265";
-    }
-}
-
-QString Camera::get_gst_pipeline() {
-    gst_pipeline = "gst-pipeline: ";
-    gst_pipeline.append("v4l2src device=");
-    gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
-    #if defined(SOC_AM62) || defined(SOC_AM62_LP) || defined(SOC_AM62P)
-    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
-    #elif defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4)
-    gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
-    #endif
-    gst_pipeline.append(" ! videoconvert");
-    gst_pipeline.append(" ! qtvideosink");
-    qDebug() << gst_pipeline;
-    return gst_pipeline;
 }
 
 int Camera::get_count() {
@@ -134,5 +107,70 @@ int Camera::get_count() {
     }
     get_camera_info(cameraInfo);
     return Camera_count;
+}
+
+QString Camera::codec = "h264";
+void Camera::update_codec(bool codec_choice) {
+    if (codec_choice == true) {
+        codec = "h265";
+    }
+    else {
+        codec = "h264";
+    }
+
+    qDebug() << "Codec Selected: " << codec;
+}
+
+QString Camera::play_camera(QString camera) {
+    _camera = camera;
+    gst_pipeline = "gst-pipeline: ";
+    gst_pipeline.append("v4l2src device=");
+    gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
+    #if defined(SOC_AM62) || defined(SOC_AM62_LP) || defined(SOC_AM62P)
+    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    #elif defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4)
+    gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
+    #endif
+    gst_pipeline.append(" ! videoconvert");
+    gst_pipeline.append(" ! qtvideosink");
+    qDebug() << "New Gst Pipeline: " << gst_pipeline;
+    return gst_pipeline;
+}
+
+QString Camera::get_gst_pipeline() {
+    return gst_pipeline;
+}
+
+QString Camera::play_video(QString videofile) {
+    _videofile = videofile;
+    // gst_pipeline = "gst-pipeline: ";
+    // gst_pipeline.append("playbin uri=file://");
+    // gst_pipeline.append(videofile);
+    // gst_pipeline.append(" ! qtvideosink");
+    gst_pipeline = "gst-pipeline: ";
+    gst_pipeline.append("filesrc location=");
+    gst_pipeline.append(videofile);
+    gst_pipeline.append(" ! ");
+    gst_pipeline.append(codec);
+    gst_pipeline.append("parse ! v4l2");
+    gst_pipeline.append(codec);
+    gst_pipeline.append("dec capture-io-mode=dmabuf ! qtvideosink");
+    qDebug() << "New Gst Pipeline: " << gst_pipeline;
+    return gst_pipeline;
+}
+
+void Camera::delete_video(QString videofile) {
+    _videofile = videofile;
+    string full_filename = "/opt/ti-apps-launcher/gallery/" + _videofile.toStdString();
+
+    try {
+        if (std::filesystem::remove(full_filename))
+            std::cout << "file " << full_filename << " deleted.\n";
+        else
+           std::cout << "file " << full_filename << " not found.\n";
+    }
+    catch(const std::filesystem::filesystem_error& err) {
+        std::cout << "filesystem error: " << err.what() << '\n';
+    }
 }
 

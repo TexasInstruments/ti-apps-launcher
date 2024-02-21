@@ -20,10 +20,10 @@ Rectangle {
         id: recorder_menu
 
         width: parent.width * 0.2
-        height: parent.height * 0.95
+        height: parent.height * 0.98
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: parent.width * 0.02
+        anchors.leftMargin: parent.width * 0.01
         border.color: "#EEFFFF"
         border.width: 5
         radius: 10
@@ -31,26 +31,30 @@ Rectangle {
         Rectangle {
             id: codec_menu
             width: parent.width
-            height: parent.height * 0.1
+            height: parent.height * 0.18
             anchors.top: parent.top
+            radius: 5
+            border.width: 2.5
+            border.color: "black"
             color: "red"
 
             Text {
                 id: codec_head
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
+                anchors.topMargin: parent.height * 0.1
                 text: "Codec"
-                font.pixelSize: 20
+                font.pixelSize: 30
                 color: "#000000"
             }
 
             Switch {
                 id: codec_switch
                 checked: false
-                height: parent.height * 0.6
-                width: parent.width * 0.7
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height * 0.04
+                height: parent.height * 0.3
+                width: parent.width * 0.5
+                anchors.top: codec_head.bottom
+                anchors.topMargin: parent.height * 0.1
                 anchors.horizontalCenter: parent.horizontalCenter
                 indicator: Rectangle {
                     implicitWidth: parent.width
@@ -96,56 +100,78 @@ Rectangle {
         Rectangle {
             id: camera_menu
             width: parent.width
-            height: parent.height * 0.6
-
+            height: parent.height * 0.39
+            color: "green"
             anchors.top: codec_menu.bottom
+            anchors.topMargin: parent.height * 0.02
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            radius: 5
+            border.width: 2.5
+            border.color: "black"
             Text {
                 id: camera_head
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 text: "Camera"
-                font.pixelSize: 20
+                font.pixelSize: 30
                 color: "#000000"
             }
 
             ColumnLayout {
                 id: cameras_column
                 anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: camera_head.bottom
                 width: parent.width
                 spacing: 0
-                height: parent.height * 0.2
                 Repeater {
                     id: camera_buttons
                     model: camera.get_count()
 
                     Button {
                         width: parent.width * 0.8
-                        height: parent.height * 0.2
+                        Layout.alignment: Qt.AlignHCenter
+                        height: width * 4
                         text: camera.get_camera_name(index)
                         onClicked: {
-                            camera.update_gst_pipeline(text)
+                            
                             mediaplayer.stop()
-                            mediaplayer.source = camera.get_gst_pipeline()
+                            mediaplayer.source = camera.play_camera(text)
+                            // mediaplayer.source = camera.get_gst_pipeline()
                             mediaplayer.play()
                         }
                     }
                 }
             }
         }
+
         Rectangle {
             id: gallery
             width: parent.width
-            height: parent.height
-
+            height: parent.height * 0.39
+            color: "blue"
             anchors.top: camera_menu.bottom
+            anchors.topMargin: parent.height * 0.02
+
+            radius: 5
+            border.width: 2.5
+            border.color: "black"
+            Text {
+                id: gallery_head
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                text: "Gallery"
+                font.pixelSize: 30
+                color: "#000000"
+            }
+
 
             ComboBox {
                 id: videosDropdown
-                width: parent.width * 0.6
+                width: parent.width * 0.8
                 height: parent.height * 0.2
-                anchors.left: parent.left
-                anchors.leftMargin: parent.width * 0.2
-                anchors.top: popupInputType.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: gallery_head.bottom
                 anchors.topMargin: parent.height * 0.1
 
                 FolderListModel{
@@ -154,18 +180,44 @@ Rectangle {
                     nameFilters: [ "*.h264" ]
                 }
 
-                model: inputVideosFolder
+                model: videofiles
                 textRole: 'fileName'
+            }
+
+            Image {
+                id: gallery_play_button
+                height: parent.height * 0.2
+                width: height
+                property bool playing: false
+                source: playing ? "file:///opt/ti-apps-launcher/assets/stop-button.png" : "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                fillMode: Image.PreserveAspectFit
+                anchors.right: parent.right
+                anchors.rightMargin: width * 0.5
+                anchors.top: parent.top
+                anchors.topMargin: height * 0.5
+                anchors.leftMargin: width * 0.5
+        
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: {
+                        mediaplayer.stop();
+                        var inputFile = videosDropdown.model.get(videosDropdown.currentIndex, "filePath");
+                        var videopipeline = camera.play_video(inputFile);
+                        mediaplayer.source = videopipeline;
+                        mediaplayer.play();
+                    }
+                }
             }
         }
     }
 
     Rectangle {
         id: camera_video_feed
-        width: parent.width * 0.75
-        height: parent.height * 0.95
+        width: parent.width * 0.78
+        height: parent.height * 0.98
         anchors.right: parent.right
-        anchors.rightMargin: parent.width * 0.02
+        anchors.rightMargin: parent.width * 0.01
         anchors.verticalCenter: parent.verticalCenter
         color: "black"
         border.color: "#EEFFFF"
@@ -185,12 +237,18 @@ Rectangle {
             color: "#000000"
         }
 
-        VideoOutput {
-            id: feed
-            source: mediaplayer
+        Rectangle {
             anchors.fill: parent
-            anchors.centerIn: parent
-            // anchors.margins: 10
+            anchors.topMargin: parent.height * 0.01
+            anchors.bottomMargin: parent.height * 0.01
+            anchors.leftMargin: parent.height * 0.01
+            anchors.rightMargin: parent.height * 0.01
+            VideoOutput {
+                id: feed
+                source: mediaplayer
+                anchors.fill: parent
+                anchors.centerIn: parent
+            }
         }
 
         Component.onCompleted: {
@@ -201,9 +259,10 @@ Rectangle {
                 no_cameras.visible = false
                 feed.visible = true
 
-                camera.update_gst_pipeline(camera_buttons.itemAt(0).text)
                 mediaplayer.stop()
-                mediaplayer.source = camera.get_gst_pipeline()
+                // mediaplayer.source = camera.play_camera(camera_buttons.itemAt(0).text)
+                mediaplayer.source = camera.play_video("/opt/ti-apps-launcher/gallery/bbb_640_480_30s_IPPP.h264")
+                // mediaplayer.source = camera.get_gst_pipeline()
                 mediaplayer.play()
             }
         }
