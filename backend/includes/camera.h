@@ -39,8 +39,6 @@ public:
 
     void get_camera_info(map<string, map<string,string>> &cameraInfo);
 
-    // Q_INVOKABLE void update_camera_gst_pipeline(QString camera);
-
     Q_INVOKABLE QString get_gst_pipeline();
     Q_INVOKABLE int get_count();
     Q_INVOKABLE QString get_camera_name(int index);

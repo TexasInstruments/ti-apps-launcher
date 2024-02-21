@@ -143,10 +143,6 @@ QString Camera::get_gst_pipeline() {
 
 QString Camera::play_video(QString videofile) {
     _videofile = videofile;
-    // gst_pipeline = "gst-pipeline: ";
-    // gst_pipeline.append("playbin uri=file://");
-    // gst_pipeline.append(videofile);
-    // gst_pipeline.append(" ! qtvideosink");
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("filesrc location=");
     gst_pipeline.append(videofile);

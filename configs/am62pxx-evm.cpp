@@ -111,6 +111,7 @@ void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62P!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("camera", &camera);
+    engine->rootContext()->setContextProperty("cameralist", &camera.Camera_list);
     engine->rootContext()->setContextProperty("arm_analytics", &arm_analytics);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);

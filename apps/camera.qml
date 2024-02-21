@@ -16,27 +16,60 @@ Rectangle {
     width: parent.width
     color: "#344045"
 
-    Rectangle {
-        id: recorder_menu
 
-        width: parent.width * 0.2
-        height: parent.height * 0.98
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: parent.width * 0.01
-        border.color: "#EEFFFF"
-        border.width: 5
-        radius: 10
+    Rectangle {
+        id: camera_video_feed
+        anchors.fill: parent
+
+        MediaPlayer {
+            id: mediaplayer
+            autoPlay: false
+        }
+
+        Text {
+            id: msg
+            anchors.centerIn: parent
+            text: "Select a Camera or Video to play here."
+            font.pixelSize: 20
+            color: "#000000"
+        }
 
         Rectangle {
-            id: codec_menu
-            width: parent.width
-            height: parent.height * 0.18
-            anchors.top: parent.top
-            radius: 5
-            border.width: 2.5
-            border.color: "black"
-            color: "red"
+            width: parent.width - (parent.height * 0.02)
+            height: parent.height * 0.98
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            color: "white"
+            // border.color: "#EEFFFF"
+            // border.width: 5
+            radius: 10
+
+            VideoOutput {
+                id: feed
+                source: mediaplayer
+                anchors.fill: parent
+                anchors.centerIn: parent
+                visible: false
+            }
+        }
+
+        Rectangle {
+            id: recorder_menu
+
+            width: parent.width * 0.7
+            height: parent.height * 0.1
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: parent.height * 0.05
+            border.color: "#EEFFFF"
+            border.width: 5
+            radius: 10
+            color: "transparent"
+            FastBlur {
+                anchors.fill: parent
+                source: feed
+                radius: 64
+            }
 
             Text {
                 id: codec_head
@@ -96,30 +129,73 @@ Rectangle {
                     }
                 }
             }
-        }
-        Rectangle {
-            id: camera_menu
-            width: parent.width
-            height: parent.height * 0.39
-            color: "green"
-            anchors.top: codec_menu.bottom
-            anchors.topMargin: parent.height * 0.02
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            radius: 5
-            border.width: 2.5
-            border.color: "black"
             Text {
                 id: camera_head
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
+                anchors.top: codec_switch.bottom
                 text: "Camera"
                 font.pixelSize: 30
                 color: "#000000"
             }
 
+/*
+            ListModel {
+                id: camera_list_model
+
+                property int count: camera.get_count();
+                function data(model, role, index) {
+                    if (role === Qt.DisplayRole) {
+                        return camera.get_camera_name(index);
+                    }
+                }
+            }
+*/
+            ComboBox {
+                id: cameras_dropdown
+                width: parent.width * 0.6
+                height: parent.height * 0.2
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: camera_head.bottom
+                anchors.topMargin: parent.height * 0.1
+
+                model: cameralist
+                // textRole: "text"
+                textRole: "display"
+
+                onActivated: {
+                    mediaplayer.stop();
+                    mediaplayer.source = camera.play_camera(cameras_dropdown.currentText)
+                    mediaplayer.play();
+                }
+            }
+
+            Image {
+                id: camera_record_button
+                height: parent.width * 0.1
+                width: height
+                property bool playing: false
+                source: playing ? "file:///opt/ti-apps-launcher/assets/stop-button.png" : "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                fillMode: Image.PreserveAspectFit
+                anchors.right: parent.right
+                anchors.rightMargin: parent.width * 0.1
+                anchors.verticalCenter: cameras_dropdown.verticalCenter
+                anchors.topMargin: height * 0.5
+                anchors.leftMargin: width * 0.5
+
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: {
+                        mediaplayer.stop();
+                        mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
+                        mediaplayer.play();
+                    }
+                }
+            }
+
+/*
             ColumnLayout {
-                id: cameras_column
+                id: cameras_dropdown
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: camera_head.bottom
                 width: parent.width
@@ -134,7 +210,7 @@ Rectangle {
                         height: width * 4
                         text: camera.get_camera_name(index)
                         onClicked: {
-                            
+
                             mediaplayer.stop()
                             mediaplayer.source = camera.play_camera(text)
                             // mediaplayer.source = camera.get_gst_pipeline()
@@ -143,23 +219,11 @@ Rectangle {
                     }
                 }
             }
-        }
-
-        Rectangle {
-            id: gallery
-            width: parent.width
-            height: parent.height * 0.39
-            color: "blue"
-            anchors.top: camera_menu.bottom
-            anchors.topMargin: parent.height * 0.02
-
-            radius: 5
-            border.width: 2.5
-            border.color: "black"
+*/
             Text {
                 id: gallery_head
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
+                anchors.top: cameras_dropdown.bottom
                 text: "Gallery"
                 font.pixelSize: 30
                 color: "#000000"
@@ -196,7 +260,7 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: height * 0.5
                 anchors.leftMargin: width * 0.5
-        
+
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
@@ -208,62 +272,6 @@ Rectangle {
                         mediaplayer.play();
                     }
                 }
-            }
-        }
-    }
-
-    Rectangle {
-        id: camera_video_feed
-        width: parent.width * 0.78
-        height: parent.height * 0.98
-        anchors.right: parent.right
-        anchors.rightMargin: parent.width * 0.01
-        anchors.verticalCenter: parent.verticalCenter
-        color: "black"
-        border.color: "#EEFFFF"
-        border.width: 5
-        radius: 10
-
-        MediaPlayer {
-            id: mediaplayer
-            autoPlay: false
-        }
-
-        Text {
-            id: no_cameras
-            anchors.centerIn: parent
-            text: "No camera detected! Please check the connection and reboot."
-            font.pixelSize: 20
-            color: "#000000"
-        }
-
-        Rectangle {
-            anchors.fill: parent
-            anchors.topMargin: parent.height * 0.01
-            anchors.bottomMargin: parent.height * 0.01
-            anchors.leftMargin: parent.height * 0.01
-            anchors.rightMargin: parent.height * 0.01
-            VideoOutput {
-                id: feed
-                source: mediaplayer
-                anchors.fill: parent
-                anchors.centerIn: parent
-            }
-        }
-
-        Component.onCompleted: {
-            if (camera.get_count() == 0) {
-                no_cameras.visible = true
-                feed.visible = false
-            } else {
-                no_cameras.visible = false
-                feed.visible = true
-
-                mediaplayer.stop()
-                // mediaplayer.source = camera.play_camera(camera_buttons.itemAt(0).text)
-                mediaplayer.source = camera.play_video("/opt/ti-apps-launcher/gallery/bbb_640_480_30s_IPPP.h264")
-                // mediaplayer.source = camera.get_gst_pipeline()
-                mediaplayer.play()
             }
         }
     }
