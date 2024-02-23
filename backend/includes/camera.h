@@ -47,7 +47,7 @@ public:
     Q_INVOKABLE QString play_video(QString videofile);
     Q_INVOKABLE void delete_video(QString videofile);
     Q_INVOKABLE QString play_camera(QString camera);
-    // Q_INVOKABLE QString record_camera(QString camera);
+    Q_INVOKABLE QString record_camera(QString camera);
 
 signals:
 

@@ -16,7 +16,6 @@ Rectangle {
     width: parent.width
     color: "#344045"
 
-
     Rectangle {
         id: camera_video_feed
         anchors.fill: parent
@@ -49,14 +48,35 @@ Rectangle {
                 source: mediaplayer
                 anchors.fill: parent
                 anchors.centerIn: parent
-                visible: false
+                visible: true
+                Image {
+                    id: recording_status
+                    visible: false
+                    source: "file:///opt/ti-apps-launcher/assets/record.png"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.rightMargin: parent.height * 0.02
+                    anchors.topMargin: parent.height * 0.02
+                }
+                Timer {
+                    id: recording_animation
+                    interval: 500; running: false; repeat: true
+                    onTriggered: {
+                        if(recording_status.visible == true) {
+                            recording_status.visible = false
+                        } else {
+                            recording_status.visible = true
+                        }
+                    }
+                }
             }
         }
 
         Rectangle {
             id: recorder_menu
 
-            width: parent.width * 0.7
+            width: parent.width * 0.9
             height: parent.height * 0.1
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -64,31 +84,25 @@ Rectangle {
             border.color: "#EEFFFF"
             border.width: 5
             radius: 10
-            color: "transparent"
-            FastBlur {
-                anchors.fill: parent
-                source: feed
-                radius: 64
-            }
+            color: "#cccccc"
 
             Text {
                 id: codec_head
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: parent.height * 0.1
-                text: "Codec"
-                font.pixelSize: 30
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width * 0.01
+                text: "Codec: "
+                font.pixelSize: 25
                 color: "#000000"
             }
 
             Switch {
                 id: codec_switch
                 checked: false
-                height: parent.height * 0.3
-                width: parent.width * 0.5
-                anchors.top: codec_head.bottom
-                anchors.topMargin: parent.height * 0.1
-                anchors.horizontalCenter: parent.horizontalCenter
+                height: parent.height * 0.5
+                width: parent.width * 0.1
+                anchors.left: codec_head.right
+                anchors.verticalCenter: parent.verticalCenter
                 indicator: Rectangle {
                     implicitWidth: parent.width
                     implicitHeight: parent.height
@@ -114,7 +128,7 @@ Rectangle {
                         leftPadding: 10
                         rightPadding: 10
                         text: codec_switch.checked ? ".h265" : ".h264"
-                        font.pixelSize: 20
+                        font.pixelSize: 15
                         horizontalAlignment: codec_switch.checked ? Text.AlignLeft : Text.AlignRight
                         color: codec_switch.checked ? "#ffffff" : "#1B2631"
                     }
@@ -122,45 +136,109 @@ Rectangle {
                 onClicked: {
                     camera.update_codec(checked);
                     if (checked === true) {
-                        videofiles.nameFilters = [ "*.h265" ]
+                        videofiles.nameFilters = [ "*h265*" ]
                     }
                     else {
-                        videofiles.nameFilters = [ "*.h264" ]
+                        videofiles.nameFilters = [ "*h264*" ]
                     }
                 }
             }
             Text {
                 id: camera_head
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: codec_switch.bottom
-                text: "Camera"
-                font.pixelSize: 30
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: codec_switch.right
+                anchors.leftMargin: parent.width * 0.01
+                text: "Camera: "
+                font.pixelSize: 25
                 color: "#000000"
             }
 
-/*
-            ListModel {
-                id: camera_list_model
-
-                property int count: camera.get_count();
-                function data(model, role, index) {
-                    if (role === Qt.DisplayRole) {
-                        return camera.get_camera_name(index);
-                    }
-                }
-            }
-*/
             ComboBox {
                 id: cameras_dropdown
-                width: parent.width * 0.6
-                height: parent.height * 0.2
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: camera_head.bottom
-                anchors.topMargin: parent.height * 0.1
+                width: parent.width * 0.25
+                height: parent.height * 0.8
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: camera_head.right
+                property int cameras_count: camera.get_count();
 
                 model: cameralist
-                // textRole: "text"
                 textRole: "display"
+
+                delegate: ItemDelegate {
+                    width: cameras_dropdown.width
+                    contentItem: Text {
+                        text: textRole
+                        color: "#21be2b"
+                        font: cameras_dropdown.font
+                        elide: Text.ElideRight
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                    highlighted: cameras_dropdown.highlightedIndex === index
+                }
+
+                indicator: Canvas {
+                    id: canvas
+                    x: cameras_dropdown.width - width - cameras_dropdown.rightPadding
+                    y: cameras_dropdown.topPadding + (cameras_dropdown.availableHeight - height) / 2
+                    width: 12
+                    height: 8
+                    contextType: "2d"
+
+                    Connections {
+                        target: cameras_dropdown
+                        function onPressedChanged() { canvas.requestPaint(); }
+                    }
+
+                    onPaint: {
+                        context.reset();
+                        context.moveTo(0, 0);
+                        context.lineTo(width, 0);
+                        context.lineTo(width / 2, height);
+                        context.closePath();
+                        context.fillStyle = cameras_dropdown.pressed ? "#17a81a" : "#21be2b";
+                        context.fill();
+                    }
+                }
+
+                contentItem: Text {
+                    leftPadding: 0
+                    rightPadding: cameras_dropdown.indicator.width + cameras_dropdown.spacing
+
+                    text: cameras_dropdown.displayText
+                    font: cameras_dropdown.font
+                    color: cameras_dropdown.pressed ? "#17a81a" : "#21be2b"
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+
+                background: Rectangle {
+                    implicitWidth: 120
+                    implicitHeight: 40
+                    border.color: cameras_dropdown.pressed ? "#17a81a" : "#21be2b"
+                    border.width: cameras_dropdown.visualFocus ? 2 : 1
+                    radius: 2
+                }
+
+                popup: Popup {
+                    y: cameras_dropdown.height - 1
+                    width: cameras_dropdown.width
+                    implicitHeight: contentItem.implicitHeight
+                    padding: 1
+
+                    contentItem: ListView {
+                        clip: true
+                        implicitHeight: contentHeight
+                        model: cameras_dropdown.popup.visible ? cameras_dropdown.delegateModel : null
+                        currentIndex: cameras_dropdown.highlightedIndex
+
+                        ScrollIndicator.vertical: ScrollIndicator { }
+                    }
+
+                    background: Rectangle {
+                        border.color: "#21be2b"
+                        radius: 2
+                    }
+                }
 
                 onActivated: {
                     mediaplayer.stop();
@@ -171,77 +249,60 @@ Rectangle {
 
             Image {
                 id: camera_record_button
-                height: parent.width * 0.1
+                height: parent.height * 0.8
                 width: height
-                property bool playing: false
-                source: playing ? "file:///opt/ti-apps-launcher/assets/stop-button.png" : "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                property bool recording: false
+                source: recording ? "file:///opt/ti-apps-launcher/assets/stop.png" : "file:///opt/ti-apps-launcher/assets/record.png"
                 fillMode: Image.PreserveAspectFit
-                anchors.right: parent.right
-                anchors.rightMargin: parent.width * 0.1
-                anchors.verticalCenter: cameras_dropdown.verticalCenter
-                anchors.topMargin: height * 0.5
-                anchors.leftMargin: width * 0.5
+                anchors.left: cameras_dropdown.right
+                anchors.leftMargin: parent.width * 0.01
+                anchors.verticalCenter: parent.verticalCenter
 
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
-                        mediaplayer.stop();
-                        mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
-                        mediaplayer.play();
-                    }
-                }
-            }
-
-/*
-            ColumnLayout {
-                id: cameras_dropdown
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: camera_head.bottom
-                width: parent.width
-                spacing: 0
-                Repeater {
-                    id: camera_buttons
-                    model: camera.get_count()
-
-                    Button {
-                        width: parent.width * 0.8
-                        Layout.alignment: Qt.AlignHCenter
-                        height: width * 4
-                        text: camera.get_camera_name(index)
-                        onClicked: {
-
-                            mediaplayer.stop()
-                            mediaplayer.source = camera.play_camera(text)
-                            // mediaplayer.source = camera.get_gst_pipeline()
-                            mediaplayer.play()
+                        if (camera_record_button.recording == false) {
+                            camera_record_button.recording = true;
+                            // recording_status.visible = true
+                            recording_animation.start()
+                            mediaplayer.stop();
+                            mediaplayer.source = camera.record_camera(cameras_dropdown.currentText);
+                            mediaplayer.play();
+                        } else {
+                            camera_record_button.recording = false;
+                            recording_animation.stop()
+                            recording_status.visible = false
+                            mediaplayer.stop();
+                            mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
+                            mediaplayer.play();
                         }
                     }
                 }
             }
-*/
+
             Text {
                 id: gallery_head
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: cameras_dropdown.bottom
-                text: "Gallery"
-                font.pixelSize: 30
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: camera_record_button.right
+                anchors.leftMargin: parent.width * 0.01
+                text: "Gallery: "
+                font.pixelSize: 25
                 color: "#000000"
             }
 
-
             ComboBox {
                 id: videosDropdown
-                width: parent.width * 0.8
-                height: parent.height * 0.2
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: gallery_head.bottom
-                anchors.topMargin: parent.height * 0.1
+                width: parent.width * 0.25
+                height: parent.height * 0.8
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: gallery_head.right
 
                 FolderListModel{
                     id: videofiles
                     folder: "file:///opt/ti-apps-launcher/gallery/"
-                    nameFilters: [ "*.h264" ]
+                    sortField :  "Time"
+                    nameFilters: [ "*h264*" ]
                 }
 
                 model: videofiles
@@ -250,16 +311,14 @@ Rectangle {
 
             Image {
                 id: gallery_play_button
-                height: parent.height * 0.2
+                height: parent.height * 0.8
                 width: height
                 property bool playing: false
-                source: playing ? "file:///opt/ti-apps-launcher/assets/stop-button.png" : "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
                 fillMode: Image.PreserveAspectFit
-                anchors.right: parent.right
-                anchors.rightMargin: width * 0.5
-                anchors.top: parent.top
-                anchors.topMargin: height * 0.5
-                anchors.leftMargin: width * 0.5
+                anchors.left: videosDropdown.right
+                anchors.leftMargin: parent.width * 0.01
+                anchors.verticalCenter: parent.verticalCenter
 
                 MouseArea {
                     anchors.fill: parent
@@ -272,6 +331,43 @@ Rectangle {
                         mediaplayer.play();
                     }
                 }
+            }
+            Image {
+                id: gallery_delete_button
+                height: parent.height * 0.8
+                width: height
+                property bool playing: false
+                source: "file:///opt/ti-apps-launcher/assets/delete.png"
+                fillMode: Image.PreserveAspectFit
+                anchors.left: gallery_play_button.right
+                anchors.leftMargin: parent.width * 0.01
+                anchors.verticalCenter: parent.verticalCenter
+
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: {
+                        // mediaplayer.stop();
+                        var inputFile = videosDropdown.model.get(videosDropdown.currentIndex, "filePath");
+                        camera.delete_video(inputFile);
+                        videosDropdown.currentIndex = -1;
+                        // var videopipeline = camera.play_video(inputFile);
+                        // mediaplayer.source = videopipeline;
+                        // mediaplayer.play();
+                    }
+                }
+            }
+        }
+        Component.onCompleted: {
+            if (cameras_dropdown.count == 0) {
+                msg.visible = true
+                feed.visible = false
+            } else {
+                msg.visible = false
+                feed.visible = true
+                cameras_dropdown.currentIndex = 0;
+                mediaplayer.source = camera.play_camera(cameralist.data(cameralist.index(0,0)));
+                mediaplayer.play();
             }
         }
     }

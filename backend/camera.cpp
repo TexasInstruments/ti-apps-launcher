@@ -1,6 +1,7 @@
 #include "includes/camera.h"
 #include <filesystem>
 #include <QDebug>
+#include <QDateTime>
 
 string Camera::replaceAll(string str, const string &remove, const string &insert) {
     string::size_type pos = 0;
@@ -121,13 +122,46 @@ void Camera::update_codec(bool codec_choice) {
     qDebug() << "Codec Selected: " << codec;
 }
 
+QString Camera::record_camera(QString camera) {
+    _camera = camera;
+    QString time_format = "yyyy_MM_dd-HH_mm_ss";
+    QDateTime time = QDateTime::currentDateTime();
+    QString time_string = time.toString(time_format);
+    qDebug() << time_string;
+    QString filename = time_string + "." + codec;
+
+    gst_pipeline = "gst-pipeline: ";
+    gst_pipeline.append("v4l2src device=");
+    gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
+    gst_pipeline.append(" ! video/x-raw, width=640, height=480, framerate=30/1, format=");
+
+    if (camera.contains("USB", Qt::CaseInsensitive)) {
+        gst_pipeline.append("YUY2");
+    } else {
+        gst_pipeline.append("UYVY");
+    }
+    gst_pipeline.append(" ! tee name=t ! queue ! fpsdisplaysink text-overlay=false name=fpssink video-sink=autovideosink t. ! queue ! ticolorconvert ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=progressive, format=NV12, colorimetry=bt601  ! v4l2");
+    gst_pipeline.append(codec);
+    gst_pipeline.append("enc extra-controls=\"controls,");
+    gst_pipeline.append(codec);
+    gst_pipeline.append("_i_frame_period=60\" ! filesink location=/opt/ti-apps-launcher/gallery/");
+    gst_pipeline.append(filename);
+
+    qDebug() << "New Gst Pipeline: " << gst_pipeline;
+    return gst_pipeline;
+}
+
 QString Camera::play_camera(QString camera) {
     _camera = camera;
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("v4l2src device=");
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
     #if defined(SOC_AM62) || defined(SOC_AM62_LP) || defined(SOC_AM62P)
-    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    if (camera.contains("USB", Qt::CaseInsensitive)) {
+        gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
+    } else {
+        gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    }
     #elif defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4)
     gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
     #endif
@@ -146,18 +180,23 @@ QString Camera::play_video(QString videofile) {
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("filesrc location=");
     gst_pipeline.append(videofile);
-    gst_pipeline.append(" ! ");
+    if ( videofile.contains("mp4") ) {
+        gst_pipeline.append(" ! qtdemux ! ");
+    } else {
+        gst_pipeline.append(" ! ");
+    }
+
     gst_pipeline.append(codec);
     gst_pipeline.append("parse ! v4l2");
     gst_pipeline.append(codec);
-    gst_pipeline.append("dec capture-io-mode=dmabuf ! qtvideosink");
+    gst_pipeline.append("dec capture-io-mode=dmabuf ! qtvideosink sync=true");
     qDebug() << "New Gst Pipeline: " << gst_pipeline;
     return gst_pipeline;
 }
 
 void Camera::delete_video(QString videofile) {
     _videofile = videofile;
-    string full_filename = "/opt/ti-apps-launcher/gallery/" + _videofile.toStdString();
+    string full_filename = _videofile.toStdString();
 
     try {
         if (std::filesystem::remove(full_filename))
