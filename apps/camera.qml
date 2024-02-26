@@ -49,6 +49,16 @@ Rectangle {
                 anchors.fill: parent
                 anchors.centerIn: parent
                 visible: true
+                Text {
+                    id: status_message
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.topMargin: parent.height * 0.02
+                    anchors.leftMargin: parent.height * 0.02
+                    color: "black"
+                    text: ""
+                    font.pixelSize: 25
+                }
                 Image {
                     id: recording_status
                     visible: false
@@ -164,86 +174,11 @@ Rectangle {
                 model: cameralist
                 textRole: "display"
 
-                delegate: ItemDelegate {
-                    width: cameras_dropdown.width
-                    contentItem: Text {
-                        text: textRole
-                        color: "#21be2b"
-                        font: cameras_dropdown.font
-                        elide: Text.ElideRight
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    highlighted: cameras_dropdown.highlightedIndex === index
-                }
-
-                indicator: Canvas {
-                    id: canvas
-                    x: cameras_dropdown.width - width - cameras_dropdown.rightPadding
-                    y: cameras_dropdown.topPadding + (cameras_dropdown.availableHeight - height) / 2
-                    width: 12
-                    height: 8
-                    contextType: "2d"
-
-                    Connections {
-                        target: cameras_dropdown
-                        function onPressedChanged() { canvas.requestPaint(); }
-                    }
-
-                    onPaint: {
-                        context.reset();
-                        context.moveTo(0, 0);
-                        context.lineTo(width, 0);
-                        context.lineTo(width / 2, height);
-                        context.closePath();
-                        context.fillStyle = cameras_dropdown.pressed ? "#17a81a" : "#21be2b";
-                        context.fill();
-                    }
-                }
-
-                contentItem: Text {
-                    leftPadding: 0
-                    rightPadding: cameras_dropdown.indicator.width + cameras_dropdown.spacing
-
-                    text: cameras_dropdown.displayText
-                    font: cameras_dropdown.font
-                    color: cameras_dropdown.pressed ? "#17a81a" : "#21be2b"
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideRight
-                }
-
-                background: Rectangle {
-                    implicitWidth: 120
-                    implicitHeight: 40
-                    border.color: cameras_dropdown.pressed ? "#17a81a" : "#21be2b"
-                    border.width: cameras_dropdown.visualFocus ? 2 : 1
-                    radius: 2
-                }
-
-                popup: Popup {
-                    y: cameras_dropdown.height - 1
-                    width: cameras_dropdown.width
-                    implicitHeight: contentItem.implicitHeight
-                    padding: 1
-
-                    contentItem: ListView {
-                        clip: true
-                        implicitHeight: contentHeight
-                        model: cameras_dropdown.popup.visible ? cameras_dropdown.delegateModel : null
-                        currentIndex: cameras_dropdown.highlightedIndex
-
-                        ScrollIndicator.vertical: ScrollIndicator { }
-                    }
-
-                    background: Rectangle {
-                        border.color: "#21be2b"
-                        radius: 2
-                    }
-                }
-
                 onActivated: {
                     mediaplayer.stop();
                     mediaplayer.source = camera.play_camera(cameras_dropdown.currentText)
                     mediaplayer.play();
+                    status_message.text = "Live: " + camera.get_current_camera()
                 }
             }
 
@@ -269,6 +204,7 @@ Rectangle {
                             mediaplayer.stop();
                             mediaplayer.source = camera.record_camera(cameras_dropdown.currentText);
                             mediaplayer.play();
+                            status_message.text = "Recording: " + camera.get_current_camera() + " to " + camera.get_filename()
                         } else {
                             camera_record_button.recording = false;
                             recording_animation.stop()
@@ -276,6 +212,7 @@ Rectangle {
                             mediaplayer.stop();
                             mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
                             mediaplayer.play();
+                            status_message.text = "Live: " + camera.get_current_camera()
                         }
                     }
                 }
@@ -329,6 +266,7 @@ Rectangle {
                         var videopipeline = camera.play_video(inputFile);
                         mediaplayer.source = videopipeline;
                         mediaplayer.play();
+                        status_message.text = "Playing: " + camera.get_filename()
                     }
                 }
             }
@@ -368,6 +306,7 @@ Rectangle {
                 cameras_dropdown.currentIndex = 0;
                 mediaplayer.source = camera.play_camera(cameralist.data(cameralist.index(0,0)));
                 mediaplayer.play();
+                status_message.text = "Live: " + camera.get_current_camera()
             }
         }
     }

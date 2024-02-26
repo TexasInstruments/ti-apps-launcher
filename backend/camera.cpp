@@ -128,7 +128,8 @@ QString Camera::record_camera(QString camera) {
     QDateTime time = QDateTime::currentDateTime();
     QString time_string = time.toString(time_format);
     qDebug() << time_string;
-    QString filename = time_string + "." + codec;
+    filename = time_string + "_" + codec + ".mp4";
+    emit filename_changed();
 
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("v4l2src device=");
@@ -144,7 +145,9 @@ QString Camera::record_camera(QString camera) {
     gst_pipeline.append(codec);
     gst_pipeline.append("enc extra-controls=\"controls,");
     gst_pipeline.append(codec);
-    gst_pipeline.append("_i_frame_period=60\" ! filesink location=/opt/ti-apps-launcher/gallery/");
+    gst_pipeline.append("_i_frame_period=60\" ! ");
+    gst_pipeline.append(codec);
+    gst_pipeline.append("parse ! mpegtsmux ! filesink location=/opt/ti-apps-launcher/gallery/");
     gst_pipeline.append(filename);
 
     qDebug() << "New Gst Pipeline: " << gst_pipeline;
@@ -177,11 +180,13 @@ QString Camera::get_gst_pipeline() {
 
 QString Camera::play_video(QString videofile) {
     _videofile = videofile;
+    filename = _videofile;
+    emit filename_changed();
     gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("filesrc location=");
     gst_pipeline.append(videofile);
     if ( videofile.contains("mp4") ) {
-        gst_pipeline.append(" ! qtdemux ! ");
+        gst_pipeline.append(" ! tsdemux ! ");
     } else {
         gst_pipeline.append(" ! ");
     }
@@ -192,6 +197,14 @@ QString Camera::play_video(QString videofile) {
     gst_pipeline.append("dec capture-io-mode=dmabuf ! qtvideosink sync=true");
     qDebug() << "New Gst Pipeline: " << gst_pipeline;
     return gst_pipeline;
+}
+
+QString Camera::get_current_camera() {
+    return _camera;
+}
+
+QString Camera::get_filename() {
+    return filename;
 }
 
 void Camera::delete_video(QString videofile) {

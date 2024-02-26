@@ -19,7 +19,6 @@ class Camera : public QObject {
 private:
 
     map<string, map<string,string>> cameraInfo;
-    QString _camera;
     QString _videofile;
 
     string replaceAll(string str, const string &remove, const string &insert);
@@ -31,8 +30,12 @@ public:
     int Camera_count;
     QString gst_pipeline;
     static QString codec;
+    QString filename;
+    QString _camera;
 
     Q_PROPERTY(QString gst_pipeline NOTIFY gst_pipeline_updated)
+    Q_PROPERTY(QString filename READ get_filename NOTIFY filename_changed)
+    Q_PROPERTY(QString _camera READ get_current_camera NOTIFY current_camera_changed)
     Q_PROPERTY(int Camera_count READ get_count NOTIFY count_changed)
 
     Camera();
@@ -41,7 +44,9 @@ public:
 
     Q_INVOKABLE QString get_gst_pipeline();
     Q_INVOKABLE int get_count();
+    Q_INVOKABLE QString get_filename();
     Q_INVOKABLE QString get_camera_name(int index);
+    Q_INVOKABLE QString get_current_camera();
 
     Q_INVOKABLE void update_codec(bool codec_choice);
     Q_INVOKABLE QString play_video(QString videofile);
@@ -53,5 +58,7 @@ signals:
 
     void gst_pipeline_updated();
     void count_changed();
+    void filename_changed();
+    void current_camera_changed();
 };
 
