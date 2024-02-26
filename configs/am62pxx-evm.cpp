@@ -3,6 +3,7 @@
 #include <iostream>
 #include "backend/includes/common.h"
 #include "backend/includes/live_camera.h"
+#include "backend/includes/camera.h"
 #include "backend/includes/arm_analytics.h"
 #include "backend/includes/run_cmd.h"
 #include "backend/includes/settings.h"
@@ -33,7 +34,7 @@ power_actions include_powerbuttons[] = {
     }
 };
 
-int include_apps_count = 10;
+int include_apps_count = 9;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
@@ -41,19 +42,14 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
     {
-        .qml_source = "live_camera.qml",
-        .name = "Live Camera",
+        .qml_source = "camera.qml",
+        .name = "Camera",
         .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
         .qml_source = "arm_analytics.qml",
         .name = "ARM Analytics",
         .icon_source = "file:///opt/ti-apps-launcher/assets/analytics.png"
-    },
-    {
-        .qml_source = "codecs.qml",
-        .name = "Video Playback",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
     },
     {
         .qml_source = "benchmarks.qml",
@@ -89,6 +85,7 @@ app_info include_apps[] = {
 
 Settings settings;
 LiveCamera live_camera;
+Camera camera;
 ArmAnalytics arm_analytics;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
@@ -103,6 +100,8 @@ RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM62P!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
+    engine->rootContext()->setContextProperty("camera", &camera);
+    engine->rootContext()->setContextProperty("cameralist", &camera.Camera_list);
     engine->rootContext()->setContextProperty("arm_analytics", &arm_analytics);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
