@@ -40,54 +40,20 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
     }
 
-    Image {
-        id: closeButton
-        height: parent.height * 0.3
-        width: height
-        source: "file:///opt/ti-apps-launcher/assets/close.png"
-        fillMode: Image.PreserveAspectFit
-        anchors.right: parent.right
-        anchors.rightMargin: width * 0.5
-        anchors.top: parent.top
-        anchors.topMargin: height * 0.5
-        anchors.leftMargin: width * 0.5
-
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onClicked: {
-                Qt.quit()
-            }
-            onEntered: {
-                powerAnimation.from = 1
-                powerAnimation.to = 1.2
-                powerAnimation.target = parent
-                powerAnimation.start()
-            }
-            onExited: {
-                powerAnimation.from = 1.2
-                powerAnimation.to = 1
-                powerAnimation.target = parent
-                powerAnimation.start()
-            }
-
-        }
-    }
 
     Rectangle {
         id: powermenuRect
         height: closeButton.height
-        width: ( height * powermenu.button_getcount() ) + (( height - 1 ) * 0.5)
+        width: ((parent.height / 3) * (powermenu.button_getcount() + 1)) * 1.5
         color: "transparent"
-        anchors.right: closeButton.left
-        anchors.rightMargin: closeButton.width * 0.5
+        anchors.right: parent.right
         anchors.top: parent.top
         anchors.topMargin: height * 0.5
 
         RowLayout {
             id: powermenuRow
             anchors.fill: parent
-            spacing: closeButton.width * 0.5
+            spacing: 2
             Repeater {
                 id: rowRepeater
                 model: powermenu.button_getcount()
@@ -119,12 +85,41 @@ Rectangle {
                     }
                 }
             }
+            Image {
+                id: closeButton
+                height: powermenuRect.height
+                width: height
+                source: "file:///opt/ti-apps-launcher/assets/close.png"
+                fillMode: Image.PreserveAspectFit
+
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: {
+                        Qt.quit()
+                    }
+                    onEntered: {
+                        powerAnimation.from = 1
+                        powerAnimation.to = 1.2
+                        powerAnimation.target = parent
+                        powerAnimation.start()
+                    }
+                    onExited: {
+                        powerAnimation.from = 1.2
+                        powerAnimation.to = 1
+                        powerAnimation.target = parent
+                        powerAnimation.start()
+                    }
+
+                }
+            }
+
         }
     }
     NumberAnimation {
         id: powerAnimation
         property: "scale"
-        duration: 50
+        duration: 10
         easing.type: Easing.InOutQuad
     }
 }
