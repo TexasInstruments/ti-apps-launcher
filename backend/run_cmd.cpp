@@ -91,10 +91,3 @@ void RunCmd::run(QString command) {
         process.kill();
     }
 }
-
-
-QProcess docker_process;
-
-void docker_load_images() {
-    docker_process.start("docker load --input /opt/seva-browser.tar.gz");
-}

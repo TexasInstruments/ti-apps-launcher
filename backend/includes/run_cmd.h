@@ -37,6 +37,3 @@ public Q_SLOTS:
     void onStateChanged(const QProcess::ProcessState &new_state);
 };
 
-// Used to initialize docker and load prepackaged docker images
-void docker_load_images();
-

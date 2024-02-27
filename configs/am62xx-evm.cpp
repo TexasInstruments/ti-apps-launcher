@@ -34,7 +34,7 @@ power_actions include_powerbuttons[] = {
 };
 
 
-int include_apps_count = 10;
+int include_apps_count = 9;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
@@ -72,11 +72,6 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/chromium.png"
     },
     {
-        .qml_source = "firefox_browser.qml",
-        .name = "Firefox",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/firefox.png"
-    },
-    {
         .qml_source = "3d_demo.qml",
         .name = "3D Demo",
         .icon_source = "file:///opt/ti-apps-launcher/assets/3d.png"
@@ -96,7 +91,6 @@ Gpu_performance gpuperformance;
 
 QString seva_command = QString::fromStdString("seva-launcher-aarch64");
 RunCmd *seva_store = new RunCmd(seva_command);
-RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env http_proxy --env https_proxy --env no_proxy --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0 https://www.ti.com/microcontrollers-mcus-processors/arm-based-processors/overview.html"));
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium https://webglsamples.org/aquarium/aquarium.html\""));
@@ -107,14 +101,11 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("arm_analytics", &arm_analytics);
     engine->rootContext()->setContextProperty("chromium_browser", chromium_browser);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
-    engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("demo_3d", demo_3d);
     engine->rootContext()->setContextProperty("settings", &settings);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
 
     engine->rootContext()->setContextProperty("poweraction", poweraction);
-
-    docker_load_images();
 }
 

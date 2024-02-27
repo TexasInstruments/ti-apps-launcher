@@ -27,7 +27,7 @@ power_actions include_powerbuttons[] = {
     }
 };
 
-int include_apps_count = 7;
+int include_apps_count = 6;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
@@ -55,11 +55,6 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/seva_store.png"
     },
     {
-        .qml_source = "firefox_browser.qml",
-        .name = "Firefox",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/firefox.png"
-    },
-    {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
@@ -73,7 +68,6 @@ Gpu_performance gpuperformance;
 
 QString seva_command = QString::fromStdString("seva-launcher-aarch64");
 RunCmd *seva_store = new RunCmd(seva_command);
-RunCmd *firefox_browser = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env http_proxy --env https_proxy --env no_proxy --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0 https://www.ti.com/microcontrollers-mcus-processors/arm-based-processors/overview.html"));
 RunCmd *sdk_datasheet = new RunCmd(QStringLiteral("docker run -v /run/user/1000/:/tmp/ -i --env http_proxy --env https_proxy --env no_proxy --env XDG_RUNTIME_DIR=/tmp/ --env WAYLAND_DISPLAY=wayland-1 -u user ghcr.io/texasinstruments/seva-browser:v1.0.0 https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am68/latest/exports/docs/devices/J7_Family/linux/Release_Specific_Performance_Guide.html"));
 
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
@@ -82,14 +76,11 @@ void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM68x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
-    engine->rootContext()->setContextProperty("firefox_browser", firefox_browser);
     engine->rootContext()->setContextProperty("sdk_datasheet", sdk_datasheet);
     engine->rootContext()->setContextProperty("settings", &settings);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
 
     engine->rootContext()->setContextProperty("poweraction", poweraction);
-
-    docker_load_images();
 }
 
