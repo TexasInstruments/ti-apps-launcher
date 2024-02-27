@@ -16,7 +16,6 @@
         <file>apps/camera.qml</file>
         <file>apps/live_camera.qml</file>
         <file>apps/seva_store.qml</file>
-        <file>apps/firefox_browser.qml</file>
         <file>apps/3d_demo.qml</file>
         <file>apps/settings.qml</file>
         <file>apps/arm_analytics.qml</file>
