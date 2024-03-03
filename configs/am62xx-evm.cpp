@@ -89,8 +89,7 @@ ArmAnalytics arm_analytics;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
-QString seva_command = QString::fromStdString("seva-launcher-aarch64");
-RunCmd *seva_store = new RunCmd(seva_command);
+RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium http://localhost:8000/#/\""));
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium https://webglsamples.org/aquarium/aquarium.html\""));
