@@ -1,4 +1,4 @@
-/* Configuration file for AM69 SK*/
+/* Configuration file for AM67 SK*/
 
 #include <iostream>
 #include "backend/includes/common.h"
@@ -8,9 +8,9 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
 
-#define PLATFORM "am69-sk"
+#define PLATFORM "am67-sk"
 using namespace std;
-QString platform = "am69-sk";
+QString platform = "am67-sk";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
 int include_powerbuttons_count = 2;
@@ -72,12 +72,12 @@ Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
 RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium http://localhost:8000/#/\""));
-RunCmd *sdk_datasheet = new RunCmd(QStringLiteral("su weston -c \"chromium https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am69/latest/exports/docs/devices/J7_Family/linux/Release_Specific_Performance_Guide.html\""));
+RunCmd *sdk_datasheet = new RunCmd(QStringLiteral("su weston -c \"chromium https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am67/latest/exports/docs/devices/J7_Family/linux/Release_Specific_Performance_Guide.html\""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium https://webglsamples.org/aquarium/aquarium.html\""));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 
 void platform_setup(QQmlApplicationEngine *engine) {
-    std::cout << "Running Platform Setup of AM69x!" << endl;
+    std::cout << "Running Platform Setup of AM67x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("sdk_datasheet", sdk_datasheet);
