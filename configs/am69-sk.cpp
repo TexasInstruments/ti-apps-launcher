@@ -3,6 +3,7 @@
 #include <iostream>
 #include "backend/includes/common.h"
 #include "backend/includes/live_camera.h"
+#include "backend/includes/camera.h"
 #include "backend/includes/run_cmd.h"
 #include "backend/includes/settings.h"
 #include "backend/includes/gpu_performance.h"
@@ -35,8 +36,8 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
     {
-        .qml_source = "live_camera.qml",
-        .name = "Live Camera",
+        .qml_source = "camera.qml",
+        .name = "Camera",
         .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
@@ -68,6 +69,7 @@ app_info include_apps[] = {
 
 Settings settings;
 LiveCamera live_camera;
+Camera camera;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
@@ -79,6 +81,8 @@ RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM69x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
+    engine->rootContext()->setContextProperty("camera", &camera);
+    engine->rootContext()->setContextProperty("cameralist", &camera.Camera_list);
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("sdk_datasheet", sdk_datasheet);
     engine->rootContext()->setContextProperty("settings", &settings);
