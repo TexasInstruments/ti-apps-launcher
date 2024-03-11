@@ -141,7 +141,11 @@ QString Camera::record_camera(QString camera) {
     } else {
         gst_pipeline.append("UYVY");
     }
+    #if defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_J722S)
+    gst_pipeline.append(" ! tee name=t ! queue ! fpsdisplaysink text-overlay=false name=fpssink video-sink=autovideosink t. ! queue ! videoconvert  ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=progressive, format=NV12, colorimetry=bt601  ! v4l2");
+    #else
     gst_pipeline.append(" ! tee name=t ! queue ! fpsdisplaysink text-overlay=false name=fpssink video-sink=autovideosink t. ! queue ! ticolorconvert ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=progressive, format=NV12, colorimetry=bt601  ! v4l2");
+    #endif
     gst_pipeline.append(codec);
     gst_pipeline.append("enc extra-controls=\"controls,");
     gst_pipeline.append(codec);
