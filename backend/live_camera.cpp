@@ -107,7 +107,11 @@ QString LiveCamera::liveCamera_gst_pipeline() {
     gst_pipeline.append("v4l2src device=");
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
     #if defined(SOC_AM62) || defined(SOC_AM62_LP) || defined(SOC_AM62P)
-    gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    if (_camera.contains("USB", Qt::CaseInsensitive)) {
+        gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=YUY2");
+    } else {
+        gst_pipeline.append(" ! video/x-raw, width=640, height=480, format=UYVY");
+    }
     #elif defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_J722S)
     gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
     #endif
