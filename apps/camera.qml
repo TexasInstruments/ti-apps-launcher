@@ -23,14 +23,12 @@ Rectangle {
         MediaPlayer {
             id: mediaplayer
             autoPlay: false
-        }
-
-        Text {
-            id: msg
-            anchors.centerIn: parent
-            text: "Select a Camera or Video to play here."
-            font.pixelSize: 20
-            color: "#000000"
+            onStopped: {
+                msg.visible = msg.state
+                status_message.text = msg.state ? (" ") : ("Live: " + camera.get_current_camera())
+                camera_record_button.source = msg.state ? "file:///opt/ti-apps-launcher/assets/record-disabled.png" : "file:///opt/ti-apps-launcher/assets/record.png"
+                camera_record_button_mousearea.enabled = msg.state ? false : true
+            }
         }
 
         Rectangle {
@@ -58,6 +56,15 @@ Rectangle {
                     color: "black"
                     text: ""
                     font.pixelSize: 25
+                }
+                Text {
+                    id: msg
+                    property bool state: false
+                    visible: state
+                    anchors.centerIn: parent
+                    text: "No Camera Detected! Please check the connections and DTBO(s) applied."
+                    font.pixelSize: 20
+                    color: "red"
                 }
                 Image {
                     id: recording_status
@@ -187,13 +194,14 @@ Rectangle {
                 height: parent.height * 0.8
                 width: height
                 property bool recording: false
-                source: recording ? "file:///opt/ti-apps-launcher/assets/stop.png" : "file:///opt/ti-apps-launcher/assets/record.png"
+                source: "file:///opt/ti-apps-launcher/assets/record.png"
                 fillMode: Image.PreserveAspectFit
                 anchors.left: cameras_dropdown.right
                 anchors.leftMargin: parent.width * 0.01
                 anchors.verticalCenter: parent.verticalCenter
 
                 MouseArea {
+                    id: camera_record_button_mousearea
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
@@ -205,14 +213,24 @@ Rectangle {
                             mediaplayer.source = camera.record_camera(cameras_dropdown.currentText);
                             mediaplayer.play();
                             status_message.text = "Recording: " + camera.get_current_camera() + " to " + camera.get_filename()
+                            camera_record_button.source = "file:///opt/ti-apps-launcher/assets/stop.png"
+                            gallery_play_button.source = "file:///opt/ti-apps-launcher/assets/playbutton-disabled.png"
+                            gallery_play_button_mousearea.enabled = false
                         } else {
                             camera_record_button.recording = false;
                             recording_animation.stop()
                             recording_status.visible = false
                             mediaplayer.stop();
+                            camera_record_button.source = "file:///opt/ti-apps-launcher/assets/record.png"
                             mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
                             mediaplayer.play();
-                            status_message.text = "Live: " + camera.get_current_camera()
+                            if (msg.state == false) {
+                                status_message.text = "Live: " + camera.get_current_camera()
+                            } else {
+                                status_message.text = " "
+                            }
+                            gallery_play_button.source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                            gallery_play_button_mousearea.enabled = true
                         }
                     }
                 }
@@ -258,15 +276,19 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
 
                 MouseArea {
+                    id: gallery_play_button_mousearea
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
                         mediaplayer.stop();
                         var inputFile = videosDropdown.model.get(videosDropdown.currentIndex, "filePath");
                         var videopipeline = camera.play_video(inputFile);
+                        msg.visible = false
                         mediaplayer.source = videopipeline;
                         mediaplayer.play();
                         status_message.text = "Playing: " + camera.get_filename()
+                        camera_record_button.source = "file:///opt/ti-apps-launcher/assets/record-disabled.png"
+                        camera_record_button_mousearea.enabled = false
                     }
                 }
             }
@@ -298,11 +320,12 @@ Rectangle {
         }
         Component.onCompleted: {
             if (cameras_dropdown.count == 0) {
-                msg.visible = true
-                feed.visible = false
+                msg.state = true
+                status_message.text = ""
+                camera_record_button_mousearea.enabled = false
+                camera_record_button.source = "file:///opt/ti-apps-launcher/assets/record-disabled.png"
             } else {
-                msg.visible = false
-                feed.visible = true
+                msg.state = false
                 cameras_dropdown.currentIndex = 0;
                 mediaplayer.source = camera.play_camera(cameralist.data(cameralist.index(0,0)));
                 mediaplayer.play();
