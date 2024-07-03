@@ -1,12 +1,12 @@
 /* Configuration file for AM62x SIP EVM */
 
 #include <iostream>
-#include "backend/includes/common.h"
-#include "backend/includes/live_camera.h"
-#include "backend/includes/run_cmd.h"
-#include "backend/includes/settings.h"
-#include "backend/includes/gpu_performance.h"
-#include "backend/includes/benchmarks.h"
+#include "include/common.h"
+#include "include/live_camera.h"
+#include "include/run_cmd.h"
+#include "include/settings.h"
+#include "include/gpu_performance.h"
+#include "include/benchmarks.h"
 
 #define PLATFORM "am62xxsip-evm"
 using namespace std;
@@ -27,7 +27,7 @@ power_actions include_powerbuttons[] = {
     }
 };
 
-int include_apps_count = 3;
+int include_apps_count = 4;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_minimal.qml",
@@ -43,6 +43,11 @@ app_info include_apps[] = {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
+    },
+    {
+        .qml_source = "terminal/terminal.qml",
+        .name = "Terminal",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
     }
 };
 
@@ -53,7 +58,7 @@ Gpu_performance gpuperformance;
 
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 
-void platform_setup(QQmlApplicationEngine *engine) {
+void platform_setup(QQmlEngine *engine) {
     std::cout << "Running Platform Setup of AM62x SIP EVM!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("settings", &settings);

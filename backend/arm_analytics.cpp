@@ -1,5 +1,5 @@
-#include "includes/arm_analytics.h"
 #include <QDebug>
+#include "include/arm_analytics.h"
 
 #if defined (SOC_AM62) || defined (SOC_AM62_LP)
 
