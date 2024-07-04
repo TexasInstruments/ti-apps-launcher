@@ -7,8 +7,8 @@
 #include <QStringListModel>
 #include <QProcess>
 #include <QDebug>
-#include "includes/common.h"
-#include "includes/topbar.h"
+#include "include/common.h"
+#include "include/topbar.h"
 
 extern int include_powerbuttons_count;
 extern power_actions include_powerbuttons[];
