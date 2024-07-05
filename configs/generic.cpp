@@ -39,6 +39,11 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
     {
+        .qml_source = "terminal/terminal.qml",
+        .name = "Terminal",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
+    },
+    {
         .qml_source = "benchmarks.qml",
         .name = "Benchmarks",
         .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
@@ -52,11 +57,6 @@ app_info include_apps[] = {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
-    },
-    {
-        .qml_source = "terminal/terminal.qml",
-	.name = "Terminal",
-	.icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
     }
 };
 
