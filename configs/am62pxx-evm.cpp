@@ -47,19 +47,14 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
+        .qml_source = "terminal/terminal.qml",
+        .name = "Terminal",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
+    },
+    {
         .qml_source = "arm_analytics.qml",
         .name = "ARM Analytics",
         .icon_source = "file:///opt/ti-apps-launcher/assets/analytics.png"
-    },
-    {
-        .qml_source = "benchmarks.qml",
-        .name = "Benchmarks",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
-    },
-    {
-        .qml_source = "gpu_performance.qml",
-        .name = "GPU Performance",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/gpu_performance.png"
     },
     {
         .qml_source = "seva_store.qml",
@@ -77,14 +72,19 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/3d.png"
     },
     {
+        .qml_source = "benchmarks.qml",
+        .name = "Benchmarks",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
+    },
+    {
+        .qml_source = "gpu_performance.qml",
+        .name = "GPU Performance",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/gpu_performance.png"
+    },
+    {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
-    },
-    {
-        .qml_source = "terminal/terminal.qml",
-        .name = "Terminal",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
     }
 };
 
