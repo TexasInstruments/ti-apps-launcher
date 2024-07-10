@@ -95,7 +95,7 @@ ArmAnalytics arm_analytics;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
-RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run http://localhost:8000/#/\""));
+RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run http://localhost:8007/#/\""));
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run https://webglsamples.org/aquarium/aquarium.html\""));
