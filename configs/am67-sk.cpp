@@ -78,7 +78,7 @@ Camera camera;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 
-RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium http://localhost:8007/#/\""));
+RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium http://localhost:8000/#/\""));
 RunCmd *sdk_datasheet = new RunCmd(QStringLiteral("su weston -c \"chromium https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am67/latest/exports/docs/devices/J7_Family/linux/Release_Specific_Performance_Guide.html\""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium https://webglsamples.org/aquarium/aquarium.html\""));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
