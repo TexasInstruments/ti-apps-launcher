@@ -40,14 +40,14 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
-        .qml_source = "terminal/terminal.qml",
-        .name = "Terminal",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
-    },
-    {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
+    },
+    {
+        .qml_source = "terminal/terminal.qml",
+        .name = "Terminal",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
     }
 };
 
