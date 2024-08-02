@@ -1,79 +1,42 @@
-QT = core gui qml quick multimedia
+QT += quick
+#virtualkeyboard
 
-CONFIG -= app_bundle
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-MOC_DIR = .moc
-OBJECTS_DIR = .obj
+SOURCES += ti-apps-launcher.cpp backend/appsmenu.cpp backend/stats.cpp backend/benchmarks.cpp backend/camera.cpp backend/gpu_performance.cpp backend/live_camera.cpp utils/perf_stats.cpp backend/deviceinfo.cpp
+SOURCES += backend/run_cmd.cpp backend/settings.cpp backend/arm_analytics.cpp backend/topbar.cpp
+CONFIG += debug_and_release
 
-CONFIG += link_pkgconfig
+RESOURCES += ti-apps-launcher.qrc
+QT += multimedia
 
-TEMPLATE = app
-TARGET = ti-apps-launcher
-DEPENDPATH += .
-INCLUDEPATH += .
-LIBS += -lutil
+QML_IMPORT_NAME = io.qt.examples.backend
+QML_IMPORT_MAJOR_VERSION = 1
 
-# Input
-HEADERS += \
-    include/terminal/ptyiface.h \
-    include/terminal.h \
-    include/terminal/textrender.h \
-    include/terminal/version.h \
-    include/terminal/utilities.h \
-    include/terminal/keyloader.h \
-    include/terminal/parser.h \
-    include/terminal/catch.hpp \
-    include/appsmenu.h \
-    include/arm_analytics.h \
-    include/benchmarks.h \
-    include/camera.h \
-    include/common.h \
-    include/deviceinfo.h \
-    include/gpu_performance.h \
-    include/live_camera.h \
-    include/run_cmd.h \
-    include/settings.h \
-    include/stats.h \
-    include/topbar.h \
-    include/perf_stats.h
+# Additional import path used to resolve QML modules in Qt Creator's code model
+QML_IMPORT_PATH =
 
-SOURCES += \
-    backend/ti-apps-launcher.cpp \
-    backend/terminal.cpp \
-    backend/terminal/textrender.cpp \
-    backend/terminal/ptyiface.cpp \
-    backend/terminal/utilities.cpp \
-    backend/terminal/keyloader.cpp \
-    backend/terminal/parser.cpp \
-    backend/appsmenu.cpp \
-    backend/arm_analytics.cpp \
-    backend/benchmarks.cpp \
-    backend/camera.cpp \
-    backend/deviceinfo.cpp \
-    backend/gpu_performance.cpp \
-    backend/live_camera.cpp \
-    backend/run_cmd.cpp \
-    backend/settings.cpp \
-    backend/stats.cpp \
-    backend/topbar.cpp \
-    backend/perf_stats.cpp
+# Additional import path used to resolve QML modules just for Qt Quick Designer
+QML_DESIGNER_IMPORT_PATH =
 
-OTHER_FILES += \
-    qml/desktop/Main.qml \
-    qml/desktop/Keyboard.qml \
-    qml/desktop/Key.qml \
-    qml/desktop/Button.qml \
-    qml/desktop/MenuLiterm.qml \
-    qml/desktop/NotifyWin.qml \
-    qml/desktop/UrlWindow.qml \
-    qml/desktop/LayoutWindow.qml \
-    qml/desktop/PopupWindow.qml \
-    qml/desktop/TabView.qml \
-    qml/desktop/TabBar.qml
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    ti-apps-launcher.qrc
-
-target.path = /usr/bin
-INSTALLS += target
+HEADERS += backend/includes/common.h
+HEADERS += backend/includes/camera.h
+HEADERS += backend/includes/live_camera.h
+HEADERS += backend/includes/benchmarks.h
+HEADERS += backend/includes/gpu_performance.h
+HEADERS += backend/includes/stats.h
+HEADERS += backend/includes/appsmenu.h
+HEADERS += utils/includes/perf_stats.h
+HEADERS += backend/includes/run_cmd.h
+HEADERS += backend/includes/settings.h
+HEADERS += backend/includes/deviceinfo.h
+HEADERS += backend/includes/arm_analytics.h
+HEADERS += backend/includes/topbar.h
 

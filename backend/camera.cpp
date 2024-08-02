@@ -1,7 +1,7 @@
+#include "includes/camera.h"
 #include <filesystem>
 #include <QDebug>
 #include <QDateTime>
-#include "include/camera.h"
 
 string Camera::replaceAll(string str, const string &remove, const string &insert) {
     string::size_type pos = 0;

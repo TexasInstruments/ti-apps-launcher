@@ -1,5 +1,4 @@
-#include "include/gpu_performance.h"
-
+#include "includes/gpu_performance.h"
 using namespace std;
 
 QProcess load;

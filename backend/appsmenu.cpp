@@ -7,8 +7,8 @@
 #include <QStringListModel>
 #include <QProcess>
 #include <QDebug>
-#include "include/common.h"
-#include "include/appsmenu.h"
+#include "includes/common.h"
+#include "includes/appsmenu.h"
 
 extern int include_apps_count;
 extern app_info include_apps[];

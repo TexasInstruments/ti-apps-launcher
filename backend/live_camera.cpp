@@ -1,4 +1,4 @@
-#include "include/live_camera.h"
+#include "includes/live_camera.h"
 #include <QDebug>
 
 string LiveCamera::replaceAll(string str, const string &remove, const string &insert) {

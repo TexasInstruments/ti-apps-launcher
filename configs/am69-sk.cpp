@@ -1,13 +1,13 @@
 /* Configuration file for AM69 SK*/
 
 #include <iostream>
-#include "include/common.h"
-#include "include/live_camera.h"
-#include "include/camera.h"
-#include "include/run_cmd.h"
-#include "include/settings.h"
-#include "include/gpu_performance.h"
-#include "include/benchmarks.h"
+#include "backend/includes/common.h"
+#include "backend/includes/live_camera.h"
+#include "backend/includes/camera.h"
+#include "backend/includes/run_cmd.h"
+#include "backend/includes/settings.h"
+#include "backend/includes/gpu_performance.h"
+#include "backend/includes/benchmarks.h"
 
 #define PLATFORM "am69-sk"
 using namespace std;
@@ -28,7 +28,7 @@ power_actions include_powerbuttons[] = {
     }
 };
 
-int include_apps_count = 8;
+int include_apps_count = 7;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
@@ -64,11 +64,6 @@ app_info include_apps[] = {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
-    },
-    {
-        .qml_source = "terminal/terminal.qml",
-        .name = "Terminal",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
     }
 };
 
@@ -83,7 +78,7 @@ RunCmd *sdk_datasheet = new RunCmd(QStringLiteral("su weston -c \"chromium https
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium https://webglsamples.org/aquarium/aquarium.html\""));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 
-void platform_setup(QQmlEngine *engine) {
+void platform_setup(QQmlApplicationEngine *engine) {
     std::cout << "Running Platform Setup of AM69x!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("camera", &camera);
