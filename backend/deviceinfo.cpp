@@ -1,4 +1,4 @@
-#include "include/deviceinfo.h"
+#include "includes/deviceinfo.h"
 
 extern QString platform;
 QString Device_info::getplatform(){

@@ -1,13 +1,13 @@
-/* Configuration file for BeaglePlay */
+/* Configuration file for Beagleplay */
 
 #include <iostream>
-#include "include/common.h"
-#include "include/live_camera.h"
-#include "include/arm_analytics.h"
-#include "include/run_cmd.h"
-#include "include/settings.h"
-#include "include/gpu_performance.h"
-#include "include/benchmarks.h"
+#include "backend/includes/common.h"
+#include "backend/includes/live_camera.h"
+#include "backend/includes/arm_analytics.h"
+#include "backend/includes/run_cmd.h"
+#include "backend/includes/settings.h"
+#include "backend/includes/gpu_performance.h"
+#include "backend/includes/benchmarks.h"
 
 #define PLATFORM "beagleplay"
 using namespace std;
@@ -33,7 +33,8 @@ power_actions include_powerbuttons[] = {
     }
 };
 
-int include_apps_count = 10;
+
+int include_apps_count = 9;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
@@ -46,14 +47,19 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
     },
     {
-        .qml_source = "terminal/terminal.qml",
-        .name = "Terminal",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
-    },
-    {
         .qml_source = "arm_analytics.qml",
         .name = "ARM Analytics",
         .icon_source = "file:///opt/ti-apps-launcher/assets/analytics.png"
+    },
+    {
+        .qml_source = "benchmarks.qml",
+        .name = "Benchmarks",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
+    },
+    {
+        .qml_source = "gpu_performance.qml",
+        .name = "GPU Performance",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/gpu_performance.png"
     },
     {
         .qml_source = "seva_store.qml",
@@ -71,20 +77,10 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/3d.png"
     },
     {
-        .qml_source = "benchmarks.qml",
-        .name = "Benchmarks",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
-    },
-    {
-        .qml_source = "gpu_performance.qml",
-        .name = "GPU Performance",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/gpu_performance.png"
-    },
-    {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
-    },
+    }
 };
 
 Settings settings;
@@ -98,8 +94,8 @@ RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLES
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run https://webglsamples.org/aquarium/aquarium.html\""));
 
-void platform_setup(QQmlEngine *engine) {
-    std::cout << "Running Platform Setup of BeaglePlay!" << endl;
+void platform_setup(QQmlApplicationEngine *engine) {
+    std::cout << "Running Platform Setup of Beagleplay!" << endl;
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("arm_analytics", &arm_analytics);
     engine->rootContext()->setContextProperty("chromium_browser", chromium_browser);

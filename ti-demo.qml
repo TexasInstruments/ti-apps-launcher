@@ -23,7 +23,7 @@ Window {
         Loader {
             id: topBar
             anchors.fill: parent
-            source: "qml/auto_cluster.qml"
+            source: "apps/auto_cluster.qml"
         }
     }
 }
