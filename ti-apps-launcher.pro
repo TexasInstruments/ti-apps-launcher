@@ -6,7 +6,7 @@ QT += quick
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += ti-apps-launcher.cpp backend/appsmenu.cpp backend/stats.cpp backend/benchmarks.cpp backend/camera.cpp backend/gpu_performance.cpp backend/live_camera.cpp utils/perf_stats.cpp backend/deviceinfo.cpp
-SOURCES += backend/run_cmd.cpp backend/settings.cpp backend/arm_analytics.cpp backend/topbar.cpp
+SOURCES += backend/run_cmd.cpp backend/settings.cpp backend/arm_analytics.cpp backend/topbar.cpp backend/wifi.cpp
 CONFIG += debug_and_release
 
 RESOURCES += ti-apps-launcher.qrc
@@ -39,4 +39,5 @@ HEADERS += backend/includes/settings.h
 HEADERS += backend/includes/deviceinfo.h
 HEADERS += backend/includes/arm_analytics.h
 HEADERS += backend/includes/topbar.h
+HEADERS += backend/includes/wifi.h
 

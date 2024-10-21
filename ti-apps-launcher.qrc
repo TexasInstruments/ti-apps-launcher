@@ -18,6 +18,7 @@
         <file>apps/seva_store.qml</file>
         <file>apps/3d_demo.qml</file>
         <file>apps/settings.qml</file>
+        <file>apps/wifi.qml</file>
         <file>apps/arm_analytics.qml</file>
     </qresource>
 </RCC>
