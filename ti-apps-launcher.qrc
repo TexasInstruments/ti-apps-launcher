@@ -20,5 +20,6 @@
         <file>apps/settings.qml</file>
         <file>apps/wifi.qml</file>
         <file>apps/arm_analytics.qml</file>
+        <file>apps/terminal.qml</file>
     </qresource>
 </RCC>

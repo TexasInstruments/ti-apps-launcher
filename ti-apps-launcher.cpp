@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QCameraInfo>
@@ -55,6 +55,8 @@ void GetIpAddr()
 
 int main(int argc, char *argv[]) {
     // cout << PLATFORM << endl;
+    QApplication app(argc, argv);
+
     QStringList modelslist = modelNamesList.stringList();
     fstream modelsfile;
     struct stat sb;
@@ -63,7 +65,6 @@ int main(int argc, char *argv[]) {
     getIpAddrThread.detach();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
 
     std::signal(SIGINT,  sigHandler);
     std::signal(SIGTERM, sigHandler);
