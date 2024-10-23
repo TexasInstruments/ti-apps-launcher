@@ -11,6 +11,7 @@ CONFIG += debug_and_release
 
 RESOURCES += ti-apps-launcher.qrc
 QT += multimedia
+QT += widgets
 
 QML_IMPORT_NAME = io.qt.examples.backend
 QML_IMPORT_MAJOR_VERSION = 1

@@ -35,7 +35,7 @@ power_actions include_powerbuttons[] = {
 };
 
 
-int include_apps_count = 10;
+int include_apps_count = 11;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
@@ -81,6 +81,11 @@ app_info include_apps[] = {
         .qml_source = "settings.qml",
         .name = "Settings",
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
+    },
+    {
+        .qml_source = "terminal.qml",
+        .name = "Terminal",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
     },
     {
         .qml_source = "wifi.qml",
