@@ -9,6 +9,7 @@
 #include "backend/includes/settings.h"
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
+#include "backend/includes/wifi.h"
 
 #define PLATFORM "am62pxx-evm"
 using namespace std;
@@ -34,7 +35,7 @@ power_actions include_powerbuttons[] = {
     }
 };
 
-int include_apps_count = 10;
+int include_apps_count = 11;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control_sitara.qml",
@@ -85,6 +86,11 @@ app_info include_apps[] = {
         .qml_source = "terminal.qml",
         .name = "Terminal",
         .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
+    },
+    {
+        .qml_source = "wifi.qml",
+        .name = "Wifi",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/wifi.png"
     }
 };
 
@@ -94,6 +100,7 @@ Camera camera;
 ArmAnalytics arm_analytics;
 Benchmarks benchmarks;
 Gpu_performance gpuperformance;
+Wifi wifi;
 
 RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run http://localhost:8007/#/\""));
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
@@ -110,6 +117,7 @@ void platform_setup(QQmlApplicationEngine *engine) {
     engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("demo_3d", demo_3d);
     engine->rootContext()->setContextProperty("settings", &settings);
+    engine->rootContext()->setContextProperty("wifi", &wifi);
     engine->rootContext()->setContextProperty("benchmarks", &benchmarks);
     engine->rootContext()->setContextProperty("gpuperformance", &gpuperformance);
 
