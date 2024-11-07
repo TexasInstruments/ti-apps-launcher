@@ -146,6 +146,7 @@ Rectangle {
                     font.pixelSize: ssidSection.width * 0.03
                 }
                 Button {
+                    id: refreshButton
                     text: "Refresh"
                     anchors.top: ssidnames.top
                     //anchors.topMargin: parent.height * 0.05
@@ -157,6 +158,7 @@ Rectangle {
                     font.family: "Helvetica"
                     onClicked: wifi.fetchSSIDNames()
                     background: Rectangle {
+                        color: refreshButton.pressed ? "#add8e6" : "#ffffff"
                         radius: parent.width / 2
                     }
                 }
@@ -397,6 +399,7 @@ Rectangle {
                     font.pixelSize: ssidSection.width * 0.04
                     font.family: "Helvetica"
                     background: Rectangle {
+                        color: connectButton.pressed ? "#add8e6" : "#ffffff"
                         radius: parent.height / 2
                     }
                     onClicked: {
@@ -485,6 +488,7 @@ Rectangle {
                     font.pixelSize: connectedSsidSection.width * 0.04
                     font.family: "Helvetica"
                     background: Rectangle {
+                        color: disconnectButton.pressed ? "#add8e6" : "#ffffff"
                         radius: parent.height / 2
                     }
                     onClicked: {
