@@ -15,6 +15,7 @@ class Wifi : public QObject {
     Q_PROPERTY(bool wifiOn READ wifiOn NOTIFY wifiOnChanged)
     Q_PROPERTY(bool wifiConnected READ wifiConnected NOTIFY wifiConnectedChanged)
     Q_PROPERTY(QString ssid READ ssid NOTIFY ssidChanged)
+    Q_PROPERTY(bool previousWifiOn READ previousWifiOn NOTIFY previousWifiOnChanged)
 
 public:
     Q_INVOKABLE explicit Wifi();
@@ -23,6 +24,7 @@ public:
     Q_INVOKABLE void fetchSSIDNames();
     Q_INVOKABLE QStringList getSSIDList();
     Q_INVOKABLE bool wifiOn();
+    Q_INVOKABLE bool previousWifiOn();
     Q_INVOKABLE bool wifiConnected();
     Q_INVOKABLE void toggle();
     Q_INVOKABLE void setWifiOn();
@@ -38,10 +40,12 @@ signals:
     void ssidListChanged();  // Signal to notify QML of ssid List changes
     void wifiConnectedChanged(); // Signal to notify QML of wifi connection changes
     void ssidChanged(); // Signal to notify QML of ssid changes
+    void previousWifiOnChanged(); // Signal to notify QML of previouswifistatus
 
 private:
     vector<string> ssidVector;  // Vector to store SSID names
     QString m_ssid; // Store SSID
     bool m_wifiOn; // Store wifi status
     bool m_wifiConnected; // Store wifi connect status
+    bool m_previousWifiOn; // Store previous wifi status
 };
