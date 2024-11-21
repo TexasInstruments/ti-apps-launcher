@@ -13,12 +13,18 @@ using namespace std;
 Wifi::Wifi() {
     m_wifiOn = false;
     m_wifiConnected = false;
+    m_previousWifiOn = false;
     checkWifiState();
 }
 
 // Method to return wifi status
 bool Wifi::wifiOn() {
     return m_wifiOn;
+}
+
+// Method to return previous wifi status
+bool Wifi::previousWifiOn() {
+    return m_previousWifiOn;
 }
 
 // Method to return wifi connection
@@ -40,10 +46,12 @@ void Wifi::toggle() {
     // wait for 2 sec to before checking wifi status
     sleep(2);
     bool currentState = checkWifiOnState();
+    m_previousWifiOn = m_wifiOn;
     if(currentState!=m_wifiOn) {
         m_wifiOn = currentState;
     }
     emit wifiOnChanged();
+    emit previousWifiOnChanged();
 }
 
 // Method to switch on wifi

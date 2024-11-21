@@ -15,8 +15,6 @@ Rectangle {
     height: parent.height
     color: "#344045"
 
-    property bool previousWifiOn: wifi.wifiOn
-
     // toggle switch
     Rectangle {
         id: toggle
@@ -67,13 +65,12 @@ Rectangle {
             }
             onClicked: {
                 wifi.toggle()
-                if (!wifi.wifiOn && !previousWifiOn) {
+                if (!wifi.wifiOn && !wifi.previousWifiOn) {
                     wifiErrorMessage.visible = true
                 } else {
                     wifiErrorMessage.visible = false
                     connection_status.text = ""
                 }
-                previousWifiOn = wifi.wifiOn
             }
         }
     }
