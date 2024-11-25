@@ -14,7 +14,12 @@ using namespace std;
 QString platform = "am62xx-lp-evm";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
+#if RT_BUILD == 1
 int include_powerbuttons_count = 2;
+#else
+int include_powerbuttons_count = 3;
+#endif
+
 power_actions include_powerbuttons[] = {
     {
         .name = "Shutdown",
@@ -25,6 +30,11 @@ power_actions include_powerbuttons[] = {
         .name = "Reboot",
         .command = "reboot",
         .icon_source = "file:///opt/ti-apps-launcher/assets/reboot.png",
+    },
+    {
+        .name = "Suspend",
+        .command = "/opt/ti-apps-launcher/suspend",
+        .icon_source = "file:///opt/ti-apps-launcher/assets/suspend.png",
     }
 };
 
