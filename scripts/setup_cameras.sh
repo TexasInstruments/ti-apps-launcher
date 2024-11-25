@@ -203,9 +203,9 @@ setup_ov5640(){
 }
 
 setup_USB_camera(){
-    ls /dev/v4l/by-path/*usb*video-index0 > /dev/null 2>&1
+    ls /dev/v4l/by-path/*usb-*video-index0 > /dev/null 2>&1
     if [ "$?" == "0" ]; then
-        USB_CAM_ARR=(`ls /dev/v4l/by-path/*usb*video-index0`)
+        USB_CAM_ARR=(`ls /dev/v4l/by-path/*usb-*video-index0`)
         count=0
         for i in ${USB_CAM_ARR[@]}
         do
