@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>ti-demo.qml</file>
-        <file>apps/auto_cluster.qml</file>
-    </qresource>
-</RCC>
