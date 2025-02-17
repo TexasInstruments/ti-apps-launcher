@@ -16,26 +16,17 @@
 
 #include "config_common.h"
 
+#include "am62pxx-evm.h"
+#include "am62xx-evm.h"
+#include "am62xx-lp-evm.h"
+#include "am62xxsip-evm.h"
+#include "am67-sk.h"
+#include "am68-sk.h"
+#include "am69-sk.h"
+#include "beagleplay.h"
+#include "generic.h"
+
 using namespace std;
-static QString platform = "generic";
-static QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
-
-power_actions include_powerbuttons[] = {};
-
-static app_info include_apps[] = {
-    app_industrial_control,
-    app_benchmarks,
-};
-
-struct device_info device_info_generic = {
-    .dtMatchString = "",
-    .platform = platform,
-    .wallpaper = wallpaper,
-    .include_apps = include_apps,
-    .include_apps_count = ARRAY_SIZE(include_apps),
-    .include_powerbuttons = include_powerbuttons,
-    .include_powerbuttons_count = ARRAY_SIZE(include_powerbuttons),
-};
 
 Settings settings;
 LiveCamera live_camera;
@@ -49,15 +40,6 @@ RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium --no-fir
 RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
 RunCmd *poweraction = new RunCmd(QStringLiteral(""));
 RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run https://webglsamples.org/aquarium/aquarium.html\""));
-
-extern struct device_info device_info_am62p;
-extern struct device_info device_info_am62;
-extern struct device_info device_info_am62_lp;
-extern struct device_info device_info_am62sip;
-extern struct device_info device_info_am67;
-extern struct device_info device_info_am68;
-extern struct device_info device_info_am69;
-extern struct device_info device_info_beagleplay;
 
 QMap<enum devices, struct device_info> deviceMap = {
     { AM62PXX_EVM, device_info_am62p },
@@ -94,9 +76,7 @@ void platform_setup(QQmlApplicationEngine *engine)
 {
     detected_device = detect_device();
 
-    platform = deviceMap[detected_device].platform;
-
-    cout << "Running " << platform.toStdString() << " Platform Setup!" << endl;
+    cout << "Running " << deviceMap[detected_device].platform.toStdString() << " Platform Setup!" << endl;
 
     engine->rootContext()->setContextProperty("live_camera", &live_camera);
     engine->rootContext()->setContextProperty("camera", &camera);

@@ -7,15 +7,7 @@ QT += quick
 
 SOURCES += ti-apps-launcher.cpp backend/appsmenu.cpp backend/stats.cpp backend/benchmarks.cpp backend/camera.cpp backend/gpu_performance.cpp backend/live_camera.cpp utils/perf_stats.cpp backend/deviceinfo.cpp
 SOURCES += backend/run_cmd.cpp backend/settings.cpp backend/arm_analytics.cpp backend/topbar.cpp backend/wifi.cpp
-SOURCES += configs/am62pxx-evm.cpp
-SOURCES += configs/am62xx-evm.cpp
-SOURCES += configs/am62xx-lp-evm.cpp
-SOURCES += configs/am62xxsip-evm.cpp
-SOURCES += configs/am67-sk.cpp
-SOURCES += configs/am68-sk.cpp
-SOURCES += configs/am69-sk.cpp
-SOURCES += configs/beagleplay.cpp
-SOURCES += configs/generic.cpp
+SOURCES += configs/platform.cpp
 CONFIG += debug_and_release
 
 RESOURCES += ti-apps-launcher.qrc

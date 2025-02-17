@@ -11,7 +11,7 @@
 #include "includes/appsmenu.h"
 
 int apps_menu::button_getcount(){
-    return deviceMap[detected_device].include_apps_count;
+    return deviceMap[detected_device].include_apps.size();
 }
 
 QString apps_menu::button_getname(int n) {

@@ -11,7 +11,7 @@
 #include "includes/topbar.h"
 
 int power_menu::button_getcount(){
-    return deviceMap[detected_device].include_powerbuttons_count;
+    return deviceMap[detected_device].include_powerbuttons.size();
 }
 
 QString power_menu::button_getcommand(int n) {

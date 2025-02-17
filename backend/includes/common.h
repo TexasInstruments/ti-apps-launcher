@@ -1,3 +1,6 @@
+#ifndef BACKEND_INCLUDES_COMMON_H
+#define BACKEND_INCLUDES_COMMON_H
+
 #include <QString>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -20,10 +23,8 @@ struct device_info {
     QString dtMatchString;
     QString platform;
     QString wallpaper;
-    app_info *include_apps;
-    int include_apps_count;
-    power_actions *include_powerbuttons;
-    int include_powerbuttons_count;
+    QVector<app_info> include_apps;
+    QVector<power_actions> include_powerbuttons;
 };
 
 enum devices {
@@ -43,3 +44,5 @@ extern QMap<enum devices, struct device_info> deviceMap;
 extern enum devices detected_device;
 
 void platform_setup(QQmlApplicationEngine *engine);
+
+#endif // BACKEND_INCLUDES_COMMON_H
