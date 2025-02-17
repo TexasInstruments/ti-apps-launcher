@@ -8,7 +8,6 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
 
-#define PLATFORM "am62xxsip-evm"
 using namespace std;
 QString platform = "am62xxsip-evm";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am62sip_wallpaper.png";

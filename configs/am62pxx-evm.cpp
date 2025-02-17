@@ -11,7 +11,6 @@
 #include "backend/includes/benchmarks.h"
 #include "backend/includes/wifi.h"
 
-#define PLATFORM "am62pxx-evm"
 using namespace std;
 QString platform = "am62pxx-evm";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";

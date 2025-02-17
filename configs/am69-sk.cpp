@@ -9,7 +9,6 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
 
-#define PLATFORM "am69-sk"
 using namespace std;
 QString platform = "am69-sk";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";

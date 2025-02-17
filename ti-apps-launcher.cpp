@@ -54,7 +54,6 @@ void GetIpAddr()
 }
 
 int main(int argc, char *argv[]) {
-    // cout << PLATFORM << endl;
     QApplication app(argc, argv);
 
     QStringList modelslist = modelNamesList.stringList();
