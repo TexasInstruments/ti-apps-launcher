@@ -2,39 +2,32 @@
 
 #include <iostream>
 #include "backend/includes/common.h"
-#include "backend/includes/seva_store.h"
 #include "backend/includes/settings.h"
 
 using namespace std;
-
-int include_apps_count = 3;
 QString platform = "generic";
+QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
+int include_powerbuttons_count = 0;
+power_actions include_powerbuttons[] = {};
+
+int include_apps_count = 2;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
         .name = "Industrial HMI",
-        .icon_source = "hmi.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
     },
     {
         .qml_source = "benchmarks.qml",
         .name = "Benchmarks",
-        .icon_source = "benchmarks.png"
+        .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
     },
-    {
-        .qml_source = "seva_store.qml",
-        .name = "Seva Store",
-        .icon_source = "seva_store.png"
-    }
 };
-
-RunCmd *seva_store = new RunCmd("gvim");
 
 Settings settings;
 
-
 void platform_setup(QQmlApplicationEngine *engine) {
     cout << "Running generic platform setup!" << endl;
-    engine->rootContext()->setContextProperty("seva_store", seva_store);
     engine->rootContext()->setContextProperty("settings", &settings);
 }
