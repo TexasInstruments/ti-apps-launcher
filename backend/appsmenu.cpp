@@ -10,23 +10,20 @@
 #include "includes/common.h"
 #include "includes/appsmenu.h"
 
-extern int include_apps_count;
-extern app_info include_apps[];
-
 int apps_menu::button_getcount(){
-    return include_apps_count;
+    return deviceMap[detected_device].include_apps_count;
 }
 
 QString apps_menu::button_getname(int n) {
-    return include_apps[n].name;
+    return deviceMap[detected_device].include_apps[n].name;
 }
 
 QString apps_menu::button_getqml(int n) {
-    return include_apps[n].qml_source;
+    return deviceMap[detected_device].include_apps[n].qml_source;
 }
 
 QString apps_menu::button_geticon(int n) {
-    return include_apps[n].icon_source;
+    return deviceMap[detected_device].include_apps[n].icon_source;
 }
 
 void apps_menu::cache_flush() {
