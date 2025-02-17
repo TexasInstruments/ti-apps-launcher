@@ -8,6 +8,8 @@
 #include "backend/includes/gpu_performance.h"
 #include "backend/includes/benchmarks.h"
 
+#include "config_common.h"
+
 using namespace std;
 QString platform = "am62xxsip-evm";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am62sip_wallpaper.png";
@@ -27,26 +29,10 @@ power_actions include_powerbuttons[] = {
 int include_powerbuttons_count = ARRAY_SIZE(include_powerbuttons);
 
 app_info include_apps[] = {
-    {
-        .qml_source = "industrial_control_minimal.qml",
-        .name = "Industrial HMI",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
-    },
-    {
-        .qml_source = "live_camera.qml",
-        .name = "Live Camera",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/camera.png"
-    },
-    {
-        .qml_source = "settings.qml",
-        .name = "Settings",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
-    },
-    {
-        .qml_source = "terminal.qml",
-        .name = "Terminal",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/terminal.png"
-    }
+    app_industrial_control_minimal,
+    app_live_camera,
+    app_settings,
+    app_terminal,
 };
 int include_apps_count = ARRAY_SIZE(include_apps);
 
