@@ -16,16 +16,8 @@ QString platform = "am67-sk";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
 power_actions include_powerbuttons[] = {
-    {
-        .name = "Shutdown",
-        .command = "shutdown now",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/shutdown.png",
-    },
-    {
-        .name = "Reboot",
-        .command = "reboot",
-        .icon_source = "file:///opt/ti-apps-launcher/assets/reboot.png",
-    }
+    action_shutdown,
+    action_reboot,
 };
 int include_powerbuttons_count = ARRAY_SIZE(include_powerbuttons);
 

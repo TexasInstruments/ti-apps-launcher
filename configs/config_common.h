@@ -87,3 +87,21 @@ app_info app_industrial_control_minimal = {
     .name = "Industrial HMI",
     .icon_source = "file:///opt/ti-apps-launcher/assets/hmi.png"
 };
+
+power_actions action_shutdown = {
+    .name = "Shutdown",
+    .command = "shutdown now",
+    .icon_source = "file:///opt/ti-apps-launcher/assets/shutdown.png",
+};
+
+power_actions action_reboot = {
+    .name = "Reboot",
+    .command = "reboot",
+    .icon_source = "file:///opt/ti-apps-launcher/assets/reboot.png",
+};
+
+power_actions action_suspend = {
+    .name = "Suspend",
+    .command = "/opt/ti-apps-launcher/suspend",
+    .icon_source = "file:///opt/ti-apps-launcher/assets/suspend.png",
+};
