@@ -25,10 +25,6 @@ QString image_classification_gst_pipeline = "";
 
 #endif
 
-ArmAnalytics::ArmAnalytics() {
-    return;
-}
-
 void ArmAnalytics::armAnalytics_update_gst_pipeline(QString model) {
     _model = model;
 }
@@ -46,5 +42,3 @@ QString ArmAnalytics::armAnalytics_gst_pipeline() {
     qDebug() << gst_pipeline;
     return gst_pipeline;
 }
-
-

@@ -1,7 +1,12 @@
 #include "includes/camera.h"
+
 #include <filesystem>
+#include <iostream>
+
 #include <QDebug>
 #include <QDateTime>
+
+using namespace std;
 
 string Camera::replaceAll(string str, const string &remove, const string &insert) {
     string::size_type pos = 0;
@@ -22,10 +27,6 @@ string Camera::trimString(string str) {
         stripString.erase(stripString.length()-1);
 
     return stripString;
-}
-
-Camera::Camera() {
-    // get_camera_info(cameraInfo);
 }
 
 // Get and Populate CameraInfo to CameraList

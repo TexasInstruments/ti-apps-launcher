@@ -1,15 +1,5 @@
 #include <QObject>
-#include <iostream>
-
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <QStringListModel>
-#include <QProcess>
-#include <QDebug>
-#include<QMediaPlayer>
-using namespace std;
-
+#include <QString>
 
 class stats : public QObject {
     Q_OBJECT

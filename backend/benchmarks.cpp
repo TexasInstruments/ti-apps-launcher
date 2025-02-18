@@ -1,10 +1,9 @@
 #include "includes/benchmarks.h"
-using namespace std;
 
-bool isfirsttime=1;
-QString stdout1;
-QProcess process1,gpuprocess;
-QFile file("/opt/ti-apps-launcher/glmark2-log.txt");
+#include <QStringListModel>
+#include <QDebug>
+#include <QFile>
+
 void Benchmarks::playbutton1pressed() {
     gpuprocess.setStandardOutputFile("/opt/ti-apps-launcher/glmark2-temp-log.txt");
     gpuprocess.start("glmark2-es2-wayland -b build:duration=30");
@@ -16,22 +15,26 @@ bool Benchmarks::islogavl() {
     file.close();
     QString output = stdout1.mid(stdout1.indexOf("FPS")+5,1);
     if(output.isEmpty())
-    return false;
+        return false;
+
     int res = output.toInt();
-    if(res>=0 && res <=9)
-    return true;
+    if(res >= 0 && res <= 9)
+        return true;
     else
-    return false;
+        return false;
 }
+
 void Benchmarks::playbutton1pressedagain() {
     gpuprocess.kill();
     gpuprocess.waitForFinished(-1);
     process1.start("rm /opt/ti-apps-launcher/glmark2-temp-log.txt");
 }
+
 void Benchmarks::playedcompletely() {
     process1.start("mv /opt/ti-apps-launcher/glmark2-temp-log.txt /opt/ti-apps-launcher/glmark2-log.txt");
     process1.waitForFinished(-1);
 }
+
 QString Benchmarks::playbutton1fps() {
     file.open(QIODevice::ReadOnly);
     stdout1 = file.readAll();
@@ -45,6 +48,7 @@ QString Benchmarks::playbutton1fps() {
     }
     return res;
 }
+
 QString Benchmarks::playbutton1score() {
     // Index of actual score comes 7 indices after index of "S". Ex: Score: <Score>
     int index = stdout1.indexOf("Score") + 7;
@@ -55,8 +59,6 @@ QString Benchmarks::playbutton1score() {
     }
     return res;
 }
-
-QProcess systembenchmarks;
 
 void Benchmarks::systemplaybutton1pressed() {
     systembenchmarks.kill();

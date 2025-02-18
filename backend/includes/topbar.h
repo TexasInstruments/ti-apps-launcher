@@ -1,5 +1,5 @@
-#include <QString>
 #include <QObject>
+#include <QString>
 
 class power_menu : public QObject {
     Q_OBJECT

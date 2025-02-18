@@ -1,12 +1,3 @@
-#include <QObject>
-#include <cstdlib>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <QStringListModel>
-#include <QProcess>
-#include <QDebug>
 #include "includes/common.h"
 #include "includes/appsmenu.h"
 

@@ -1,18 +1,23 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QCameraInfo>
 #include <QStringListModel>
 #include <QNetworkInterface>
+
 #include <csignal>
 #include <thread>
+#include <fstream>
 #include <unistd.h>
 #include <sys/stat.h>
+
 #include "backend/includes/common.h"
 #include "backend/includes/appsmenu.h"
 #include "backend/includes/topbar.h"
 #include "backend/includes/deviceinfo.h"
 #include "backend/includes/stats.h"
+
+using namespace std;
+
 QStringListModel modelNamesList;
 
 //objects 
@@ -20,11 +25,6 @@ stats statsbackend;
 apps_menu appsmenu;
 power_menu powermenu;
 Device_info deviceinfo;
-/*
-__attribute__((weak)) void platform_setup(QQmlApplicationEngine *engine) {
-    std::cout << "No platform setup needed!" << endl;
-}
-*/
 
 void sigHandler(int s)
 {

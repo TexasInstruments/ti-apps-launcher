@@ -1,7 +1,5 @@
 #include "includes/gpu_performance.h"
-using namespace std;
 
-QProcess load;
 void Gpu_performance::gpuload0(){
     load.kill();
 }
@@ -32,9 +30,6 @@ void Gpu_performance::gpuload4(){
     load.waitForFinished();
     load.start("glmark2-es2-wayland -b terrain:duration=30");
 }
-
-// To read Standard output
-QString loadout;
 
 QString Gpu_performance::getfps(){
     loadout = load.readAllStandardOutput();

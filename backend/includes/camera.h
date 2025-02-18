@@ -1,28 +1,20 @@
 #include <QObject>
-#include <iostream>
-
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <sstream>
-#include <fstream>
-#include <map>
 #include <QStringListModel>
-#include <QProcess>
-#include <QDebug>
-#include<QMediaPlayer>
-using namespace std;
+#include <QString>
 
+#include <map>
+#include <string>
 
 class Camera : public QObject {
     Q_OBJECT
 
 private:
 
-    map<string, map<string,string>> cameraInfo;
+    std::map<std::string, std::map<std::string,std::string>> cameraInfo;
     QString _videofile;
 
-    string replaceAll(string str, const string &remove, const string &insert);
-    string trimString(string str);
+    std::string replaceAll(std::string str, const std::string &remove, const std::string &insert);
+    std::string trimString(std::string str);
 
 public:
 
@@ -38,9 +30,7 @@ public:
     Q_PROPERTY(QString _camera READ get_current_camera NOTIFY current_camera_changed)
     Q_PROPERTY(int Camera_count READ get_count NOTIFY count_changed)
 
-    Camera();
-
-    void get_camera_info(map<string, map<string,string>> &cameraInfo);
+    void get_camera_info(std::map<std::string, std::map<std::string,std::string>> &cameraInfo);
 
     Q_INVOKABLE QString get_gst_pipeline();
     Q_INVOKABLE int get_count();

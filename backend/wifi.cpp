@@ -1,5 +1,5 @@
 #include "includes/wifi.h"
-#include <iostream>
+
 #include <filesystem>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -7,6 +7,10 @@
 #include <vector>
 #include <set>
 #include <unistd.h>
+
+#include <QSet>
+#include <QProcess>
+#include <QTimer>
 
 using namespace std;
 
