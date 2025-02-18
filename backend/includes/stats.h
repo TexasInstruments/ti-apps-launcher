@@ -5,6 +5,8 @@ class stats : public QObject {
     Q_OBJECT
 
 private:
+    int prevLoadTime;
+    int prevTotalTime;
 
 public:
 

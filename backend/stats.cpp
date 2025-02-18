@@ -1,14 +1,9 @@
 #include <QObject>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <QStringListModel>
 #include <QProcess>
-#include <QDebug>
+#include <QFile>
+
 #include "includes/stats.h"
 #include "utils/includes/perf_stats.h"
-
 
 QString stats::getgpuload() {
     QProcess process;
@@ -17,13 +12,27 @@ QString stats::getgpuload() {
     QString output = process.readAllStandardOutput();
     return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
 }
+
 QString stats::getcpuload() {
-    perfStatsCpuLoad cpuload;
-    perfStatsCpuStatsInit(&cpuload);
-    perfStatsCpuLoadCalc(&cpuload);
-    perfStatsResetCpuLoadCalc(&cpuload);
-    QString res = QString::number(cpuload.cpu_load/100);
-    return res;
+    QFile file("/proc/stat");
+    file.open(QFile::ReadOnly);
+    const QList<QByteArray> times = file.readLine().simplified().split(' ').mid(1);
+
+    int totalTime = 0;
+    for (const QByteArray &time : times) {
+        totalTime += time.toInt();
+    }
+    const int deltaTotalTime = totalTime - prevTotalTime;
+
+    const int idleTime = times.at(3).toInt();
+    const int loadTime = totalTime - idleTime;
+    const int deltaLoadTime = loadTime - prevLoadTime;
+
+    prevLoadTime = loadTime;
+    prevTotalTime = totalTime;
+
+    float loadPercent = ((float)deltaLoadTime / deltaTotalTime) * 100.0f;
+    return QString::number(loadPercent, 'f', 2);
 }
 
 QString stats::get_soc_temp() {
