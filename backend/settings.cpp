@@ -1,90 +1,56 @@
 #include "includes/settings.h"
-#include <iostream>
+
 #include <filesystem>
 #include <stdlib.h>
-#include <unordered_map>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-using namespace std;
+#include <QDebug>
 
-unordered_map<string, string> proxy_list;
-
-void set_environment_variables() {
-    // Setting up Environment Variables
-    string command = "echo https_proxy=" + proxy_list["https_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    command = "echo HTTPS_PROXY=" + proxy_list["https_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    command = "echo HTTP_PROXY=" + proxy_list["https_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    command = "echo http_proxy=" + proxy_list["https_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    command = "echo ftp_proxy=" + proxy_list["https_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    command = "echo FTP_PROXY=" + proxy_list["https_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    command = "echo no_proxy=" + proxy_list["no_proxy"] + " | tee -a /etc/environment";
-    system(command.c_str());
-
-    setenv("https_proxy",proxy_list["https_proxy"].c_str(),1);
-    setenv("http_proxy",proxy_list["https_proxy"].c_str(),1);
-    setenv("ftp_proxy",proxy_list["https_proxy"].c_str(),1);
-    setenv("no_proxy",proxy_list["no_proxy"].c_str(),1);
-    setenv("HTTPS_PROXY",proxy_list["https_proxy"].c_str(),1);
-    setenv("HTTP_PROXY",proxy_list["https_proxy"].c_str(),1);
-    setenv("FTP_PROXY",proxy_list["https_proxy"].c_str(),1);
+void Settings::set_environment_variables() {
+    qputenv("https_proxy", https_proxy.toUtf8());
+    qputenv("http_proxy", https_proxy.toUtf8());
+    qputenv("ftp_proxy", https_proxy.toUtf8());
+    qputenv("no_proxy", no_proxy.toUtf8());
+    qputenv("HTTPS_PROXY", https_proxy.toUtf8());
+    qputenv("HTTP_PROXY", https_proxy.toUtf8());
+    qputenv("FTP_PROXY", https_proxy.toUtf8());
 }
 
-
-void apply_docker_proxy() {
+void Settings::apply_docker_proxy() {
     // Create /etc/systemd/system/docker.service.d directory structure
     if(system("mkdir -p /etc/systemd/system/docker.service.d") == -1){
-        cout << "Failed to create directory structure for docker proxies" << endl;
-        exit(0);
+        qCritical() << "Failed to create directory structure for docker proxies";
+        return;
     }
 
     // Write the docker proxy setting
-    string apply_systemd_proxy = "echo [Service] | tee /etc/systemd/system/docker.service.d/http-proxy.conf";
-    system(apply_systemd_proxy.c_str());
+    QString apply_systemd_proxy = "echo [Service] | tee /etc/systemd/system/docker.service.d/http-proxy.conf";
+    system(qPrintable(apply_systemd_proxy));
 
-    apply_systemd_proxy = "echo Environment=HTTPS_PROXY=" + proxy_list["https_proxy"] + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
-    system(apply_systemd_proxy.c_str());
+    apply_systemd_proxy = "echo Environment=HTTPS_PROXY=" + https_proxy + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
+    system(qPrintable(apply_systemd_proxy));
 
-    apply_systemd_proxy = "echo Environment=HTTP_PROXY=" + proxy_list["https_proxy"] + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
-    system(apply_systemd_proxy.c_str());
+    apply_systemd_proxy = "echo Environment=HTTP_PROXY=" + https_proxy + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
+    system(qPrintable(apply_systemd_proxy));
 
-    apply_systemd_proxy = "echo Environment=NO_PROXY=" + proxy_list["no_proxy"] + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
-    system(apply_systemd_proxy.c_str());
+    apply_systemd_proxy = "echo Environment=NO_PROXY=" + no_proxy + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
+    system(qPrintable(apply_systemd_proxy));
 
     // Flush changes, Re-load Daemon and Re-Start Docker
-    string str = "systemctl daemon-reload";
-    const char *command = str.c_str();
-    system(command);
-
-    str = "systemctl restart docker";
-    command = str.c_str();
-    system(command);
+    system("systemctl daemon-reload");
+    system("systemctl restart docker");
 }
 
 void Settings::set_proxy(QString https_proxy, QString no_proxy) {
-    Settings::_https_proxy=https_proxy;
-    Settings::_no_proxy=no_proxy;
+    qInfo() << "Setting https_proxy to " << https_proxy;
+    qInfo() << "Setting no_proxy to " << no_proxy;
 
-    cout << "Setting https_proxy to " << https_proxy.toStdString() << endl;
-    cout << "Setting no_proxy to " << no_proxy.toStdString() << endl;
-
-    proxy_list["https_proxy"] = https_proxy.toStdString();
-    proxy_list["no_proxy"] = no_proxy.toStdString();
+    this->https_proxy = https_proxy;
+    this->no_proxy = no_proxy;
 
     apply_docker_proxy();
     set_environment_variables();
 
-    cout << "Applied Proxy Settings!" << endl;
+    qInfo() << "Applied Proxy Settings!";
 }
