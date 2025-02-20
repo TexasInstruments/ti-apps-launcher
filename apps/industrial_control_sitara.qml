@@ -196,7 +196,7 @@ Rectangle {
                 height: parent.height
                 anchors.left: parent.left
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Minux_Box.png"
+                source: "/images/Minux_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -240,7 +240,7 @@ Rectangle {
                 height: parent.height
                 anchors.right: parent.right
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Plus_Box.png"
+                source: "/images/Plus_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -399,7 +399,7 @@ Rectangle {
                 height: parent.height
                 anchors.left: parent.left
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Minux_Box.png"
+                source: "/images/Minux_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -443,7 +443,7 @@ Rectangle {
                 height: parent.height
                 anchors.right: parent.right
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Plus_Box.png"
+                source: "/images/Plus_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -723,7 +723,7 @@ Rectangle {
                 height: parent.height
                 anchors.left: parent.left
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Minux_Box.png"
+                source: "/images/Minux_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -766,7 +766,7 @@ Rectangle {
                 height: parent.height
                 anchors.right: parent.right
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Plus_Box.png"
+                source: "/images/Plus_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -925,7 +925,7 @@ Rectangle {
                 height: parent.height
                 anchors.left: parent.left
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Minux_Box.png"
+                source: "/images/Minux_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -968,7 +968,7 @@ Rectangle {
                 height: parent.height
                 anchors.right: parent.right
                 fillMode: Image.PreserveAspectFit
-                source: "file://opt/ti-apps-launcher/assets/Plus_Box.png"
+                source: "/images/Plus_Box.png"
 
                 MouseArea {
                     anchors.fill: parent
@@ -1289,7 +1289,7 @@ Rectangle {
                     height: parent.height
                     anchors.left: parent.left
                     fillMode: Image.PreserveAspectFit
-                    source: "file://opt/ti-apps-launcher/assets/Minux_Box.png"
+                    source: "/images/Minux_Box.png"
 
                     MouseArea {
                         anchors.fill: parent
@@ -1324,7 +1324,7 @@ Rectangle {
                     height: parent.height
                     anchors.right: parent.right
                     fillMode: Image.PreserveAspectFit
-                    source: "file://opt/ti-apps-launcher/assets/Plus_Box.png"
+                    source: "/images/Plus_Box.png"
 
                     MouseArea {
                         anchors.fill: parent
@@ -1561,7 +1561,7 @@ Rectangle {
                     height: parent.height
                     anchors.left: parent.left
                     fillMode: Image.PreserveAspectFit
-                    source: "file://opt/ti-apps-launcher/assets/Minux_Box.png"
+                    source: "/images/Minux_Box.png"
 
                     MouseArea {
                         anchors.fill: parent
@@ -1596,7 +1596,7 @@ Rectangle {
                     height: parent.height
                     anchors.right: parent.right
                     fillMode: Image.PreserveAspectFit
-                    source: "file://opt/ti-apps-launcher/assets/Plus_Box.png"
+                    source: "/images/Plus_Box.png"
 
                     MouseArea {
                         anchors.fill: parent

@@ -5,7 +5,7 @@
 struct device_info device_info_am69 = {
     .dtMatchString = "AM69 SK",
     .platform = "am69-sk",
-    .wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png",
+    .wallpaper = "/images/am6x_oob_demo_home_image.png",
     .include_apps = {
         app_industrial_control_sitara,
         app_camera,

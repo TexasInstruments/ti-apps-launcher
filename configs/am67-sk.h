@@ -5,7 +5,7 @@
 struct device_info device_info_am67 = {
     .dtMatchString = "J722S",
     .platform = "am67-sk",
-    .wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png",
+    .wallpaper = "/images/am6x_oob_demo_home_image.png",
     .include_apps = {
         app_industrial_control,
         app_camera,

@@ -14,13 +14,13 @@ Item {
         property int count: 0
         Image {
             id: backgroundimage
-            source:"file:///opt/ti-apps-launcher/assets/Background.png"
+            source:"/images/Background.png"
             width: parent.width
             height: parent.height
         }
 
         Image {
-            source: "file:///opt/ti-apps-launcher/assets/Center_Box.png"
+            source: "/images/Center_Box.png"
             anchors.top: parent.top
             anchors.topMargin: window.height * 0.05
             anchors.bottom: parent.bottom
@@ -109,7 +109,7 @@ Item {
                         id: plusbox1
                         height: parent.width
                         width: height
-                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                        source: "/images/Plus_Box.png"
                         anchors.top: parent.top
                         MouseArea {
                             anchors.fill: parent
@@ -137,7 +137,7 @@ Item {
                         id: minusbox1
                         height: parent.width
                         width: height
-                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                        source: "/images/Minux_Box.png"
                         anchors.left: parent.left
                         anchors.top: valuebox1.bottom
                         MouseArea {
@@ -230,7 +230,7 @@ Item {
                         id: plusbox2
                         height: parent.width
                         width: height
-                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                        source: "/images/Plus_Box.png"
                         anchors.top: parent.top
                         MouseArea {
                             anchors.fill: parent
@@ -258,7 +258,7 @@ Item {
                         id: minusbox2
                         height: parent.width
                         width: height
-                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                        source: "/images/Minux_Box.png"
                         anchors.left: parent.left
                         anchors.top: valuebox2.bottom
                         MouseArea {
@@ -277,7 +277,7 @@ Item {
 
         Image {
             id: centreb
-            source: "file:///opt/ti-apps-launcher/assets/Center_Box.png"
+            source: "/images/Center_Box.png"
             anchors.top: parent.top
             anchors.topMargin: window.height * 0.05
             anchors.bottom: parent.bottom

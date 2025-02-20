@@ -5,7 +5,7 @@
 struct device_info device_info_beagleplay = {
     .dtMatchString = "BeaglePlay",
     .platform = "beagleplay",
-    .wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png",
+    .wallpaper = "/images/am6x_oob_demo_home_image.png",
     .include_apps = {
         app_industrial_control_sitara,
         app_live_camera,

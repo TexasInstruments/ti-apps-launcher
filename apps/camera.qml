@@ -22,7 +22,7 @@ Rectangle {
             onStopped: {
                 msg.visible = msg.state
                 status_message.text = msg.state ? (" ") : ("Live: " + camera.get_current_camera())
-                camera_record_button.source = msg.state ? "file:///opt/ti-apps-launcher/assets/record-disabled.png" : "file:///opt/ti-apps-launcher/assets/record.png"
+                camera_record_button.source = msg.state ? "/images/record-disabled.png" : "/images/record.png"
                 camera_record_button_mousearea.enabled = msg.state ? false : true
             }
         }
@@ -65,7 +65,7 @@ Rectangle {
                 Image {
                     id: recording_status
                     visible: false
-                    source: "file:///opt/ti-apps-launcher/assets/record.png"
+                    source: "/images/record.png"
                     fillMode: Image.PreserveAspectFit
                     anchors.right: parent.right
                     anchors.top: parent.top
@@ -190,7 +190,7 @@ Rectangle {
                 height: parent.height * 0.8
                 width: height
                 property bool recording: false
-                source: "file:///opt/ti-apps-launcher/assets/record.png"
+                source: "/images/record.png"
                 fillMode: Image.PreserveAspectFit
                 anchors.left: cameras_dropdown.right
                 anchors.leftMargin: parent.width * 0.01
@@ -209,15 +209,15 @@ Rectangle {
                             mediaplayer.source = camera.record_camera(cameras_dropdown.currentText);
                             mediaplayer.play();
                             status_message.text = "Recording: " + camera.get_current_camera() + " to " + camera.get_filename()
-                            camera_record_button.source = "file:///opt/ti-apps-launcher/assets/stop.png"
-                            gallery_play_button.source = "file:///opt/ti-apps-launcher/assets/playbutton-disabled.png"
+                            camera_record_button.source = "/images/stop.png"
+                            gallery_play_button.source = "/images/playbutton-disabled.png"
                             gallery_play_button_mousearea.enabled = false
                         } else {
                             camera_record_button.recording = false;
                             recording_animation.stop()
                             recording_status.visible = false
                             mediaplayer.stop();
-                            camera_record_button.source = "file:///opt/ti-apps-launcher/assets/record.png"
+                            camera_record_button.source = "/images/record.png"
                             mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
                             mediaplayer.play();
                             if (msg.state == false) {
@@ -225,7 +225,7 @@ Rectangle {
                             } else {
                                 status_message.text = " "
                             }
-                            gallery_play_button.source = "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                            gallery_play_button.source = "/images/playbutton.png"
                             gallery_play_button_mousearea.enabled = true
                         }
                     }
@@ -265,7 +265,7 @@ Rectangle {
                 height: parent.height * 0.8
                 width: height
                 property bool playing: false
-                source: "file:///opt/ti-apps-launcher/assets/playbutton.png"
+                source: "/images/playbutton.png"
                 fillMode: Image.PreserveAspectFit
                 anchors.left: videosDropdown.right
                 anchors.leftMargin: parent.width * 0.01
@@ -283,7 +283,7 @@ Rectangle {
                         mediaplayer.source = videopipeline;
                         mediaplayer.play();
                         status_message.text = "Playing: " + camera.get_filename()
-                        camera_record_button.source = "file:///opt/ti-apps-launcher/assets/record-disabled.png"
+                        camera_record_button.source = "/images/record-disabled.png"
                         camera_record_button_mousearea.enabled = false
                     }
                 }
@@ -293,7 +293,7 @@ Rectangle {
                 height: parent.height * 0.8
                 width: height
                 property bool playing: false
-                source: "file:///opt/ti-apps-launcher/assets/delete.png"
+                source: "/images/delete.png"
                 fillMode: Image.PreserveAspectFit
                 anchors.left: gallery_play_button.right
                 anchors.leftMargin: parent.width * 0.01
@@ -319,7 +319,7 @@ Rectangle {
                 msg.state = true
                 status_message.text = ""
                 camera_record_button_mousearea.enabled = false
-                camera_record_button.source = "file:///opt/ti-apps-launcher/assets/record-disabled.png"
+                camera_record_button.source = "/images/record-disabled.png"
             } else {
                 msg.state = false
                 cameras_dropdown.currentIndex = 0;

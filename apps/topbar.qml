@@ -15,7 +15,7 @@ Rectangle {
         width: height * 2.84 // To maintain the aspect ratio of the image
         anchors.top: parent.top
         anchors.topMargin: parent.height * 0.1
-        source: "file:///opt/ti-apps-launcher/assets/Texas-Instruments.png"
+        source: "/images/Texas-Instruments.png"
     }
 
     Text {
@@ -85,7 +85,7 @@ Rectangle {
                 id: closeButton
                 height: powermenuRect.height
                 width: height
-                source: "file:///opt/ti-apps-launcher/assets/close.png"
+                source: "/images/close.png"
                 fillMode: Image.PreserveAspectFit
 
                 MouseArea {
