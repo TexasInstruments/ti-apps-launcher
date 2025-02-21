@@ -3,55 +3,73 @@
 #include <QDebug>
 
 QString object_detection_gst_pipeline = "gst-pipeline: \
-    multifilesrc location=/opt/oob-demo-assets/oob-gui-video1.h264 loop=true ! \
+    multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
-    ticolorconvert ! video/x-raw,format=NV12 ! \
+    videoconvert ! video/x-raw,format=RGB ! \
     tee name=tee_split0 \
     tee_split0. ! \
         queue ! \
-        tiscaler roi-startx=0 roi-starty=0 roi-width=1280 roi-height=720 ! video/x-raw,width=320,height=320 ! \
-        tidlpreproc model=/opt/model_zoo/TFL-OD-2020-ssdLite-mobDet-DSP-coco-320x320 out-pool-size=4 ! application/x-tensor-tiovx ! \
-        tidlinferer model=/opt/model_zoo/TFL-OD-2020-ssdLite-mobDet-DSP-coco-320x320 ! \
-        post_0.tensor \
+        videoscale ! video/x-raw,width=300,height=300 ! \
+        tensor_converter ! \
+        tensor_transform mode=arithmetic option=typecast:float32,add:-127.5,div:127.5 ! \
+        tensor_filter framework=tensorflow2-lite model=/usr/share/oob-demo-assets/models/ssd_mobilenet_v2_coco.tflite custom=Delegate:XNNPACK,NumThreads:4 latency=1 ! \
+        tensor_decoder \
+        mode=bounding_boxes \
+            option1=mobilenet-ssd \
+            option2=/usr/share/oob-demo-assets/labels/coco_labels.txt \
+            option3=/usr/share/oob-demo-assets/labels/box_priors.txt \
+            option4=1280:720 \
+            option5=300:300 ! \
+        mix.sink_0 \
     tee_split0. ! \
         queue ! \
-        post_0.sink \
-    tidlpostproc name=post_0 model=/opt/model_zoo/TFL-OD-2020-ssdLite-mobDet-DSP-coco-320x320 viz-threshold=0.6 display-model=true ! video/x-raw,format=NV12,width=1280,height=720 ! \
-    qtvideosink sync=false";
+        mix.sink_1 \
+    compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
+    qtvideosink";
 
 QString face_detection_gst_pipeline = "gst-pipeline: \
-    multifilesrc location=/opt/oob-demo-assets/oob-gui-video2.h264 loop=true ! \
+    multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-faces.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
-    ticolorconvert ! video/x-raw,format=NV12 ! \
     tee name=tee_split0 \
     tee_split0. ! \
         queue ! \
-        tiscaler roi-startx=0 roi-starty=0 roi-width=1280 roi-height=720 ! video/x-raw,width=416,height=416 ! \
-        tidlpreproc model=/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416 out-pool-size=4 ! application/x-tensor-tiovx ! \
-        tidlinferer model=/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416 ! \
-        post_0.tensor \
+        videoscale ! video/x-raw,width=416,height=416 ! \
+        tensor_converter ! \
+        tensor_transform mode=arithmetic option=typecast:float32,add:-127.5,div:127.5 ! \
+        tensor_filter framework=onnxruntime model=/usr/share/oob-demo-assets/models/yolox-nano-lite-mmdet-coco-416x416.onnx ! \
+        tensor_decoder \
+        mode=bounding_boxes \
+            option1=mobilenet-ssd \
+            option2=/usr/share/oob-demo-assets/labels/coco_labels.txt \
+            option3=/usr/share/oob-demo-assets/labels/box_priors.txt \
+            option4=1280:720 \
+            option5=300:300 ! \
+        mix.sink_0 \
     tee_split0. ! \
         queue ! \
-        post_0.sink \
-    tidlpostproc name=post_0 model=/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416 viz-threshold=0.5 display-model=true ! video/x-raw,format=NV12,width=1280,height=720 ! \
-    qtvideosink sync=false";
+        mix.sink_1 \
+    compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
+    qtvideosink";
 
 QString image_classification_gst_pipeline = "gst-pipeline: \
-    multifilesrc location=/opt/oob-demo-assets/oob-gui-video1.h264 loop=true ! \
+    multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
-    ticolorconvert ! video/x-raw,format=NV12 ! \
     tee name=tee_split0 \
     tee_split0. ! \
         queue ! \
-        tiscaler roi-startx=80 roi-starty=45 roi-width=1120 roi-height=630 ! video/x-raw, width=224,height=224 ! \
-        tidlpreproc model=/opt/model_zoo/ONR-CL-6360-regNetx-200mf out-pool-size=4 ! application/x-tensor-tiovx ! \
-        tidlinferer model=/opt/model_zoo/ONR-CL-6360-regNetx-200mf ! \
-        post_0.tensor \
+        videoconvert ! videoscale ! video/x-raw,width=224,height=224,format=BGR ! \
+        tensor_converter ! \
+        tensor_transform mode=transpose option=1:2:0:3 ! \
+        tensor_filter framework=onnxruntime model=/usr/share/oob-demo-assets/models/regnetx-200mf.onnx ! \
+        tensor_decoder \
+            mode=image_labeling \
+            option1=/usr/share/oob-demo-assets/labels/squeezenet_labels.txt ! \
+        overlay.text_sink \
     tee_split0. ! \
         queue ! \
-        post_0.sink \
-    tidlpostproc name=post_0 model=/opt/model_zoo/ONR-CL-6360-regNetx-200mf top-N=5 display-model=true ! video/x-raw,format=NV12,width=1280,height=720 ! \
-    qtvideosink sync=true";
+        overlay.video_sink \
+    textoverlay name=overlay font-desc=Sans,24 ! \
+    qtvideosink";
 
 void ArmAnalytics::armAnalytics_update_gst_pipeline(QString model) {
     _model = model;
