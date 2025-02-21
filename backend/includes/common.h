@@ -1,8 +1,8 @@
-/* Configurations for Generic/Unknown Platforms */
-
 #include <QString>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 struct app_info {
     QString qml_source;

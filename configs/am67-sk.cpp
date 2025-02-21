@@ -13,7 +13,6 @@ using namespace std;
 QString platform = "am67-sk";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
-int include_powerbuttons_count = 2;
 power_actions include_powerbuttons[] = {
     {
         .name = "Shutdown",
@@ -26,8 +25,8 @@ power_actions include_powerbuttons[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/reboot.png",
     }
 };
+int include_powerbuttons_count = ARRAY_SIZE(include_powerbuttons);
 
-int include_apps_count = 7;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
@@ -65,6 +64,7 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/settings.png"
     }
 };
+int include_apps_count = ARRAY_SIZE(include_apps);
 
 Settings settings;
 LiveCamera live_camera;

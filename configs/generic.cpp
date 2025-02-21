@@ -8,10 +8,9 @@ using namespace std;
 QString platform = "generic";
 QString wallpaper = "file:///opt/ti-apps-launcher/assets/am6x_oob_demo_home_image.png";
 
-int include_powerbuttons_count = 0;
 power_actions include_powerbuttons[] = {};
+int include_powerbuttons_count = ARRAY_SIZE(include_powerbuttons);
 
-int include_apps_count = 2;
 app_info include_apps[] = {
     {
         .qml_source = "industrial_control.qml",
@@ -24,6 +23,7 @@ app_info include_apps[] = {
         .icon_source = "file:///opt/ti-apps-launcher/assets/benchmarks.png"
     },
 };
+int include_apps_count = ARRAY_SIZE(include_apps);
 
 Settings settings;
 
