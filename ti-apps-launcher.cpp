@@ -63,8 +63,6 @@ int main(int argc, char *argv[]) {
     thread getIpAddrThread(GetIpAddr);
     getIpAddrThread.detach();
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     std::signal(SIGINT,  sigHandler);
     std::signal(SIGTERM, sigHandler);
 
