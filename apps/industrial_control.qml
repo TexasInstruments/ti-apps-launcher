@@ -1,17 +1,15 @@
 import QtQuick 2.2
-import QtQuick.Window 2.14
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Extras.Private 1.0
 import QtGraphicalEffects 1.12
-import QtMultimedia 5.1
 
 Rectangle{
     id: window
-    height: Screen.desktopAvailableHeight * 0.6
-    width: Screen.desktopAvailableWidth * 0.825
+    height: parent.height
+    width: parent.width
     Rectangle {
         id: backgroundrect
         width: window.width

@@ -1,14 +1,7 @@
 import QtQml 2.1
 import QtQuick 2.14
 import QtMultimedia 5.1
-import QtQuick.Window 2.14
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Styles 1.2
-import QtGraphicalEffects 1.12
-import Qt.labs.folderlistmodel 2.4
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Styles 1.4
-import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 
 Rectangle {
@@ -88,11 +81,18 @@ Rectangle {
                             }
                         }
 
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            transparentBorder: true
-                            horizontalOffset: height * 0.15
-                            verticalOffset: height * 0.15
+                        Rectangle {
+                            id: dropShadowRect
+                            color: "black"
+                            width: parent.width
+                            height: parent.height
+                            z: -1
+                            opacity: 0.75
+                            radius: 2
+                            anchors.left: parent.left
+                            anchors.leftMargin: height * 0.15
+                            anchors.top: parent.top
+                            anchors.topMargin: height * 0.15
                         }
 
                         onClicked: {
