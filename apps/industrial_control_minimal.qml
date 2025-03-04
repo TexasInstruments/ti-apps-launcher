@@ -1,5 +1,4 @@
 import QtQuick 2.14
-import QtQuick.Window 2.14
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
