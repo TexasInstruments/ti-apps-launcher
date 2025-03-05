@@ -1,13 +1,7 @@
 #include <vector>
-#include <iostream>
+#include <string>
 #include <QString>
 #include <QObject>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QProcess>
-#include <QTimer>
-
-using namespace std;
 
 class Wifi : public QObject {
     Q_OBJECT
@@ -43,7 +37,7 @@ signals:
     void previousWifiOnChanged(); // Signal to notify QML of previouswifistatus
 
 private:
-    vector<string> ssidVector;  // Vector to store SSID names
+    std::vector<std::string> ssidVector;  // Vector to store SSID names
     QString m_ssid; // Store SSID
     bool m_wifiOn; // Store wifi status
     bool m_wifiConnected; // Store wifi connect status

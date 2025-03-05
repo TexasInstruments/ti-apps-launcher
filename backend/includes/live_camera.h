@@ -1,28 +1,20 @@
-#include <QObject>
-#include <iostream>
-
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <sstream>
-#include <fstream>
 #include <map>
-#include <QStringListModel>
-#include <QProcess>
-#include <QDebug>
-#include<QMediaPlayer>
-using namespace std;
+#include <string>
 
+#include <QObject>
+#include <QStringListModel>
+#include <QString>
 
 class LiveCamera : public QObject {
     Q_OBJECT
 
 private:
 
-    map<string, map<string,string>> cameraInfo;
+    std::map<std::string, std::map<std::string,std::string>> cameraInfo;
     QString _camera;
 
-    string replaceAll(string str, const string &remove, const string &insert);
-    string trimString(string str);
+    std::string replaceAll(std::string str, const std::string &remove, const std::string &insert);
+    std::string trimString(std::string str);
 
 public:
 
@@ -33,9 +25,7 @@ public:
     Q_PROPERTY(QString gst_pipeline READ liveCamera_gst_pipeline WRITE liveCamera_update_gst_pipeline NOTIFY liveCamera_gst_pipeline_updated)
     Q_PROPERTY(int LiveCamera_count READ liveCamera_get_count NOTIFY liveCamera_count_changed)
 
-    LiveCamera();
-
-    void liveCamera_get_camera_info(map<string, map<string,string>> &cameraInfo);
+    void liveCamera_get_camera_info(std::map<std::string, std::map<std::string,std::string>> &cameraInfo);
 
     Q_INVOKABLE void liveCamera_update_gst_pipeline(QString camera);
 

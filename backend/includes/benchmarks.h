@@ -1,26 +1,18 @@
 #include <QObject>
-#include <iostream>
-
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <QStringListModel>
 #include <QProcess>
-#include <QDebug>
-#include<QMediaPlayer>
 #include <QFile>
-using namespace std;
-
 
 class Benchmarks : public QObject {
     Q_OBJECT
 
 private:
+    QFile file{"/opt/ti-apps-launcher/glmark2-log.txt"};
+    QString stdout1;
+    QProcess gpuprocess;
+    QProcess systembenchmarks;
+    QProcess process1;
 
 public:
-
-    QString stdout1,stdout11;
-    QProcess process1,process11;
     Q_INVOKABLE void playbutton1pressed();
     Q_INVOKABLE void playbutton1pressedagain(); 
     Q_INVOKABLE QString playbutton1fps();

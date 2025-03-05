@@ -19,13 +19,13 @@ Rectangle{
         property int autocontrolmotor2: 0
         Image {
             id: backgroundimage
-            source:"file:///opt/ti-apps-launcher/assets/Background.png"
+            source:"/images/Background.png"
             width: parent.width
             height: parent.height
         }
         Image {
             id: toprb
-            source: "file:///opt/ti-apps-launcher/assets/Top_Righ_Box.png"
+            source: "/images/Top_Righ_Box.png"
             anchors.top: parent.top
             anchors.topMargin: window.height * 0.01
             anchors.bottom: parent.bottom
@@ -77,7 +77,7 @@ Rectangle{
 
                         Image {
                             anchors.fill: parent
-                            source: "file:///opt/ti-apps-launcher/assets/gaugebackground.svg"
+                            source: "/images/gaugebackground.svg"
                             fillMode: Image.PreserveAspectFit
                             asynchronous: true
                             sourceSize {
@@ -116,7 +116,7 @@ Rectangle{
                         height: outerRadius * 0.27
                         Image {
                             id: needle
-                            source: "file:///opt/ti-apps-launcher/assets/needle.svg"
+                            source: "/images/needle.svg"
                             height: parent.height
                             width: height * 0.1
                             asynchronous: true
@@ -151,7 +151,7 @@ Rectangle{
                     }
 
                     tickmark: Image {
-                        source: "file:///opt/ti-apps-launcher/assets/tickmark.svg"
+                        source: "/images/tickmark.svg"
                         width: outerRadius * 0.018
                         height: outerRadius * 0.15
                         antialiasing: true
@@ -178,7 +178,7 @@ Rectangle{
                 anchors.rightMargin: parent.width * 0.015
                 Image {
                     id: minusbox1
-                    source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                    source: "/images/Minux_Box.png"
                     fillMode: Image.PreserveAspectFit
                     width: parent.width
                     height: width
@@ -187,10 +187,10 @@ Rectangle{
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: {
-                            minusbox1.source = "file:///opt/ti-apps-launcher/assets/minuxboxhovered.png"
+                            minusbox1.source = "/images/minuxboxhovered.png"
                         }
                         onExited: {
-                            minusbox1.source = "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                            minusbox1.source = "/images/Minux_Box.png"
                         }
                         onClicked: {
                             if (backgroundrect.count == 1) {
@@ -237,7 +237,7 @@ Rectangle{
                 }
                 Image {
                     id: plusbox1
-                    source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                    source: "/images/Plus_Box.png"
                     fillMode: Image.PreserveAspectFit
                     width: parent.width
                     height: width
@@ -246,10 +246,10 @@ Rectangle{
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: {
-                            plusbox1.source = "file:///opt/ti-apps-launcher/assets/plusboxhovered.png"
+                            plusbox1.source = "/images/plusboxhovered.png"
                         }
                         onExited: {
-                            plusbox1.source = "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                            plusbox1.source = "/images/Plus_Box.png"
                         }
                         onClicked: {
                             if (backgroundrect.count == 1) {
@@ -298,7 +298,7 @@ Rectangle{
         }
         Image {
             id: bottomrb
-            source: "file:///opt/ti-apps-launcher/assets/Bottom_Right_Box.png"
+            source: "/images/Bottom_Right_Box.png"
             anchors.top: toprb.bottom
             anchors.topMargin: window.height * 0.005
             anchors.left: toprb.left
@@ -345,7 +345,7 @@ Rectangle{
 
                         Image {
                             anchors.fill: parent
-                            source: "file:///opt/ti-apps-launcher/assets/gaugebackground.svg"
+                            source: "/images/gaugebackground.svg"
                             fillMode: Image.PreserveAspectFit
                             asynchronous: true
                             sourceSize {
@@ -384,7 +384,7 @@ Rectangle{
                         height: outerRadius * 0.27
                         Image {
                             id: needle
-                            source: "file:///opt/ti-apps-launcher/assets/needle.svg"
+                            source: "/images/needle.svg"
                             height: parent.height
                             width: height * 0.1
                             asynchronous: true
@@ -419,7 +419,7 @@ Rectangle{
                     }
 
                     tickmark: Image {
-                        source: "file:///opt/ti-apps-launcher/assets/tickmark.svg"
+                        source: "/images/tickmark.svg"
                         width: outerRadius * 0.018
                         height: outerRadius * 0.15
                         antialiasing: true
@@ -446,7 +446,7 @@ Rectangle{
                 anchors.rightMargin: parent.width * 0.015
                 Image {
                     id: minusbox2
-                    source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                    source: "/images/Minux_Box.png"
                     fillMode: Image.PreserveAspectFit
                     width: parent.width
                     height: width
@@ -455,10 +455,10 @@ Rectangle{
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: {
-                            minusbox2.source = "file:///opt/ti-apps-launcher/assets/minuxboxhovered.png"
+                            minusbox2.source = "/images/minuxboxhovered.png"
                         }
                         onExited: {
-                            minusbox2.source = "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                            minusbox2.source = "/images/Minux_Box.png"
                         }
                         onClicked: {
                             if (backgroundrect.count == 1) {
@@ -506,7 +506,7 @@ Rectangle{
                 }
                 Image {
                     id: plusbox2
-                    source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                    source: "/images/Plus_Box.png"
                     fillMode: Image.PreserveAspectFit
                     width: parent.width
                     height: width
@@ -515,10 +515,10 @@ Rectangle{
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: {
-                            plusbox2.source = "file:///opt/ti-apps-launcher/assets/plusboxhovered.png"
+                            plusbox2.source = "/images/plusboxhovered.png"
                         }
                         onExited: {
-                            plusbox2.source = "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                            plusbox2.source = "/images/Plus_Box.png"
                         }
                         onClicked: {
                             if (backgroundrect.count == 1) {
@@ -568,7 +568,7 @@ Rectangle{
         }
         Image {
             id: centreb
-            source: "file:///opt/ti-apps-launcher/assets/Center_Box.png"
+            source: "/images/Center_Box.png"
             anchors.top: toprb.top
             anchors.bottom: bottomrb.bottom
             anchors.right: parent.right
@@ -691,7 +691,7 @@ Rectangle{
                     anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxcurrent1
-                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                        source: "/images/Minux_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -700,10 +700,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                minusboxcurrent1.source = "file:///opt/ti-apps-launcher/assets/minuxboxhovered.png"
+                                minusboxcurrent1.source = "/images/minuxboxhovered.png"
                             }
                             onExited: {
-                                minusboxcurrent1.source = "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                                minusboxcurrent1.source = "/images/Minux_Box.png"
                             }
                             onClicked: {
                                 motorcurrent1.count -=10
@@ -724,7 +724,7 @@ Rectangle{
                     }
                     Image {
                         id: plusboxcurrent1
-                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                        source: "/images/Plus_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -733,10 +733,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                plusboxcurrent1.source = "file:///opt/ti-apps-launcher/assets/plusboxhovered.png"
+                                plusboxcurrent1.source = "/images/plusboxhovered.png"
                             }
                             onExited: {
-                                plusboxcurrent1.source = "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                                plusboxcurrent1.source = "/images/Plus_Box.png"
                             }
                             onClicked: {
                                 motorcurrent1.count += 10
@@ -856,7 +856,7 @@ Rectangle{
                     anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxpressure1
-                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                        source: "/images/Minux_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -865,10 +865,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                minusboxpressure1.source = "file:///opt/ti-apps-launcher/assets/minuxboxhovered.png"
+                                minusboxpressure1.source = "/images/minuxboxhovered.png"
                             }
                             onExited: {
-                                minusboxpressure1.source = "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                                minusboxpressure1.source = "/images/Minux_Box.png"
                             }
                             onClicked: {
                                 motorpressure1.count -=10
@@ -889,7 +889,7 @@ Rectangle{
                     }
                     Image {
                         id: plusboxpressure1
-                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                        source: "/images/Plus_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -898,10 +898,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                plusboxpressure1.source = "file:///opt/ti-apps-launcher/assets/plusboxhovered.png"
+                                plusboxpressure1.source = "/images/plusboxhovered.png"
                             }
                             onExited: {
-                                plusboxpressure1.source = "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                                plusboxpressure1.source = "/images/Plus_Box.png"
                             }
                             onClicked: {
                                 motorpressure1.count += 10
@@ -965,7 +965,7 @@ Rectangle{
                     
                     Image{
                         id: maintainence1
-                        source: "file:///opt/ti-apps-launcher/assets/maintainence.png"
+                        source: "/images/maintainence.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : parent.top
                         width: parent.width 
@@ -1002,7 +1002,7 @@ Rectangle{
                     }
                     Image{
                         id: security1
-                        source: "file:///opt/ti-apps-launcher/assets/security.png"
+                        source: "/images/security.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : maintainence1.bottom
                         anchors.topMargin: parent.height * 0.1
@@ -1024,7 +1024,7 @@ Rectangle{
                     }
                     Image{
                         id: wifi1
-                        source: "file:///opt/ti-apps-launcher/assets/wifi.png"
+                        source: "/images/wifi.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : security1.bottom
                         anchors.topMargin: parent.height * 0.07
@@ -1055,7 +1055,7 @@ Rectangle{
                     color: "transparent"
                     Image{
                         id: alert1
-                        source: "file:///opt/ti-apps-launcher/assets/alert.png"
+                        source: "/images/alert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : parent.top
                         width: parent.width 
@@ -1076,7 +1076,7 @@ Rectangle{
                     }
                     Image{
                         id: tempalert1
-                        source: "file:///opt/ti-apps-launcher/assets/tempalert.png"
+                        source: "/images/tempalert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : alert1.bottom
                         anchors.topMargin: parent.height * 0.1
@@ -1097,7 +1097,7 @@ Rectangle{
                     }
                     Image{
                         id: lowbattery1
-                        source: "file:///opt/ti-apps-launcher/assets/low-battery.png"
+                        source: "/images/low-battery.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : tempalert1.bottom
                         anchors.topMargin: parent.height * 0.05
@@ -1257,7 +1257,7 @@ Rectangle{
                     anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxcurrent2
-                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                        source: "/images/Minux_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -1266,10 +1266,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                minusboxcurrent2.source = "file:///opt/ti-apps-launcher/assets/minuxboxhovered.png"
+                                minusboxcurrent2.source = "/images/minuxboxhovered.png"
                             }
                             onExited: {
-                                minusboxcurrent2.source = "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                                minusboxcurrent2.source = "/images/Minux_Box.png"
                             }
                             onClicked: {
                                 motorcurrent2.count -=10
@@ -1290,7 +1290,7 @@ Rectangle{
                     }
                     Image {
                         id: plusboxcurrent2
-                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                        source: "/images/Plus_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -1299,10 +1299,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                plusboxcurrent2.source = "file:///opt/ti-apps-launcher/assets/plusboxhovered.png"
+                                plusboxcurrent2.source = "/images/plusboxhovered.png"
                             }
                             onExited: {
-                                plusboxcurrent2.source = "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                                plusboxcurrent2.source = "/images/Plus_Box.png"
                             }
                             onClicked: {
                                 motorcurrent2.count += 10
@@ -1423,7 +1423,7 @@ Rectangle{
                     anchors.bottomMargin: parent.height * 0.12
                     Image {
                         id: minusboxpressure2
-                        source: "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                        source: "/images/Minux_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -1432,10 +1432,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                minusboxpressure2.source = "file:///opt/ti-apps-launcher/assets/minuxboxhovered.png"
+                                minusboxpressure2.source = "/images/minuxboxhovered.png"
                             }
                             onExited: {
-                                minusboxpressure2.source = "file:///opt/ti-apps-launcher/assets/Minux_Box.png"
+                                minusboxpressure2.source = "/images/Minux_Box.png"
                             }
                             onClicked: {
                                 motorpressure2.count -=10
@@ -1456,7 +1456,7 @@ Rectangle{
                     }
                     Image {
                         id: plusboxpressure2
-                        source: "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                        source: "/images/Plus_Box.png"
                         fillMode: Image.PreserveAspectFit
                         height: parent.height
                         width: height
@@ -1465,10 +1465,10 @@ Rectangle{
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: {
-                                plusboxpressure2.source = "file:///opt/ti-apps-launcher/assets/plusboxhovered.png"
+                                plusboxpressure2.source = "/images/plusboxhovered.png"
                             }
                             onExited: {
-                                plusboxpressure2.source = "file:///opt/ti-apps-launcher/assets/Plus_Box.png"
+                                plusboxpressure2.source = "/images/Plus_Box.png"
                             }
                             onClicked: {
                                 motorpressure2.count += 10
@@ -1529,7 +1529,7 @@ Rectangle{
                     color: "transparent"
                     Image{
                         id: maintainence2
-                        source: "file:///opt/ti-apps-launcher/assets/maintainence.png"
+                        source: "/images/maintainence.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : parent.top
                         width: parent.width 
@@ -1567,7 +1567,7 @@ Rectangle{
                     }
                     Image{
                         id: security2
-                        source: "file:///opt/ti-apps-launcher/assets/security.png"
+                        source: "/images/security.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : maintainence2.bottom
                         anchors.topMargin: parent.height * 0.1
@@ -1589,7 +1589,7 @@ Rectangle{
                     }
                     Image{
                         id: wifi2
-                        source: "file:///opt/ti-apps-launcher/assets/wifi.png"
+                        source: "/images/wifi.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : security2.bottom
                         anchors.topMargin: parent.height * 0.1
@@ -1620,7 +1620,7 @@ Rectangle{
                     color: "transparent"
                     Image{
                         id: alert2
-                        source: "file:///opt/ti-apps-launcher/assets/alert.png"
+                        source: "/images/alert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : parent.top
                         width: parent.width 
@@ -1641,7 +1641,7 @@ Rectangle{
                     }
                     Image{
                         id: tempalert2
-                        source: "file:///opt/ti-apps-launcher/assets/tempalert.png"
+                        source: "/images/tempalert.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : alert2.bottom
                         anchors.topMargin: parent.height * 0.1
@@ -1663,7 +1663,7 @@ Rectangle{
                     }
                     Image{
                         id: lowbattery2
-                        source: "file:///opt/ti-apps-launcher/assets/low-battery.png"
+                        source: "/images/low-battery.png"
                         sourceSize: Qt.size(parent.width, parent.height)
                         anchors.top : tempalert2.bottom
                         anchors.topMargin: parent.height * 0.05
@@ -1718,14 +1718,14 @@ Rectangle{
             Image {
                 id:slidebutton
                 visible: true
-                source: "file:///opt/ti-apps-launcher/assets/mode1.png"
+                source: "/images/mode1.png"
                 fillMode: Image.PreserveAspectFit
                 anchors.fill: parent
             }
             Image {
                 id:slidebutton2
                 visible: false
-                source: "file:///opt/ti-apps-launcher/assets/mode2.png"
+                source: "/images/mode2.png"
                 fillMode: Image.PreserveAspectFit 
                 anchors.fill: parent
             }

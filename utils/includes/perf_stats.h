@@ -14,41 +14,6 @@ extern "C" {
     ################################
 */
 
-typedef struct {
-
-    uint64_t total_time;
-    uint64_t busy_time;
-    uint64_t irq_time;
-    uint64_t softirq_time;
-    uint32_t cpu_load; /**< divide by 100 to get load in units of xx.xx % */
-    uint32_t hwi_load; /**< divide by 100 to get load in units of xx.xx % */
-    uint32_t swi_load; /**< divide by 100 to get load in units of xx.xx % */
-} perfStatsCpuLoad;
-
-/**
-* Utility Function to calculate cpu loading
-*
-* @param cpuLoad       Pointer to perfStatsCpuLoad structure
-*/
-void perfStatsCpuLoadCalc(perfStatsCpuLoad *cpuLoad);
-
-/**
-* Utility Function to Initialize cpuLoad stats
-*/
-void perfStatsCpuStatsInit(perfStatsCpuLoad *cpu_load);
-
-/**
-* Utility Function to Print CPU stats
-*/
-void perfStatsCpuStatsPrint(perfStatsCpuLoad *cpu_load);
-
-/**
-* Utility Function to reset perfStatsCpuLoad struct members
-*
-* @param cpuLoad       Pointer to perfStatsCpuLoad structure
-*/
-void perfStatsResetCpuLoadCalc(perfStatsCpuLoad *cpuLoad);
-
 /**
  * \brief DDR BW information
  *

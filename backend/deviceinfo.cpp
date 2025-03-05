@@ -1,11 +1,10 @@
+#include "includes/common.h"
 #include "includes/deviceinfo.h"
 
-extern QString platform;
 QString Device_info::getplatform(){
-    return platform;
+    return deviceMap[detected_device].platform;
 }
 
-extern QString wallpaper;
 QString Device_info::getWallpaper(){
-    return wallpaper;
+    return deviceMap[detected_device].wallpaper;
 }

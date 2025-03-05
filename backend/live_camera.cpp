@@ -1,5 +1,10 @@
 #include "includes/live_camera.h"
+
+#include <sstream>
+
 #include <QDebug>
+
+using namespace std;
 
 string LiveCamera::replaceAll(string str, const string &remove, const string &insert) {
     string::size_type pos = 0;
@@ -20,10 +25,6 @@ string LiveCamera::trimString(string str) {
         stripString.erase(stripString.length()-1);
 
     return stripString;
-}
-
-LiveCamera::LiveCamera() {
-    // liveCamera_get_camera_info(cameraInfo);
 }
 
 // Get and Populate CameraInfo to CameraList

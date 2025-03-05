@@ -1,20 +1,13 @@
 #include <QObject>
-#include <iostream>
-
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <QStringListModel>
+#include <QString>
 #include <QProcess>
-#include <QDebug>
-#include<QMediaPlayer>
-using namespace std;
-
 
 class Gpu_performance : public QObject {
     Q_OBJECT
 
 private:
+    QProcess load;
+    QString loadout;
 
 public:
 

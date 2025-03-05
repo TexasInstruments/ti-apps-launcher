@@ -82,9 +82,6 @@ Window {
                     progressbar.visible = false;
                     visible = true
                 }
-                Component.onCompleted: {
-                    appsmenu.cache_flush();
-                }
             }
             ProgressBar {
                 id: progressbar
