@@ -10,16 +10,17 @@ private:
     QString _status_msg;
 
     QString _command;
+    QStringList _args;
     QProcess process;
 
 public:
     Q_PROPERTY(QString button MEMBER _button NOTIFY button_changed);
     Q_PROPERTY(QString status_msg MEMBER _status_msg NOTIFY status_msg_changed);
 
-    RunCmd(QString command);
+    RunCmd(QString command, QStringList args);
 
     Q_INVOKABLE void launch_or_stop();
-    Q_INVOKABLE void run(QString command);
+    Q_INVOKABLE void run(QString command = QString(), QStringList args = QStringList());
 
 signals:
     void button_changed();

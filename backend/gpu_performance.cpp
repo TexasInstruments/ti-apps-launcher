@@ -10,25 +10,25 @@ void Gpu_performance::gpuload1(){
     /* The duration of the benchmark has to be tied to the time interval of the
        Timer in the gpu_performance.qml. This is because we are reading the standard
        output in the timer task */
-    load.start("glmark2-es2-wayland -b buffer:duration=30");
+    load.start("glmark2-es2-wayland", {"-b", "buffer:duration=30"});
 }
 
 void Gpu_performance::gpuload2(){
     gpuload0();
     load.waitForFinished();
-    load.start("glmark2-es2-wayland -b ideas:duration=30");
+    load.start("glmark2-es2-wayland", {"-b", "ideas:duration=30"});
 }
 
 void Gpu_performance::gpuload3(){
     gpuload0();
     load.waitForFinished();
-    load.start("glmark2-es2-wayland -b texture:duration=30");
+    load.start("glmark2-es2-wayland", {"-b", "texture:duration=30"});
 }
 
 void Gpu_performance::gpuload4(){
     gpuload0();
     load.waitForFinished();
-    load.start("glmark2-es2-wayland -b terrain:duration=30");
+    load.start("glmark2-es2-wayland", {"-b", "terrain:duration=30"});
 }
 
 QString Gpu_performance::getfps(){

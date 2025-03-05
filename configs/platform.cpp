@@ -36,10 +36,10 @@ Benchmarks benchmarks;
 Gpu_performance gpuperformance;
 Wifi wifi;
 
-RunCmd *seva_store = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run http://localhost:8007/#/\""));
-RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"));
-RunCmd *poweraction = new RunCmd(QStringLiteral(""));
-RunCmd *chromium_browser = new RunCmd(QStringLiteral("su weston -c \"chromium --no-first-run https://webglsamples.org/aquarium/aquarium.html\""));
+RunCmd *seva_store = new RunCmd("/usr/bin/su", QStringList({"weston", "-c", "/usr/bin/chromium --no-first-run http://localhost:8007/#/"}));
+RunCmd *demo_3d = new RunCmd(QStringLiteral("/usr/bin/SGX/demos/Wayland/OpenGLESSkinning"), QStringList({}));
+RunCmd *poweraction = new RunCmd(QStringLiteral(""), QStringList({}));
+RunCmd *chromium_browser = new RunCmd("/usr/bin/su", QStringList({"weston", "-c", "chromium --no-first-run https://webglsamples.org/aquarium/aquarium.html"}));
 
 QMap<enum devices, struct device_info> deviceMap = {
     { AM62PXX_EVM, device_info_am62p },
