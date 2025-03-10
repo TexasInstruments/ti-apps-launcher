@@ -1,6 +1,6 @@
 import QtQml 2.1
 import QtQuick 2.14
-import QtMultimedia 5.1
+import QtMultimedia
 import QtQuick.Controls 2.1
 import Qt.labs.folderlistmodel 2.4
 import QtQuick.Layouts 1.3
@@ -18,12 +18,14 @@ Rectangle {
 
         MediaPlayer {
             id: mediaplayer
-            autoPlay: false
-            onStopped: {
-                msg.visible = msg.state
-                status_message.text = msg.state ? (" ") : ("Live: " + camera.get_current_camera())
-                camera_record_button.source = msg.state ? "/images/record-disabled.png" : "/images/record.png"
-                camera_record_button_mousearea.enabled = msg.state ? false : true
+            videoOutput: feed
+            onPlaybackStateChanged: {
+                if (playbackState !== PlayingState) {
+                    msg.visible = msg.state
+                    status_message.text = msg.state ? (" ") : ("Live: " + camera.get_current_camera())
+                    camera_record_button.source = msg.state ? "/images/record-disabled.png" : "/images/record.png"
+                    camera_record_button_mousearea.enabled = msg.state ? false : true
+                }
             }
         }
 
@@ -39,7 +41,6 @@ Rectangle {
 
             VideoOutput {
                 id: feed
-                source: mediaplayer
                 anchors.fill: parent
                 anchors.centerIn: parent
                 visible: true

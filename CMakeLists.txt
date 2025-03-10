@@ -6,9 +6,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 include(GNUInstallDirs)
 
-#find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
-find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets Multimedia Quick)
+
+find_package(PkgConfig REQUIRED)
+pkg_search_module(gstreamer REQUIRED IMPORTED_TARGET gstreamer-1.0>=1.22)
 
 set(SOURCES
     ti-apps-launcher.cpp
@@ -42,6 +44,7 @@ target_link_libraries(ti-apps-launcher PRIVATE
     Qt::Widgets
     Qt::Multimedia
     Qt::Quick
+    PkgConfig::gstreamer
 )
 
 install(TARGETS ti-apps-launcher

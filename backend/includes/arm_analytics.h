@@ -1,25 +1,15 @@
 #include <QObject>
 #include <QString>
 
+#include <gst/gst.h>
+
 class ArmAnalytics : public QObject {
     Q_OBJECT
 
 private:
-
-    QString _model;
+    GstElement *pipeline = NULL;
 
 public:
-
-    QString gst_pipeline;
-
-    Q_PROPERTY(QString gst_pipeline READ armAnalytics_gst_pipeline WRITE armAnalytics_update_gst_pipeline NOTIFY armAnalytics_gst_pipeline_updated)
-
-    Q_INVOKABLE void armAnalytics_update_gst_pipeline(QString model);
-
-    Q_INVOKABLE QString armAnalytics_gst_pipeline();
-
-signals:
-
-    void armAnalytics_gst_pipeline_updated();
+    Q_INVOKABLE void startVideo(QObject* object, QString model);
+    Q_INVOKABLE void stopVideo();
 };
-
