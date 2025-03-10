@@ -1,8 +1,11 @@
 #include "includes/arm_analytics.h"
 #include "includes/common.h"
 #include <QDebug>
+#include <QQuickItem>
 
-QString object_detection_gst_pipeline = "gst-pipeline: \
+#include <gst/gst.h>
+
+QString object_detection_gst_pipeline = "\
     multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
     videoconvert ! video/x-raw,format=RGB ! \
@@ -25,9 +28,9 @@ QString object_detection_gst_pipeline = "gst-pipeline: \
         queue ! \
         mix.sink_1 \
     compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
-    qtvideosink";
+    glupload ! qml6glsink name=sink";
 
-QString face_detection_gst_pipeline = "gst-pipeline: \
+QString face_detection_gst_pipeline = "\
     multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-faces.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
     tee name=tee_split0 \
@@ -49,9 +52,9 @@ QString face_detection_gst_pipeline = "gst-pipeline: \
         queue ! \
         mix.sink_1 \
     compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
-    qtvideosink";
+    glupload ! qml6glsink name=sink";
 
-QString image_classification_gst_pipeline = "gst-pipeline: \
+QString image_classification_gst_pipeline = "\
     multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
     tee name=tee_split0 \
@@ -69,27 +72,52 @@ QString image_classification_gst_pipeline = "gst-pipeline: \
         queue ! \
         overlay.video_sink \
     textoverlay name=overlay font-desc=Sans,24 ! \
-    qtvideosink";
+    glupload ! qml6glsink name=sink";
 
-void ArmAnalytics::armAnalytics_update_gst_pipeline(QString model) {
-    _model = model;
-}
-
-QString ArmAnalytics::armAnalytics_gst_pipeline() {
-    if (_model == QStringLiteral("Image Classification"))
+void ArmAnalytics::startVideo(QObject* object, QString model) {
+    QString gst_pipeline;
+    if (model == QStringLiteral("Image Classification"))
         gst_pipeline = image_classification_gst_pipeline;
-    else if (_model == QStringLiteral("Object Detection"))
+    else if (model == QStringLiteral("Object Detection"))
         gst_pipeline = object_detection_gst_pipeline;
-    else if (_model == QStringLiteral("Face Detection"))
+    else if (model == QStringLiteral("Face Detection"))
         gst_pipeline = face_detection_gst_pipeline;
-    else
+    else {
         qDebug() << "Doesn't match any model";
+        return;
+    }
 
     if (detected_device == AM62PXX_EVM) {
         gst_pipeline.replace("avdec_h264", "v4l2h264dec capture-io-mode=4");
         gst_pipeline.replace("loop=true", "loop=true caps=video/x-h264,width=1280,height=720,framerate=1/1");
     }
 
-    qDebug() << gst_pipeline;
-    return gst_pipeline;
+    GError *error = NULL;
+    pipeline = gst_parse_launch (gst_pipeline.toLatin1().data(), &error);
+    if (error) {
+        g_printerr("Failed to parse launch: %s\n", error->message);
+        g_error_free(error);
+        return;
+    }
+
+    /* find and set the videoItem on the sink */
+    GstElement *sink = gst_bin_get_by_name( GST_BIN( pipeline ), "sink" );
+    g_assert(sink);
+    QQuickItem *videoItem = qobject_cast<QQuickItem*>(object);
+    g_assert(videoItem);
+    g_object_set(sink, "widget", videoItem, NULL);
+
+    qDebug() << "Starting video";
+    gst_element_set_state(pipeline, GST_STATE_PLAYING);
+}
+
+void ArmAnalytics::stopVideo()
+{
+    if (pipeline) {
+        qDebug() << "Stopping video";
+        gst_element_set_state (pipeline, GST_STATE_NULL);
+        qDebug() << "Removing pipeline";
+        gst_object_unref (pipeline);
+        pipeline = NULL;
+    }
 }
