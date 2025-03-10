@@ -4,6 +4,8 @@
 #include <QStringListModel>
 #include <QNetworkInterface>
 
+#include <gst/gst.h>
+
 #include <csignal>
 #include <thread>
 #include <fstream>
@@ -54,6 +56,8 @@ void GetIpAddr()
 }
 
 int main(int argc, char *argv[]) {
+    gst_init (&argc, &argv);
+
     QApplication app(argc, argv);
 
     QStringList modelslist = modelNamesList.stringList();
@@ -65,6 +69,10 @@ int main(int argc, char *argv[]) {
 
     std::signal(SIGINT,  sigHandler);
     std::signal(SIGTERM, sigHandler);
+
+    /* the plugin must be loaded before loading the qml file to register the GstGLVideoItem qml item */
+    GstElement *sink = gst_element_factory_make ("qml6glsink", NULL);
+    g_assert(sink);
 
     QQmlApplicationEngine engine;
 
@@ -93,5 +101,9 @@ int main(int argc, char *argv[]) {
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    return app.exec();
+    int ret = app.exec();
+
+    gst_deinit ();
+
+    return ret;
 }
