@@ -315,23 +315,6 @@ Rectangle {
             height: parent.height * 0.8
             width: parent.width * 0.15
 
-            style: GaugeStyle {
-                valueBar: Rectangle {
-                    implicitWidth: thermometer1.width
-                    color: Qt.rgba(thermometer1.value / thermometer1.maximumValue, 1-thermometer1.value / thermometer1.maximumValue , 0 , 1)
-                }
-                background: Rectangle {
-                    color: "#D0D3D4"
-                }
-                tickmarkLabel:  Text {
-                    font.pixelSize: thermometer1.width * 0.4
-                    text: styleData.value
-                    color: (styleData.value <= thermometer1.value) ? "#e34c22" : "white"
-                    font.bold: true
-                    antialiasing: true
-                }
-            }
-
             NumberAnimation {
                 duration: 500
             }
@@ -655,23 +638,6 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height * 0.8
             width: parent.width * 0.15
-
-            style: GaugeStyle {
-                valueBar: Rectangle {
-                    implicitWidth: thermometer2.width
-                    color: Qt.rgba(thermometer2.value / thermometer2.maximumValue, 1-thermometer2.value / thermometer2.maximumValue , 0 , 1)
-                }
-                background: Rectangle {
-                    color: "#D0D3D4"
-                }
-                tickmarkLabel:  Text {
-                    font.pixelSize: thermometer2.width * 0.4
-                    text: styleData.value
-                    color: (styleData.value <= thermometer2.value) ? "#e34c22" : "white"
-                    antialiasing: true
-                    font.bold: true
-                }
-            }
 
             NumberAnimation {
                 duration: 500
