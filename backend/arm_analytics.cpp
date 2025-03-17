@@ -30,30 +30,6 @@ QString object_detection_gst_pipeline = "\
     compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
     glupload ! qml6glsink name=sink";
 
-QString face_detection_gst_pipeline = "\
-    multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-faces.h264 loop=true ! \
-    h264parse ! avdec_h264 ! \
-    tee name=tee_split0 \
-    tee_split0. ! \
-        queue ! \
-        videoscale ! video/x-raw,width=416,height=416 ! \
-        tensor_converter ! \
-        tensor_transform mode=arithmetic option=typecast:float32,add:-127.5,div:127.5 ! \
-        tensor_filter framework=onnxruntime model=/usr/share/oob-demo-assets/models/yolox-nano-lite-mmdet-coco-416x416.onnx ! \
-        tensor_decoder \
-        mode=bounding_boxes \
-            option1=mobilenet-ssd \
-            option2=/usr/share/oob-demo-assets/labels/coco_labels.txt \
-            option3=/usr/share/oob-demo-assets/labels/box_priors.txt \
-            option4=1280:720 \
-            option5=300:300 ! \
-        mix.sink_0 \
-    tee_split0. ! \
-        queue ! \
-        mix.sink_1 \
-    compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
-    glupload ! qml6glsink name=sink";
-
 QString image_classification_gst_pipeline = "\
     multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
@@ -80,8 +56,6 @@ void ArmAnalytics::startVideo(QObject* object, QString model) {
         gst_pipeline = image_classification_gst_pipeline;
     else if (model == QStringLiteral("Object Detection"))
         gst_pipeline = object_detection_gst_pipeline;
-    else if (model == QStringLiteral("Face Detection"))
-        gst_pipeline = face_detection_gst_pipeline;
     else {
         qDebug() << "Doesn't match any model";
         return;

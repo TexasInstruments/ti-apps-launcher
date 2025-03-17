@@ -32,15 +32,6 @@ Rectangle {
                     arm_analytics.startVideo(analytics_feed, text);
                 }
             }
-            Button {
-                width: parent.width * 0.1
-                height: parent.height * 0.1
-                text: "Face Detection"
-                onClicked: {
-                    arm_analytics.stopVideo();
-                    arm_analytics.startVideo(analytics_feed, text);
-                }
-            }
 
             Button {
                 width: parent.width * 0.1
