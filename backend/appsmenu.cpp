@@ -10,7 +10,7 @@ QString apps_menu::button_getname(int n) {
 }
 
 QString apps_menu::button_getqml(int n) {
-    return deviceMap[detected_device].include_apps[n].qml_source;
+    return "/apps/" + deviceMap[detected_device].include_apps[n].qml_source;
 }
 
 QString apps_menu::button_geticon(int n) {

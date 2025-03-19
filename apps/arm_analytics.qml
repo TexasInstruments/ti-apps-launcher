@@ -1,6 +1,6 @@
 import QtQml 2.1
 import QtQuick 2.14
-import QtMultimedia 5.1
+import QtMultimedia
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
@@ -13,13 +13,12 @@ Rectangle {
 
     MediaPlayer {
         id: mediaplayer
-        autoPlay: false
+        videoOutput: analytics_feed
     }
 
     VideoOutput {
         id: analytics_feed
         anchors.fill: parent
-        source: mediaplayer
 
         RowLayout {
             id: analytics_buttons
