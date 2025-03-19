@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>ti-apps-launcher.qml</file>
+        <file>apps/CircularGauge.qml</file>
+        <file>apps/Gauge.qml</file>
         <file>apps/topbar.qml</file>
         <file>apps/appsmenu.qml</file>
         <file>apps/deviceinfo.qml</file>
