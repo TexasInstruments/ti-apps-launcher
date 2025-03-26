@@ -16,7 +16,6 @@ struct device_info device_info_am62_lp = {
         app_chromium_browser,
         app_3d_demo,
         app_settings,
-        app_terminal,
     },
     .include_powerbuttons = {
         action_shutdown,
