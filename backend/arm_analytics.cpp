@@ -46,6 +46,7 @@ QString image_classification_gst_pipeline = "\
         overlay.text_sink \
     tee_split0. ! \
         queue ! \
+        videoconvert ! video/x-raw,format=RGB ! \
         overlay.video_sink \
     textoverlay name=overlay font-desc=Sans,24 ! \
     glupload ! qml6glsink name=sink";
