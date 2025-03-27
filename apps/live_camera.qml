@@ -3,6 +3,7 @@ import QtQuick 2.14
 import QtMultimedia
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
+import org.freedesktop.gstreamer.Qt6GLVideoItem 1.0
 
 Rectangle {
     id: camerarecorder
@@ -10,11 +11,6 @@ Rectangle {
     height: parent.height
     width: parent.width
     color: "#344045"
-
-    MediaPlayer {
-        id: mediaplayer
-        autoPlay: false
-    }
 
     Text {
         id: no_cameras
@@ -24,10 +20,10 @@ Rectangle {
         color: "#EEFFFF"
     }
 
-    VideoOutput {
+    GstGLQt6VideoItem {
+        objectName: "streamItem"
         id: camera_feed
         anchors.fill: parent
-        source: mediaplayer
 
         RowLayout {
             anchors.bottom: parent.bottom
@@ -44,27 +40,27 @@ Rectangle {
                     text: live_camera.liveCamera_get_camera_name(index)
                     onClicked: {
                         live_camera.liveCamera_update_gst_pipeline(text)
-                        mediaplayer.stop()
-                        mediaplayer.source = live_camera.liveCamera_gst_pipeline()
-                        mediaplayer.play()
+                        live_camera.stopStream()
+                        live_camera.startStream(camera_feed)
                     }
                 }
             }
         }
-    }
 
-    Component.onCompleted: {
-        if (live_camera.liveCamera_get_count() == 0) {
-            no_cameras.visible = true
-            camera_feed.visible = false
-        } else {
-            no_cameras.visible = false
-            camera_feed.visible = true
-
-            live_camera.liveCamera_update_gst_pipeline(camera_buttons.itemAt(0).text)
-            mediaplayer.stop()
-            mediaplayer.source = live_camera.liveCamera_gst_pipeline()
-            mediaplayer.play()
+        onItemInitializedChanged: {
+            if (camera_buttons.model == 0) {
+                no_cameras.visible = true
+                camera_feed.visible = false
+            } else {
+                no_cameras.visible = false
+                camera_feed.visible = true
+                live_camera.liveCamera_update_gst_pipeline(camera_buttons.itemAt(0).text)
+                live_camera.stopStream()
+                live_camera.startStream(camera_feed)
+            }
+        }
+        Component.onDestruction: {
+            live_camera.stopStream()
         }
     }
 }
