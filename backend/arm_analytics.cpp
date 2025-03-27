@@ -8,11 +8,10 @@
 QString object_detection_gst_pipeline = "\
     multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
     h264parse ! avdec_h264 ! \
-    videoconvert ! video/x-raw,format=RGB ! \
     tee name=tee_split0 \
     tee_split0. ! \
         queue ! \
-        videoscale ! video/x-raw,width=300,height=300 ! \
+        videoconvertscale ! video/x-raw,width=300,height=300,format=RGB ! \
         tensor_converter ! \
         tensor_transform mode=arithmetic option=typecast:float32,add:-127.5,div:127.5 ! \
         tensor_filter framework=tensorflow2-lite model=/usr/share/oob-demo-assets/models/ssd_mobilenet_v2_coco.tflite custom=Delegate:XNNPACK,NumThreads:4 latency=1 ! \
@@ -28,7 +27,7 @@ QString object_detection_gst_pipeline = "\
         queue ! \
         mix.sink_1 \
     compositor name=mix sink_0::zorder=2 sink_1::zorder=1 ! \
-    glupload ! qml6glsink name=sink";
+    glupload ! glcolorconvert ! qml6glsink name=sink";
 
 QString image_classification_gst_pipeline = "\
     multifilesrc location=/usr/share/oob-demo-assets/videos/oob-gui-video-objects.h264 loop=true ! \
@@ -36,7 +35,7 @@ QString image_classification_gst_pipeline = "\
     tee name=tee_split0 \
     tee_split0. ! \
         queue ! \
-        videoconvert ! videoscale ! video/x-raw,width=224,height=224,format=BGR ! \
+        videoconvertscale ! video/x-raw,width=224,height=224,format=BGR ! \
         tensor_converter ! \
         tensor_transform mode=transpose option=1:2:0:3 ! \
         tensor_filter framework=onnxruntime model=/usr/share/oob-demo-assets/models/regnetx-200mf.onnx ! \
@@ -46,10 +45,9 @@ QString image_classification_gst_pipeline = "\
         overlay.text_sink \
     tee_split0. ! \
         queue ! \
-        videoconvert ! video/x-raw,format=RGB ! \
         overlay.video_sink \
     textoverlay name=overlay font-desc=Sans,24 ! \
-    glupload ! qml6glsink name=sink";
+    glupload ! glcolorconvert ! qml6glsink name=sink";
 
 void ArmAnalytics::startVideo(QObject* object, QString model) {
     QString gst_pipeline;
