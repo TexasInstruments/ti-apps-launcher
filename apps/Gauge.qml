@@ -30,7 +30,7 @@ Item {
         anchors.right: tube.right
         anchors.bottom: tube.bottom
         color: Qt.rgba(thermometer1.value / thermometer1.maximumValue, 1-thermometer1.value / thermometer1.maximumValue , 0 , 1)
-        Behavior on height { NumberAnimation { duration: 500 } }
+        Behavior on height { NumberAnimation { duration: 2000 } }
     }
 
     /* Tick Marks + Labels */

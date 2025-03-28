@@ -22,6 +22,8 @@ Item {
     property real intervalDeg: totalDeg / (labelCount - 1) /* no. of degrees b/w 2 major tickmarks */
     property real intervalRad: intervalDeg * Math.PI / 180 /* no. of radians b/w 2 major tickmarks */
 
+    //color: "transparent"
+
     /* Function to be called to get the angle by which the needle must be turned
      * @returns: Angle to a label/tickmark from the X-axis
      */

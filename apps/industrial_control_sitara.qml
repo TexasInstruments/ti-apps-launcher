@@ -82,7 +82,7 @@ Rectangle {
 
             Behavior on value {
                 NumberAnimation {
-                    duration: 500
+                    duration: 2000
                 }
             }
         }
@@ -126,7 +126,7 @@ Rectangle {
                     id: ammeter1minusScaleAnim
                     target: ammeter1minus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -170,7 +170,7 @@ Rectangle {
                     id: ammeter1plusScaleAnim
                     target: ammeter1plus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -193,7 +193,7 @@ Rectangle {
 
             Behavior on value {
                 NumberAnimation {
-                    duration: 500
+                    duration: 2000
                 }
             }
         }
@@ -237,7 +237,7 @@ Rectangle {
                     id: manometer1minusScaleAnim
                     target: manometer1minus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -281,7 +281,7 @@ Rectangle {
                     id: manometer1plusScaleAnim
                     target: manometer1plus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -316,7 +316,7 @@ Rectangle {
             width: parent.width * 0.15
 
             NumberAnimation {
-                duration: 500
+                duration: 2000
             }
         }
         Rectangle {
@@ -408,7 +408,7 @@ Rectangle {
 
             Behavior on value {
                 NumberAnimation {
-                    duration: 500
+                    duration: 2000
                 }
             }
         }
@@ -452,7 +452,7 @@ Rectangle {
                     id: ammeter2minusScaleAnim
                     target: ammeter2minus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -495,7 +495,7 @@ Rectangle {
                     id: ammeter2plusScaleAnim
                     target: ammeter2plus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -518,7 +518,7 @@ Rectangle {
 
             Behavior on value {
                 NumberAnimation {
-                    duration: 500
+                    duration: 2000
                 }
             }
         }
@@ -562,7 +562,7 @@ Rectangle {
                     id: manometer2minusScaleAnim
                     target: manometer2minus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -605,7 +605,7 @@ Rectangle {
                     id: manometer2plusScaleAnim
                     target: manometer2plus
                     property: "scale"
-                    duration: 100
+                    duration: 2000
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -640,7 +640,7 @@ Rectangle {
             width: parent.width * 0.15
 
             NumberAnimation {
-                duration: 500
+                duration: 2000
             }
         }
         Rectangle {
@@ -749,7 +749,7 @@ Rectangle {
 
                 Behavior on value {
                     NumberAnimation {
-                        duration: 400;
+                        duration: 2000;
                     }
                 }
             }
@@ -792,7 +792,7 @@ Rectangle {
                         id: speedometer1minusScaleAnim
                         target: speedometer1minus
                         property: "scale"
-                        duration: 100
+                        duration: 2000
                         easing.type: Easing.InOutQuad
                     }
                 }
@@ -827,7 +827,7 @@ Rectangle {
                         id: speedometer1plusScaleAnim
                         target: speedometer1plus
                         property: "scale"
-                        duration: 100
+                        duration: 2000
                         easing.type: Easing.InOutQuad
                     }
                 }
@@ -902,7 +902,7 @@ Rectangle {
 
                 Behavior on value {
                     NumberAnimation {
-                        duration: 600;
+                        duration: 2000;
                     }
                 }
             }
@@ -946,7 +946,7 @@ Rectangle {
                         id: speedometer2minusScaleAnim
                         target: speedometer2minus
                         property: "scale"
-                        duration: 100
+                        duration: 2000
                         easing.type: Easing.InOutQuad
                     }
                 }
@@ -981,7 +981,7 @@ Rectangle {
                         id: speedometer2plusScaleAnim
                         target: speedometer2plus
                         property: "scale"
-                        duration: 100
+                        duration: 2000
                         easing.type: Easing.InOutQuad
                     }
                 }
