@@ -8,7 +8,6 @@ struct device_info device_info_am62_lp = {
     .wallpaper = "/images/am6x_oob_demo_home_image.png",
     .include_apps = {
         app_industrial_control_sitara,
-        app_live_camera,
         app_arm_analytics,
         app_benchmarks,
         app_gpu_performance,
