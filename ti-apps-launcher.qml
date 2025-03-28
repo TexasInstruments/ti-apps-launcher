@@ -82,6 +82,12 @@ Window {
                     progressbar.visible = false;
                     visible = true
                 }
+                Connections {
+                    target: Qt.application
+                    function onAboutToQuit() {
+                        appWindow.source = ""
+                    }
+                }
             }
             ProgressBar {
                 id: progressbar
