@@ -7,7 +7,7 @@
 
 QString stats::getgpuload() {
     QProcess process;
-    process.start("cat /sys/kernel/debug/pvr/status");
+    process.start("cat", {"/sys/kernel/debug/pvr/status"});
     process.waitForFinished(-1);
     QString output = process.readAllStandardOutput();
     return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
@@ -40,7 +40,7 @@ QString stats::get_soc_temp() {
     QString output;
     float temp = 0;
 
-    process.start("cat /sys/class/thermal/thermal_zone0/temp");
+    process.start("cat", {"/sys/class/thermal/thermal_zone0/temp"});
     process.waitForFinished(-1);
     temp = process.readAllStandardOutput().toFloat();
 
