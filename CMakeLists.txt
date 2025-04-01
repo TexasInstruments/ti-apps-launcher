@@ -12,6 +12,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets Multimedia Qu
 find_package(PkgConfig REQUIRED)
 pkg_search_module(gstreamer REQUIRED IMPORTED_TARGET gstreamer-1.0>=1.22)
 
+add_compile_definitions(RT_BUILD=${RT_BUILD})
+
 set(SOURCES
     ti-apps-launcher.cpp
     backend/appsmenu.cpp backend/includes/appsmenu.h

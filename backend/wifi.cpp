@@ -67,9 +67,9 @@ void Wifi::setWifiOn() {
 // Method to switch off wifi
 void Wifi::setWifiOff() {
     QProcess process;
-    process.start("/usr/share/cc33xx/sta_stop.sh");
+    process.start("/usr/share/cc33xx/sta_stop.sh", QStringList({}));
     process.waitForFinished();
-    process.start("ip addr flush dev wlan0");
+    process.start("ip", {"addr", "flush", "dev", "wlan0"});
     process.waitForFinished();
     m_wifiConnected = false;
     m_ssid.clear();
@@ -80,7 +80,7 @@ void Wifi::setWifiOff() {
 // Method to check wifi status On or Off
 bool Wifi::checkWifiOnState() {
     QProcess process;
-    process.start("wpa_cli status");
+    process.start("wpa_cli", {"status"});
     process.waitForFinished();
     QString output = process.readAllStandardOutput();
     QString err = process.readAllStandardError();
@@ -122,7 +122,7 @@ void Wifi::checkWifiState() {
 // Method to fetch SSID names using wpa_cli
 void Wifi::fetchSSIDNames() {
     QProcess process;
-    process.start("wpa_cli scan");
+    process.start("wpa_cli", {"scan"});
     process.waitForFinished();
     process.start("sh", QStringList() << "-c" << "wpa_cli scan_results | awk '{if (NR>2) print $5}'");
     process.waitForFinished();
@@ -177,7 +177,7 @@ void Wifi::connect(QString ssid_name, QString security_type, QString pmf, QStrin
     if ( state.toStdString().length() == 0 ) {}
     else {
         QProcess process;
-        process.start("udhcpc -i wlan0");
+        process.start("udhcpc", {"-i wlan0"});
         process.waitForFinished();
         m_ssid = ssid_name;
         emit ssidChanged();
@@ -190,10 +190,10 @@ void Wifi::connect(QString ssid_name, QString security_type, QString pmf, QStrin
 void Wifi::disconnect() {
     // Disconnect SSID
     QProcess process;
-    process.start("wpa_cli disconnect");
+    process.start("wpa_cli", {"disconnect"});
     process.waitForFinished();
     // Remove ip
-    process.start("ip addr flush dev wlan0");
+    process.start("ip", {"addr", "flush", "dev", "wlan0"});
     process.waitForFinished();
     m_wifiConnected = false;
     m_ssid.clear();
