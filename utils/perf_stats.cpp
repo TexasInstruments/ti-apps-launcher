@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <time.h>
+#include <errno.h>
 
 #include "includes/perf_stats.h"
 //#define  SOC_J721E 1u
@@ -114,7 +115,17 @@ void perfStatsDdrStatsReadCounters(uint32_t *val0, uint32_t *val1, uint32_t *val
     {
         is_first_time = 0;
         fd = open("/dev/mem", O_RDWR | O_SYNC);
+        if (fd < 0) {
+            printf("Could not open /dev/mem, DDR stats will not be available: %d\n", errno);
+            cnt_sel[0] = NULL;
+            return;
+        }
         base = mmap(0, 0xF400000, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0x0);
+        if (base == MAP_FAILED) {
+            printf("Could not map DDR counters, DDR stats will not be available: %d\n", errno);
+            cnt_sel[0] = NULL;
+            return;
+        }
 
         #if defined(SOC_AM62A) || defined(SOC_AM62) || defined (SOC_AM62_LP) || defined(SOC_J722S) || defined (SOC_AM62P)
         cnt_sel[0] = (volatile uint32_t *)(base + 0x0f300000);
@@ -166,6 +177,9 @@ void perfStatsDdrStatsReadCounters(uint32_t *val0, uint32_t *val1, uint32_t *val
             last_cnt3 += *cnt3[ddr_inst];
         }
     }
+
+    if (!cnt_sel[0])
+        return;
 
     for (ddr_inst = 0; ddr_inst < PERF_NUM_DDR_INSTANCES; ddr_inst++)
     {
