@@ -9,6 +9,10 @@ QString power_menu::button_getcommand(int n) {
     return deviceMap[detected_device].include_powerbuttons[n].command;
 }
 
+QStringList power_menu::button_getargs(int n) {
+    return deviceMap[detected_device].include_powerbuttons[n].args;
+}
+
 QString power_menu::button_getname(int n) {
     return deviceMap[detected_device].include_powerbuttons[n].name;
 }

@@ -90,18 +90,21 @@ static app_info app_industrial_control_minimal = {
 
 static power_actions action_shutdown = {
     .name = "Shutdown",
-    .command = "shutdown now",
+    .command = "shutdown",
+    .args = {"now"},
     .icon_source = "/images/shutdown.png",
 };
 
 static power_actions action_reboot = {
     .name = "Reboot",
     .command = "reboot",
+    .args = {},
     .icon_source = "/images/reboot.png",
 };
 
 static power_actions action_suspend = {
     .name = "Suspend",
     .command = "/opt/ti-apps-launcher/suspend",
+    .args = {},
     .icon_source = "/images/suspend.png",
 };
