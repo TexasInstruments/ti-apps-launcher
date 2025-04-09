@@ -43,13 +43,12 @@ Rectangle {
                 }
             }
         }
-    }
-
-    Component.onCompleted: {
-//        arm_analytics.startVideo(analytics_feed, "Object Detection");
-    }
-    Component.onDestruction: {
-        arm_analytics.stopVideo();
+        onItemInitializedChanged: {
+            arm_analytics.startVideo(analytics_feed, "Object Detection");
+        }
+        Component.onDestruction: {
+            arm_analytics.stopVideo();
+        }
     }
 }
 
