@@ -8,8 +8,10 @@ class ArmAnalytics : public QObject {
 
 private:
     GstElement *pipeline = NULL;
+    QString currentModel = "";
+    void startVideo(QObject* object);
+    void stopVideo();
 
 public:
-    Q_INVOKABLE void startVideo(QObject* object, QString model);
-    Q_INVOKABLE void stopVideo();
+    Q_INVOKABLE void changePipeline(QObject *object, QString model);
 };
