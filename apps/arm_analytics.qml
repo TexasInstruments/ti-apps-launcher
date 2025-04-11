@@ -28,8 +28,7 @@ Rectangle {
                 height: parent.height * 0.1
                 text: "Object Detection"
                 onClicked: {
-                    arm_analytics.stopVideo();
-                    arm_analytics.startVideo(analytics_feed, text);
+                    arm_analytics.changePipeline(analytics_feed, text);
                 }
             }
 
@@ -38,18 +37,16 @@ Rectangle {
                 height: parent.height * 0.1
                 text: "Image Classification"
                 onClicked: {
-                    arm_analytics.stopVideo();
-                    arm_analytics.startVideo(analytics_feed, text);
+                    arm_analytics.changePipeline(analytics_feed, text);
                 }
             }
         }
-    }
-
-    Component.onCompleted: {
-//        arm_analytics.startVideo(analytics_feed, "Object Detection");
-    }
-    Component.onDestruction: {
-        arm_analytics.stopVideo();
+        onItemInitializedChanged: {
+            arm_analytics.changePipeline(analytics_feed, "Object Detection");
+        }
+        Component.onDestruction: {
+            arm_analytics.changePipeline(analytics_feed, "");
+        }
     }
 }
 

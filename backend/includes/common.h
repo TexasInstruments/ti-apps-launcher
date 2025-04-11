@@ -16,6 +16,7 @@ struct app_info {
 struct power_actions {
     QString name;
     QString command;
+    QStringList args;
     QString icon_source;
 };
 

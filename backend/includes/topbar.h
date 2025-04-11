@@ -12,6 +12,8 @@ public:
 
     Q_INVOKABLE QString button_getcommand(int n);
 
+    Q_INVOKABLE QStringList button_getargs(int n);
+
     Q_INVOKABLE QString button_geticon(int n);
 
 };

@@ -64,7 +64,7 @@ Rectangle {
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: {
-                            poweraction.run(powermenu.button_getcommand(index))
+                            poweraction.run(powermenu.button_getcommand(index), powermenu.button_getargs(index))
                         }
                         onEntered: {
                             powerAnimation.from = 1

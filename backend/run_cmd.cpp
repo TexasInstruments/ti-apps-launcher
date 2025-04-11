@@ -57,8 +57,6 @@ void RunCmd::launch_or_stop() {
 }
 
 void RunCmd::run(QString command, QStringList args) {
-    QByteArray output_bytes;
-    QString output_string;
     _command = command;
     _args = args;
 

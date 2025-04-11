@@ -49,11 +49,11 @@ QString image_classification_gst_pipeline = "\
     textoverlay name=overlay font-desc=Sans,24 ! \
     glupload ! glcolorconvert ! qml6glsink name=sink";
 
-void ArmAnalytics::startVideo(QObject* object, QString model) {
+void ArmAnalytics::startVideo(QObject* object) {
     QString gst_pipeline;
-    if (model == QStringLiteral("Image Classification"))
+    if (currentModel == QStringLiteral("Image Classification"))
         gst_pipeline = image_classification_gst_pipeline;
-    else if (model == QStringLiteral("Object Detection"))
+    else if (currentModel == QStringLiteral("Object Detection"))
         gst_pipeline = object_detection_gst_pipeline;
     else {
         qDebug() << "Doesn't match any model";
@@ -92,5 +92,15 @@ void ArmAnalytics::stopVideo()
         qDebug() << "Removing pipeline";
         gst_object_unref (pipeline);
         pipeline = NULL;
+    }
+}
+
+void ArmAnalytics::changePipeline(QObject *object, QString model)
+{
+    if (currentModel != model) {
+        currentModel = model;
+        stopVideo();
+        if (currentModel != "")
+            startVideo(object);
     }
 }
