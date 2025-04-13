@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QStringListModel>
 #include <QString>
+#include <gst/gst.h>
 
 class LiveCamera : public QObject {
     Q_OBJECT
@@ -15,6 +16,8 @@ private:
 
     std::string replaceAll(std::string str, const std::string &remove, const std::string &insert);
     std::string trimString(std::string str);
+
+    GstElement *pipeline = NULL;
 
 public:
 
@@ -32,6 +35,8 @@ public:
     Q_INVOKABLE QString liveCamera_gst_pipeline();
     Q_INVOKABLE int liveCamera_get_count();
     Q_INVOKABLE QString liveCamera_get_camera_name(int index);
+    Q_INVOKABLE void stopStream();
+    Q_INVOKABLE void startStream(QObject *object);
 
 signals:
 
