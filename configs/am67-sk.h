@@ -7,8 +7,8 @@ struct device_info device_info_am67 = {
     .platform = "am67-sk",
     .wallpaper = "/images/am6x_oob_demo_home_image.png",
     .include_apps = {
-        app_industrial_control,
-        app_camera,
+        app_industrial_control_sitara,
+        app_live_camera,
         app_benchmarks_jacinto,
         app_gpu_performance,
         app_seva_store,
