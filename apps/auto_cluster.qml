@@ -38,6 +38,24 @@ Rectangle {
         maximumValue: 160
 		labelStepSize: 20
         value: 0
+        enlargeOrigin: true
+        opacityValue: 0.0
+        meterUnit: "Kmph"
+
+        regularTickColor: "white"
+        alertTickColor: "red"
+        regularLabelColor: "white"
+        alertLabelColor: "red"
+        needleColor: "#F1C40F"
+        needleOriginColor: "#e5e5e5"
+
+        hasAlertZone: true
+        alertPercent_start: 0.625
+        alertPercent_end: 1.0
+
+        hasArcZone: true
+        arcPercent_start: 0.625
+        arcPercent_end: 1.0
 
         Behavior on value {
             SpringAnimation {
@@ -61,6 +79,24 @@ Rectangle {
         maximumValue: 8000
 		labelStepSize: 1000
         value: 0
+        enlargeOrigin: true
+        opacityValue: 0.0
+        meterUnit: "RPM"
+
+        regularTickColor: "white"
+        alertTickColor: "red"
+        regularLabelColor: "white"
+        alertLabelColor: "red"
+        needleColor: "#F1C40F"
+        needleOriginColor: "#e5e5e5"
+
+        hasAlertZone: true
+        alertPercent_start: 0.625
+        alertPercent_end: 1.0
+
+        hasArcZone: true
+        arcPercent_start: 0.625
+        arcPercent_end: 1.0
 
         Behavior on value {
             SpringAnimation {
@@ -126,7 +162,27 @@ Rectangle {
         maximumValue: 20
         value: 0
         showLabel: false
-        labelStepSize: 10
+        labelStepSize: 2
+        opacityValue: 0.0
+        minorTickmarkCount: 0
+        majorTickmarkSize: 7
+        gaugeLabel: "Fuel"
+
+        regularTickColor: "white"
+        alertTickColor: "red"
+        regularLabelColor: "white"
+        alertLabelColor: "red"
+        needleColor: "#F1C40F"
+        needleOriginColor: "#e5e5e5"
+
+        hasAlertZone: true
+        alertPercent_start: 0.0
+        alertPercent_end: 0.25
+
+        hasArcZone: true
+        arcPercent_start: 0
+        arcPercent_end: 1
+
         Behavior on value {
             NumberAnimation {
                 duration: 5000
