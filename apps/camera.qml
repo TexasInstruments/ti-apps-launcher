@@ -4,6 +4,7 @@ import QtMultimedia
 import QtQuick.Controls 2.1
 import Qt.labs.folderlistmodel 2.4
 import QtQuick.Layouts 1.3
+import org.freedesktop.gstreamer.Qt6GLVideoItem 1.0
 
 Rectangle {
     id: camera_recorder
@@ -16,19 +17,6 @@ Rectangle {
         id: camera_video_feed
         anchors.fill: parent
 
-        MediaPlayer {
-            id: mediaplayer
-            videoOutput: feed
-            onPlaybackStateChanged: {
-                if (playbackState !== PlayingState) {
-                    msg.visible = msg.state
-                    status_message.text = msg.state ? (" ") : ("Live: " + camera.get_current_camera())
-                    camera_record_button.source = msg.state ? "/images/record-disabled.png" : "/images/record.png"
-                    camera_record_button_mousearea.enabled = msg.state ? false : true
-                }
-            }
-        }
-
         Rectangle {
             width: parent.width - (parent.height * 0.02)
             height: parent.height * 0.98
@@ -39,11 +27,12 @@ Rectangle {
             // border.width: 5
             radius: 10
 
-            VideoOutput {
+            GstGLQt6VideoItem {
                 id: feed
                 anchors.fill: parent
                 anchors.centerIn: parent
                 visible: true
+                objectName: "streamItem"
                 Text {
                     id: status_message
                     anchors.top: parent.top
@@ -82,6 +71,35 @@ Rectangle {
                         } else {
                             recording_status.visible = true
                         }
+                    }
+                }
+                onItemInitializedChanged: {
+                    if (cameras_dropdown.count == 0) {
+                        msg.state = true
+                        status_message.text = ""
+                        camera_record_button_mousearea.enabled = false
+                        camera_record_button.source = "/images/record-disabled.png"
+                    } else {
+                        msg.state = false
+                        cameras_dropdown.currentIndex = 0;
+                        status_message.text = "Live: " + camera.get_current_camera()
+                        camera.stopStream()
+                        camera.play_camera(cameras_dropdown.currentText)
+                        camera.startStream(feed)
+                    }
+                }
+                Component.onDestruction: {
+                    camera.stopStream()
+                }
+
+                Connections {
+                    target: camera
+                    onVideoPlayFinished: {
+                        msg.visible = msg.state
+                        status_message.text = msg.state ? (" ") : ("Live: " + camera.get_current_camera())
+                        camera_record_button.source = msg.state ? "/images/record-disabled.png" : "/images/record.png"
+                        camera_record_button_mousearea.enabled = msg.state ? false : true
+                        cameras_dropdown.activated(cameras_dropdown.currentIndex)
                     }
                 }
             }
@@ -179,9 +197,9 @@ Rectangle {
                 textRole: "display"
 
                 onActivated: {
-                    mediaplayer.stop();
-                    mediaplayer.source = camera.play_camera(cameras_dropdown.currentText)
-                    mediaplayer.play();
+                    camera.stopStream();
+                    camera.play_camera(cameras_dropdown.currentText)
+                    camera.startStream(feed)
                     status_message.text = "Live: " + camera.get_current_camera()
                 }
             }
@@ -206,9 +224,9 @@ Rectangle {
                             camera_record_button.recording = true;
                             // recording_status.visible = true
                             recording_animation.start()
-                            mediaplayer.stop();
-                            mediaplayer.source = camera.record_camera(cameras_dropdown.currentText);
-                            mediaplayer.play();
+                            camera.stopStream()
+                            camera.record_camera(cameras_dropdown.currentText);
+                            camera.startStream(feed);
                             status_message.text = "Recording: " + camera.get_current_camera() + " to " + camera.get_filename()
                             camera_record_button.source = "/images/stop.png"
                             gallery_play_button.source = "/images/playbutton-disabled.png"
@@ -217,10 +235,10 @@ Rectangle {
                             camera_record_button.recording = false;
                             recording_animation.stop()
                             recording_status.visible = false
-                            mediaplayer.stop();
+                            camera.stopStream();
                             camera_record_button.source = "/images/record.png"
-                            mediaplayer.source = camera.play_camera(cameras_dropdown.currentText);
-                            mediaplayer.play();
+                            camera.play_camera(cameras_dropdown.currentText);
+                            camera.startStream(feed);
                             if (msg.state == false) {
                                 status_message.text = "Live: " + camera.get_current_camera()
                             } else {
@@ -277,12 +295,11 @@ Rectangle {
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
-                        mediaplayer.stop();
+                        camera.stopStream();
                         var inputFile = videosDropdown.model.get(videosDropdown.currentIndex, "filePath");
-                        var videopipeline = camera.play_video(inputFile);
+                        camera.play_video(inputFile);
                         msg.visible = false
-                        mediaplayer.source = videopipeline;
-                        mediaplayer.play();
+                        camera.startStream(feed);
                         status_message.text = "Playing: " + camera.get_filename()
                         camera_record_button.source = "/images/record-disabled.png"
                         camera_record_button_mousearea.enabled = false
@@ -324,8 +341,6 @@ Rectangle {
             } else {
                 msg.state = false
                 cameras_dropdown.currentIndex = 0;
-                mediaplayer.source = camera.play_camera(cameralist.data(cameralist.index(0,0)));
-                mediaplayer.play();
                 status_message.text = "Live: " + camera.get_current_camera()
             }
         }
