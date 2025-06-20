@@ -132,7 +132,6 @@ QString Camera::record_camera(QString camera) {
     filename = time_string + "_" + codec + ".mp4";
     emit filename_changed();
 
-    gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("v4l2src device=");
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
     gst_pipeline.append(" ! video/x-raw, width=640, height=480, framerate=30/1, format=");
@@ -145,7 +144,7 @@ QString Camera::record_camera(QString camera) {
     #if defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_J722S)
     gst_pipeline.append(" ! tee name=t ! queue ! fpsdisplaysink text-overlay=false name=fpssink video-sink=autovideosink t. ! queue ! videoconvert  ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=progressive, format=NV12, colorimetry=bt601  ! v4l2");
     #else
-    gst_pipeline.append(" ! tee name=t ! queue ! fpsdisplaysink text-overlay=false name=fpssink video-sink=autovideosink t. ! queue ! ticolorconvert ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=progressive, format=NV12, colorimetry=bt601  ! v4l2");
+    gst_pipeline.append(" ! tee name=t ! queue !  fpsdisplaysink text-overlay=false name=fpssink video-sink=\"videoconvert ! glupload ! qml6glsink name=sink\" t. ! queue ! ticolorconvert ! video/x-raw, width=640, height=480, framerate=30/1, interlace-mode=progressive, format=NV12, colorimetry=bt601  ! v4l2");
     #endif
     gst_pipeline.append(codec);
     gst_pipeline.append("enc extra-controls=\"controls,");
@@ -161,7 +160,6 @@ QString Camera::record_camera(QString camera) {
 
 QString Camera::play_camera(QString camera) {
     _camera = camera;
-    gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("v4l2src device=");
     gst_pipeline.append(QString::fromStdString((cameraInfo[_camera.toStdString()]["device"])));
     #if defined(SOC_AM62) || defined(SOC_AM62_LP) || defined(SOC_AM62P)
@@ -174,7 +172,8 @@ QString Camera::play_camera(QString camera) {
     gst_pipeline.append(" ! image/jpeg, width=1280, height=720 ! jpegdec");
     #endif
     gst_pipeline.append(" ! videoconvert");
-    gst_pipeline.append(" ! qtvideosink");
+    gst_pipeline.append(" ! glupload");
+    gst_pipeline.append(" ! qml6glsink name=sink");
     qDebug() << "New Gst Pipeline: " << gst_pipeline;
     return gst_pipeline;
 }
@@ -187,7 +186,6 @@ QString Camera::play_video(QString videofile) {
     _videofile = videofile;
     filename = _videofile;
     emit filename_changed();
-    gst_pipeline = "gst-pipeline: ";
     gst_pipeline.append("filesrc location=");
     gst_pipeline.append(videofile);
     if ( videofile.contains("mp4") ) {
@@ -199,7 +197,7 @@ QString Camera::play_video(QString videofile) {
     gst_pipeline.append(codec);
     gst_pipeline.append("parse ! v4l2");
     gst_pipeline.append(codec);
-    gst_pipeline.append("dec capture-io-mode=dmabuf ! qtvideosink sync=true");
+    gst_pipeline.append("dec capture-io-mode=dmabuf ! videoconvert ! glupload ! qml6glsink name=sink sync=true");
     qDebug() << "New Gst Pipeline: " << gst_pipeline;
     return gst_pipeline;
 }
@@ -227,3 +225,53 @@ void Camera::delete_video(QString videofile) {
     }
 }
 
+void Camera::startStream(QObject *object)
+{
+	GError *error = NULL;
+	pipeline = gst_parse_launch(gst_pipeline.toLatin1().data(), &error);
+	if (error) {
+		g_printerr("Failed to parse launch: %s\n", error->message);
+		g_error_free(error);
+		return;
+	}
+
+	GstElement *sink = gst_bin_get_by_name(GST_BIN(pipeline), "sink");
+	g_assert(sink);
+	QQuickItem *streamItem = qobject_cast<QQuickItem*>(object);
+	g_assert(streamItem);
+	g_object_set(sink, "widget", streamItem, NULL);
+	qDebug() << "Starting stream";
+
+    GstBus *bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
+    gst_bus_add_watch(bus, busCall, this);
+    gst_object_unref(bus);
+
+	gst_element_set_state(pipeline, GST_STATE_PLAYING);
+}
+
+void Camera::stopStream()
+{
+	if (pipeline) {
+		qDebug() << "Stopping camera stream";
+		gst_element_set_state(pipeline, GST_STATE_NULL);
+		qDebug() << "Removing pipeline";
+		gst_object_unref(pipeline);
+		pipeline = NULL;
+		gst_pipeline = "";
+	}
+}
+
+gboolean Camera::busCall(GstBus *bus, GstMessage *msg, gpointer data)
+{
+    Camera *self = static_cast<Camera*>(data);
+    switch(GST_MESSAGE_TYPE(msg)) {
+        case GST_MESSAGE_EOS:
+            qDebug() << "End of Stream reached";
+            emit self->videoPlayFinished();
+            break;
+        default:
+            break;
+    }
+
+    return true;
+}

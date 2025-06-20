@@ -1,9 +1,11 @@
 #include <QObject>
 #include <QStringListModel>
 #include <QString>
+#include <QQuickItem>
 
 #include <map>
 #include <string>
+#include <gst/gst.h>
 
 class Camera : public QObject {
     Q_OBJECT
@@ -12,6 +14,7 @@ private:
 
     std::map<std::string, std::map<std::string,std::string>> cameraInfo;
     QString _videofile;
+    GstElement *pipeline;
 
     std::string replaceAll(std::string str, const std::string &remove, const std::string &insert);
     std::string trimString(std::string str);
@@ -44,11 +47,17 @@ public:
     Q_INVOKABLE QString play_camera(QString camera);
     Q_INVOKABLE QString record_camera(QString camera);
 
+    Q_INVOKABLE void stopStream();
+    Q_INVOKABLE void startStream(QObject *object);
+
+    static gboolean busCall(GstBus *bus, GstMessage *msg, gpointer data);
+
 signals:
 
     void gst_pipeline_updated();
     void count_changed();
     void filename_changed();
     void current_camera_changed();
+    void videoPlayFinished();
 };
 
