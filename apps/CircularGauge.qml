@@ -18,6 +18,9 @@ Item {
     property string meterUnit: ""
     property string gaugeLabel: ""
 
+    property int circleRadius: 0
+    property real needleMultiplicant: 0.35
+
     property string regularTickColor: "black"
     property string alertTickColor: ""
     property string regularLabelColor: "red"
@@ -77,7 +80,7 @@ Item {
 
             var centerX = width / 2
             var centerY = height / 2
-            var radius = width * 0.4
+            var radius = circleRadius > 0 ? circleRadius : width * 0.4
 
             ctx.textAlign = "center"
             ctx.textBaseline = "middle"
@@ -145,7 +148,7 @@ Item {
     /* Needle */
     Rectangle {
         width: 4
-        height: parent.width * 0.35
+        height: parent.width * needleMultiplicant
         radius: 2
         color: needleColor
         anchors.horizontalCenter: parent.horizontalCenter

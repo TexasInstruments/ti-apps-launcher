@@ -3,7 +3,7 @@
 #include "backend/includes/common.h"
 
 struct device_info device_info_am62sip = {
-    .dtMatchString = "AM62xSIP",
+    .dtMatchString = "AM6254xxl",
     .platform = "am62xxsip-evm",
     .wallpaper = "/images/am62sip_wallpaper.png",
     .include_apps = {
