@@ -35,7 +35,6 @@ Item {
                 height: parent.height * 0.5
                 color: "transparent"
 
-
                 CircularGauge {
                     id: motorspeed1
                     maximumValue: 130
@@ -45,49 +44,27 @@ Item {
                     width: parent.height
                     property int count1: 0
                     value: count1
+
+                    labelStepSize: 10
+                    circleRadius: width * 0.3
+                    needleMultiplicant: 0.25
+
+                    regularTickColor: "white"
+                    regularLabelColor: "white"
+                    needleOriginColor: "white"
+                    hasArcZone: true
+                    opacityValue: 0
+                    minorTickmarkCount: 0
+                    majorTickmarkSize: 7
+
                     Behavior on value {
                         NumberAnimation {
                             duration: 200
                         }
                     }
                     Component.onCompleted: forceActiveFocus()
-
-                    style: CircularGaugeStyle {
-                        needle: Rectangle {
-                            implicitWidth: outerRadius * 0.02
-                            implicitHeight: outerRadius * 0.60
-                            antialiasing: true
-                            color: "#D0001C"
-                        }
-                        foreground: Item {
-                            Rectangle {
-                                width: outerRadius * 0.1
-                                height: width
-                                radius: width / 2
-                                color: "#FFFFFF"
-                                anchors.centerIn: parent
-                            }
-                        }
-                        function degreesToRadians(degrees) {
-                            return degrees * (Math.PI / 180);
-                        }
-                        background: Canvas {
-                            onPaint: {
-                                var ctx = getContext("2d");
-                                ctx.reset();
-
-                                ctx.beginPath();
-                                ctx.strokeStyle = "#C6C6C6";
-                                ctx.lineWidth = outerRadius * 0.04;
-
-                                ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
-                                        degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(130) - 90));
-                                ctx.stroke();
-                            }
-                        }
-                    }
                 }
-            Text {
+                Text {
                     id: motor1text
                     text: qsTr("Motor-1 RPM Control")
                     color: "#FFFFFF"
@@ -157,6 +134,7 @@ Item {
                 width: parent.width
                 height: parent.height * 0.5
                 color: "transparent"
+
                 CircularGauge {
                     id: motorspeed2
                     maximumValue: 130
@@ -166,49 +144,27 @@ Item {
                     width: parent.height
                     property int count1: 0
                     value: count1
+
+                    labelStepSize: 10
+                    circleRadius: width * 0.3
+                    needleMultiplicant: 0.25
+
+                    regularTickColor: "white"
+                    regularLabelColor: "white"
+                    needleOriginColor: "white"
+                    hasArcZone: true
+                    opacityValue: 0
+                    minorTickmarkCount: 0
+                    majorTickmarkSize: 7
+
                     Behavior on value {
                         NumberAnimation {
                             duration: 200
                         }
                     }
                     Component.onCompleted: forceActiveFocus()
-
-                    style: CircularGaugeStyle {
-                        needle: Rectangle {
-                            implicitWidth: outerRadius * 0.02
-                            implicitHeight: outerRadius * 0.60
-                            antialiasing: true
-                            color: "#D0001C"
-                        }
-                        foreground: Item {
-                            Rectangle {
-                                width: outerRadius * 0.1
-                                height: width
-                                radius: width / 2
-                                color: "#FFFFFF"
-                                anchors.centerIn: parent
-                            }
-                        }
-                        function degreesToRadians(degrees) {
-                            return degrees * (Math.PI / 180);
-                        }
-                        background: Canvas {
-                            onPaint: {
-                                var ctx = getContext("2d");
-                                ctx.reset();
-
-                                ctx.beginPath();
-                                ctx.strokeStyle = "#C6C6C6";
-                                ctx.lineWidth = outerRadius * 0.04;
-
-                                ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,
-                                        degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(130) - 90));
-                                ctx.stroke();
-                            }
-                        }
-                    }
                 }
-        Text {
+                Text {
                     id: motor2text
                     text: qsTr("Motor-1 RPM Control")
                     color: "#FFFFFF"
@@ -298,20 +254,22 @@ Item {
                     value: motorspeed1.count1 / 1.3
                     maximumValue: 100
                     anchors.centerIn: parent
-                    orientation: Qt.Horizontal
+                    orientation: "horizontal"
+                    opacityValue: 0.3
+
                     width: parent.width * 0.8
                     height: parent.height * 0.2
                     anchors.bottom: parent.bottom
                     anchors.topMargin: parent.height * 0.2
                     anchors.leftMargin: parent.width * 0.1
                 }
-        Text {
+                Text {
                     id: motortemp1text
                     text: qsTr("Motor-1 Temperature")
                     color: "#FFFFFF"
                     anchors.bottom: gauge1.top
                     anchors.bottomMargin: parent.height * 0.1
-            anchors.left: gauge1.left
+                    anchors.left: gauge1.left
                     font.pixelSize: parent.width * 0.04
                 }
             }
@@ -327,20 +285,21 @@ Item {
                     value: motorspeed2.count1 / 1.3
                     maximumValue: 100
                     anchors.centerIn: parent
-                    orientation: Qt.Horizontal
                     width: parent.width * 0.8
                     height: parent.height * 0.2
                     anchors.bottom: parent.bottom
                     anchors.topMargin: parent.height * 0.7
                     anchors.leftMargin: parent.width * 0.1
+                    orientation: "horizontal"
+                    opacityValue: 0.3
                 }
-        Text {
+                Text {
                     id: motortemp2text
                     text: qsTr("Motor-2 Temperature")
                     color: "#FFFFFF"
                     anchors.bottom: gauge2.top
                     anchors.bottomMargin: parent.height * 0.1
-            anchors.left: gauge2.left
+                    anchors.left: gauge2.left
                     font.pixelSize: parent.width * 0.04
                 }
 
