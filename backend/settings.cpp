@@ -17,29 +17,45 @@ void Settings::set_environment_variables() {
     qputenv("FTP_PROXY", https_proxy.toUtf8());
 }
 
-void Settings::apply_docker_proxy() {
-    // Create /etc/systemd/system/docker.service.d directory structure
-    if(system("mkdir -p /etc/systemd/system/docker.service.d") == -1){
-        qCritical() << "Failed to create directory structure for docker proxies";
+/**
+ * @brief Writes a systemd drop‑in file containing the current proxy env vars.
+ * 
+ * @param service_dropin_dir  Path to the service's ".service.d" directory,
+ *                          e.g. "/etc/systemd/system/docker.service.d".
+ */
+void Settings::install_systemd_proxy_dropin(const QString &service_name) {
+
+    /* Check if input is empty */
+    if(service_name.isEmpty()) {
+        return;
+    }
+    QString service_dropin_path = "/etc/systemd/system/" + service_name + ".service.d";
+    /* Create /etc/systemd/system/myservice.service.d directory structure */
+    QString mkdir_cmd = "mkdir -p /etc/systemd/system/" + service_dropin_path;
+    if(system(qPrintable(mkdir_cmd)) == -1){
+        qCritical() << "Failed to create directory structure for proxies at " << service_dropin_path;
         return;
     }
 
-    // Write the docker proxy setting
-    QString apply_systemd_proxy = "echo [Service] | tee /etc/systemd/system/docker.service.d/http-proxy.conf";
+    /* Write the proxy setting */
+    QString apply_systemd_proxy = "echo [Service] | tee " + service_dropin_path + "/http-proxy.conf";
     system(qPrintable(apply_systemd_proxy));
 
-    apply_systemd_proxy = "echo Environment=HTTPS_PROXY=" + https_proxy + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
+    apply_systemd_proxy = "echo Environment=HTTPS_PROXY=" + https_proxy + " | tee -a " + service_dropin_path + "/http-proxy.conf";
     system(qPrintable(apply_systemd_proxy));
 
-    apply_systemd_proxy = "echo Environment=HTTP_PROXY=" + https_proxy + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
+    apply_systemd_proxy = "echo Environment=HTTP_PROXY=" + https_proxy + " | tee -a " + service_dropin_path + "/http-proxy.conf";
     system(qPrintable(apply_systemd_proxy));
 
-    apply_systemd_proxy = "echo Environment=NO_PROXY=" + no_proxy + " | tee -a /etc/systemd/system/docker.service.d/http-proxy.conf";
+    apply_systemd_proxy = "echo Environment=NO_PROXY=" + no_proxy + " | tee -a " + service_dropin_path + "/http-proxy.conf";
     system(qPrintable(apply_systemd_proxy));
 
-    // Flush changes, Re-load Daemon and Re-Start Docker
+    /* Flush changes, Re-load Daemon */
     system("systemctl daemon-reload");
-    system("systemctl restart docker");
+
+    /* Restart service */
+    QString systemd_restart_cmd = "systemctl restart " + service_name;
+    system(qPrintable(systemd_restart_cmd));
 }
 
 void Settings::set_proxy(QString https_proxy, QString no_proxy) {
@@ -49,7 +65,8 @@ void Settings::set_proxy(QString https_proxy, QString no_proxy) {
     this->https_proxy = https_proxy;
     this->no_proxy = no_proxy;
 
-    apply_docker_proxy();
+    install_systemd_proxy_dropin("docker");
+    install_systemd_proxy_dropin("seva-launcher");
     set_environment_variables();
 
     qInfo() << "Applied Proxy Settings!";

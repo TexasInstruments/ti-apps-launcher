@@ -11,5 +11,5 @@ public:
 
 private:
     void set_environment_variables();
-    void apply_docker_proxy();
+    void install_systemd_proxy_dropin(const QString &service_name);
 };
