@@ -1,16 +1,38 @@
 #include <QObject>
 #include <QProcess>
 #include <QFile>
+#include <QDebug>
 
 #include "includes/stats.h"
 #include "utils/includes/perf_stats.h"
 
 QString stats::getgpuload() {
-    QProcess process;
-    process.start("cat", {"/sys/kernel/debug/pvr/status"});
-    process.waitForFinished(-1);
-    QString output = process.readAllStandardOutput();
-    return output.mid(output.indexOf("GPU Utilisation")+17,output.indexOf("%")-output.indexOf("GPU Utilisation")-17);
+    QFile file("/sys/kernel/debug/pvr/gpu00/utilisation_stats");
+    
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Failed to open GPU utilization file";
+        return "N/A";
+    }
+    
+    QString output = file.readAll();
+    file.close();
+    
+    // Extract GPU utilization percentage
+    int startPos = output.indexOf("GPU Utilisation:");
+    if (startPos == -1) {
+        return "N/A";
+    }
+    
+    // Find the percentage value
+    startPos = output.indexOf(":", startPos) + 1;
+    int endPos = output.indexOf("%", startPos);
+    
+    if (endPos == -1) {
+        return "N/A";
+    }
+    
+    QString percentage = output.mid(startPos, endPos - startPos).trimmed();
+    return percentage;
 }
 
 QString stats::getcpuload() {
