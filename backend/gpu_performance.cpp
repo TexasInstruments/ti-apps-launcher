@@ -32,6 +32,7 @@ void Gpu_performance::gpuload4(){
 }
 
 QString Gpu_performance::getfps(){
+    load.waitForFinished(35000);
     loadout = load.readAllStandardOutput();
     // Index of actual score comes 5 indices after index of "F". Ex: FPS: <FPS>
     int index = loadout.indexOf("FPS")+5;
