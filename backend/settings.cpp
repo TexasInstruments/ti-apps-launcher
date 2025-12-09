@@ -31,7 +31,7 @@ void Settings::install_systemd_proxy_dropin(const QString &service_name) {
     }
     QString service_dropin_path = "/etc/systemd/system/" + service_name + ".service.d";
     /* Create /etc/systemd/system/myservice.service.d directory structure */
-    QString mkdir_cmd = "mkdir -p /etc/systemd/system/" + service_dropin_path;
+    QString mkdir_cmd = "mkdir -p " + service_dropin_path;
     if(system(qPrintable(mkdir_cmd)) == -1){
         qCritical() << "Failed to create directory structure for proxies at " << service_dropin_path;
         return;
