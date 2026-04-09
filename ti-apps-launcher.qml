@@ -6,8 +6,10 @@ import QtQuick.Layouts 1.3
 
 Window {
     visible: true
-    visibility: "FullScreen"
+    visibility: windowMode
     title: qsTr("TI Apps Launcher")
+    width: 1280
+    height: 720
 
     Rectangle {
         id: appBackground

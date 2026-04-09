@@ -93,7 +93,14 @@ int main(int argc, char *argv[]) {
     }
     modelNamesList.setStringList(modelslist);
 
+    // Check if windowed mode is requested via environment variable
+    QString windowMode = qgetenv("TI_APPS_WINDOW_MODE");
+    if (windowMode.isEmpty()) {
+        windowMode = "FullScreen";  // Default to fullscreen
+    }
+
     // set context properties to access in QML
+    engine.rootContext()->setContextProperty("windowMode", windowMode);
     engine.rootContext()->setContextProperty("modelNamesList", &modelNamesList);
     engine.rootContext()->setContextProperty("appsmenu", &appsmenu);
     engine.rootContext()->setContextProperty("powermenu", &powermenu);
