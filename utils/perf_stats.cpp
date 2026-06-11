@@ -19,23 +19,23 @@
 /**************** DDR LOAD *************************/
 #if defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_J722S)
 #define PERF_DDR_MHZ                (2133u)  /* DDR clock speed in MHZ */
-#elif defined (SOC_AM62A)
+#elif defined (SOC_AM62A) || defined (SOC_AM62P)
 #define PERF_DDR_MHZ                (1866u)  /* DDR clock speed in MHZ */
-#elif defined (SOC_AM62) || defined (SOC_AM62_LP) || defined (SOC_AM62P)
+#elif defined (SOC_AM62) || defined (SOC_AM62_LP)
 #define PERF_DDR_MHZ                (800u)  /* DDR clock speed in MHZ */
 #endif
 
-#if defined (SOC_AM62) || defined (SOC_AM62_LP) || defined (SOC_AM62P)
+#if defined (SOC_AM62) || defined (SOC_AM62_LP)
 #define PERF_DDR_BUS_WIDTH          (  16u)  /* in units of bits */
 #else
 #define PERF_DDR_BUS_WIDTH          (  32u)  /* in units of bits */
 #endif
 
-#if defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_J722S) || defined(SOC_AM62A)
+#if defined(SOC_J721E) || defined(SOC_J721S2) || defined(SOC_J784S4) || defined(SOC_J722S) || defined(SOC_AM62A) || defined (SOC_AM62P)
 #define PERF_DDR_BURST_SIZE_BYTES   (  64u)  /* in units of bytes */
 #elif defined (SOC_AM62)
 #define PERF_DDR_BURST_SIZE_BYTES   (  16u)  /* in units of bytes */
-#elif defined (SOC_AM62_LP) || defined (SOC_AM62P)
+#elif defined (SOC_AM62_LP)
 #define PERF_DDR_BURST_SIZE_BYTES   (  32u)  /* in units of bytes */
 #endif
 
